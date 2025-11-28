@@ -1,0 +1,39 @@
+package com.github.rnveach.commands;
+
+import java.util.concurrent.Callable;
+
+import com.github.rnveach.HoloCureManagerCli;
+import com.google.gson.GsonBuilder;
+
+import picocli.CommandLine.Command;
+import picocli.CommandLine.HelpCommand;
+import picocli.CommandLine.Mixin;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.ParentCommand;
+
+@Command(name = "dump", aliases = { "--dump", "-d" }, description = "Perform a full dump of the save file.")
+public final class DumpCommand implements Callable<Integer> {
+
+	@ParentCommand
+	private HoloCureManagerCli parent;
+
+	@Mixin
+	private HelpCommand helpMixin;
+
+	@Option(names = { "-p", "--pretty" }, description = "Pretty print the dump display.")
+	private boolean pretty;
+
+	@Override
+	public Integer call() throws Exception {
+		this.parent.validateOptions();
+
+		if (this.pretty) {
+			System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(this.parent.getInputFileJson()));
+		} else {
+			System.out.println(this.parent.getInputFileData());
+		}
+
+		return 0;
+	}
+
+}

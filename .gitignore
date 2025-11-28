@@ -1,0 +1,6 @@
+.metadata/
+.sonarlint/
+
+HoloCureManagerCli/target/
+HoloCureManagerCli/.classpath
+HoloCureManagerCli/.project
