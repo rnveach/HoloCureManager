@@ -7,8 +7,7 @@ import com.github.rnveach.data.SaveData;
 import com.google.gson.JsonElement;
 
 import picocli.CommandLine.Command;
-import picocli.CommandLine.HelpCommand;
-import picocli.CommandLine.Mixin;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.ParentCommand;
 
 @Command(name = "list", aliases = { "--list", "-l" }, description = "List known data from the save file.")
@@ -17,8 +16,8 @@ public final class ListCommand implements Callable<Integer> {
 	@ParentCommand
 	private HoloCureManagerCli parent;
 
-	@Mixin
-	private HelpCommand helpMixin;
+	@Option(names = { "-h", "--help" }, usageHelp = true)
+	private boolean help;
 
 	@Override
 	public Integer call() throws Exception {

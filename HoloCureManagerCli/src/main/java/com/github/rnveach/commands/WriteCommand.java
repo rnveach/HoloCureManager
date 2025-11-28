@@ -6,8 +6,6 @@ import java.util.concurrent.Callable;
 import com.github.rnveach.HoloCureManagerCli;
 
 import picocli.CommandLine.Command;
-import picocli.CommandLine.HelpCommand;
-import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.ParameterException;
 import picocli.CommandLine.ParentCommand;
@@ -19,8 +17,8 @@ public final class WriteCommand implements Callable<Integer> {
 	@ParentCommand
 	private HoloCureManagerCli parent;
 
-	@Mixin
-	private HelpCommand helpMixin;
+	@Option(names = { "-h", "--help" }, usageHelp = true)
+	private boolean help;
 
 	@Option(names = { "-d",
 			"--data" }, description = "Data to directly write to file instead of input stream.", paramLabel = "STRING")

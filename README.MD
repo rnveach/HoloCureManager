@@ -24,6 +24,7 @@ Note: Replace `X.X.X` with the current version number of the JAR.
 
 ## Commands
 
+```
 Usage: HoloCureManagerCli [-hV] [-f=PATH] [COMMAND]
 HoloCure Manager
   -f, --file=PATH   The path to the save file to manage.
@@ -35,23 +36,29 @@ Commands:
                           save file.
   list, --list, -l      List known data from the save file.
   update, --update, -u  Update only portions of a save file.
+```
 
 Note: Specifying the file path is optional unless the path cannot be determined automatically. The tool tries to read the file from `%LOCALAPPDATA%\HoloCure\save_n.dat`.
 
 ### Dump Command
 
+```
 Usage: HoloCureManagerCli dump [-hp] [COMMAND]
 Perform a full dump of the save file.
       [COMMAND]   The COMMAND to display the usage help message for.
   -h, --help      Show usage help for the help command and exit.
   -p, --pretty    Pretty print the dump display.
+```
 
 ### List Command
 
+```
 Usage: HoloCureManagerCli list
+```
 
 ### Update Command
 
+```
 Usage: HoloCureManagerCli update [-h] [--holoCoins=<holoCoins>] [--sand=<sand>]
                                  [--usaChips=<usaChips>] [COMMAND]
 Update only portions of a save file.
@@ -62,6 +69,7 @@ Update only portions of a save file.
       --sand=<sand>   Update Sand.
       --usaChips=<usaChips>
                       Update UsaChips.
+```
 
 Note: At least one item is required to update the file with. Multiple updates can be done at a time.
 

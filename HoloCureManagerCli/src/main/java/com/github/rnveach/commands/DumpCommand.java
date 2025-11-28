@@ -6,8 +6,6 @@ import com.github.rnveach.HoloCureManagerCli;
 import com.google.gson.GsonBuilder;
 
 import picocli.CommandLine.Command;
-import picocli.CommandLine.HelpCommand;
-import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.ParentCommand;
 
@@ -17,8 +15,8 @@ public final class DumpCommand implements Callable<Integer> {
 	@ParentCommand
 	private HoloCureManagerCli parent;
 
-	@Mixin
-	private HelpCommand helpMixin;
+	@Option(names = { "-h", "--help" }, usageHelp = true)
+	private boolean help;
 
 	@Option(names = { "-p", "--pretty" }, description = "Pretty print the dump display.")
 	private boolean pretty;
