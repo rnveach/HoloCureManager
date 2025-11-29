@@ -10,7 +10,13 @@ import com.github.rnveach.commands.DumpCommand;
 import com.github.rnveach.commands.ListCommand;
 import com.github.rnveach.commands.UpdateCommand;
 import com.github.rnveach.commands.WriteCommand;
+import com.github.rnveach.data.Axe;
+import com.github.rnveach.data.FishRod;
+import com.github.rnveach.data.Pet;
+import com.github.rnveach.data.Pickaxe;
+import com.github.rnveach.data.Trail;
 import com.github.rnveach.utils.Base64Util;
+import com.github.rnveach.utils.CaseInsensitiveEnumConverter;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -59,7 +65,15 @@ public class HoloCureManagerCli implements Callable<Integer> {
 	}
 
 	public static void main(String... arguments) {
-		System.exit(new CommandLine(new HoloCureManagerCli()).execute(arguments));
+		final CommandLine cmd = new CommandLine(new HoloCureManagerCli());
+
+		cmd.registerConverter(Axe.class, new CaseInsensitiveEnumConverter<>(Axe.class));
+		cmd.registerConverter(FishRod.class, new CaseInsensitiveEnumConverter<>(FishRod.class));
+		cmd.registerConverter(Pet.class, new CaseInsensitiveEnumConverter<>(Pet.class));
+		cmd.registerConverter(Pickaxe.class, new CaseInsensitiveEnumConverter<>(Pickaxe.class));
+		cmd.registerConverter(Trail.class, new CaseInsensitiveEnumConverter<>(Trail.class));
+
+		System.exit(cmd.execute(arguments));
 	}
 
 	public CommandSpec getSpec() {

@@ -1,8 +1,8 @@
 package com.github.rnveach.data;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -125,7 +125,29 @@ public final class SaveData {
 
 	public static final String SAND = "fishSand";
 
+	public static final String ACTIVE_FISH_ROD = "fishRod";
+
+	public static final String MANAGEMENT_LEVEL = "manageLevel";
+
+	public static final String MANAGEMENT_EXP = "manageEXP";
+
+	public static final String MINE_LEVEL = "mineLevel";
+
+	public static final String MINE_EXP = "mineEXP";
+
+	public static final String WOODCUTTING_LEVEL = "woodLevel";
+
+	public static final String WOODCUTTING_EXP = "woodEXP";
+
+	public static final String ACTIVE_PICKAXE = "usingPick";
+
+	public static final String ACTIVE_AXE = "usingAxe";
+
 	public static final String USA_CHIPS = "holoChips";
+
+	public static final String ACTIVE_PET = "activePet";
+
+	public static final String ACTIVE_TRAIL = "activeTrail";
 
 	public static Double getMajorGameVersion(JsonElement element) {
 		return getDouble(element, MAJOR_GAME_VERSION);
@@ -571,6 +593,78 @@ public final class SaveData {
 		setDouble(element, SAND, value);
 	}
 
+	public static FishRod getActiveFishRod(JsonElement element) {
+		return FishRod.get(getDouble(element, ACTIVE_FISH_ROD));
+	}
+
+	public static void setActiveFishRod(JsonElement element, FishRod value) {
+		setDouble(element, ACTIVE_FISH_ROD, value == null ? null : value.getCode());
+	}
+
+	public static Double getManagementLevel(JsonElement element) {
+		return getDouble(element, MANAGEMENT_LEVEL);
+	}
+
+	public static void setManagementLevel(JsonElement element, Double value) {
+		setDouble(element, MANAGEMENT_LEVEL, value);
+	}
+
+	public static Double getManagementExp(JsonElement element) {
+		return getDouble(element, MANAGEMENT_EXP);
+	}
+
+	public static void setManagementExp(JsonElement element, Double value) {
+		setDouble(element, MANAGEMENT_EXP, value);
+	}
+
+	public static Double getMineLevel(JsonElement element) {
+		return getDouble(element, MINE_LEVEL);
+	}
+
+	public static void setMineLevel(JsonElement element, Double value) {
+		setDouble(element, MINE_LEVEL, value);
+	}
+
+	public static Double getMineExp(JsonElement element) {
+		return getDouble(element, MINE_EXP);
+	}
+
+	public static void setMineExp(JsonElement element, Double value) {
+		setDouble(element, MINE_EXP, value);
+	}
+
+	public static Double getWoodcuttingLevel(JsonElement element) {
+		return getDouble(element, WOODCUTTING_LEVEL);
+	}
+
+	public static void setWoodcuttingLevel(JsonElement element, Double value) {
+		setDouble(element, WOODCUTTING_LEVEL, value);
+	}
+
+	public static Double getWoodcuttingExp(JsonElement element) {
+		return getDouble(element, WOODCUTTING_EXP);
+	}
+
+	public static void setWoodcuttingExp(JsonElement element, Double value) {
+		setDouble(element, WOODCUTTING_EXP, value);
+	}
+
+	public static Pickaxe getActivePickaxe(JsonElement element) {
+		return Pickaxe.get(getDouble(element, ACTIVE_PICKAXE));
+	}
+
+	public static void setActivePickaxe(JsonElement element, Pickaxe value) {
+		setDouble(element, ACTIVE_PICKAXE, value == null ? null : value.getCode());
+	}
+
+	public static Axe getActiveAxe(JsonElement element) {
+		return Axe.get(getDouble(element, ACTIVE_AXE));
+	}
+
+	public static void setActiveAxe(JsonElement element, Axe value) {
+		setDouble(element, ACTIVE_AXE, value == null ? null : value.getCode());
+	}
+
 	public static Double getUsaChips(JsonElement element) {
 		return getDouble(element, USA_CHIPS);
 	}
@@ -579,8 +673,24 @@ public final class SaveData {
 		setDouble(element, USA_CHIPS, value);
 	}
 
+	public static Pet getActivePet(JsonElement element) {
+		return Pet.get(getString(element, ACTIVE_PET));
+	}
+
+	public static void setActivePet(JsonElement element, Pet value) {
+		setString(element, ACTIVE_PET, value == null ? null : value.getCode());
+	}
+
+	public static Trail getActiveTrail(JsonElement element) {
+		return Trail.get(getString(element, ACTIVE_TRAIL));
+	}
+
+	public static void setActiveTrail(JsonElement element, Trail value) {
+		setString(element, ACTIVE_TRAIL, value == null ? null : value.getCode());
+	}
+
 	public static Map<String, JsonElement> getUnknownFields(JsonElement element) {
-		final Map<String, JsonElement> results = new HashMap<>();
+		final Map<String, JsonElement> results = new TreeMap<>();
 
 		for (final Entry<String, JsonElement> entry : element.getAsJsonObject().entrySet()) {
 			results.put(entry.getKey(), entry.getValue());
@@ -627,7 +737,18 @@ public final class SaveData {
 		results.remove(HARDCORE);
 		results.remove(REFUND_ALL);
 		results.remove(SAND);
+		results.remove(ACTIVE_FISH_ROD);
+		results.remove(MANAGEMENT_LEVEL);
+		results.remove(MANAGEMENT_EXP);
+		results.remove(MINE_LEVEL);
+		results.remove(MINE_EXP);
+		results.remove(WOODCUTTING_LEVEL);
+		results.remove(WOODCUTTING_EXP);
+		results.remove(ACTIVE_PICKAXE);
+		results.remove(ACTIVE_AXE);
 		results.remove(USA_CHIPS);
+		results.remove(ACTIVE_PET);
+		results.remove(ACTIVE_TRAIL);
 
 		return results;
 	}
@@ -673,6 +794,16 @@ public final class SaveData {
 		return t.getAsDouble();
 	}
 
+	private static String getString(JsonElement element, String namedIndex) {
+		final JsonElement t = get(element, namedIndex);
+
+		if (t == null) {
+			return null;
+		}
+
+		return t.getAsString();
+	}
+
 	private static void setBoolean(JsonElement element, String namedIndex, Boolean value) {
 		final JsonObject t = element.getAsJsonObject();
 
@@ -684,6 +815,16 @@ public final class SaveData {
 	}
 
 	private static void setDouble(JsonElement element, String namedIndex, Double value) {
+		final JsonObject t = element.getAsJsonObject();
+
+		if (value == null) {
+			t.remove(namedIndex);
+		} else {
+			t.addProperty(namedIndex, value);
+		}
+	}
+
+	private static void setString(JsonElement element, String namedIndex, String value) {
 		final JsonObject t = element.getAsJsonObject();
 
 		if (value == null) {

@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 
 import com.github.rnveach.HoloCureManagerCli;
+import com.github.rnveach.data.Displayable;
 import com.github.rnveach.data.SaveData;
 import com.google.gson.JsonElement;
 
@@ -90,16 +91,32 @@ public final class ListCommand implements Callable<Integer> {
 
 		System.out.println();
 		System.out.println("HoloHouse:");
-		System.out.println(String.format("\tSand: %.1f", SaveData.getSand(root)));
+		System.out.println("\tFishing Pond:");
+		System.out.println(String.format("\t\tSand: %.1f", SaveData.getSand(root)));
+		System.out.println(String.format("\t\tActive Fish Rod: %s", getDisplay(SaveData.getActiveFishRod(root))));
+		System.out.println();
+		System.out.println("\tManagement:");
+		System.out.println(String.format("\t\tLevel: %.1f", SaveData.getManagementLevel(root)));
+		System.out.println(String.format("\t\tExp: %.1f", SaveData.getManagementExp(root)));
+		System.out.println();
+		System.out.println("\tCkia's Forge:");
+		System.out.println(String.format("\t\tMine Level: %.1f", SaveData.getMineLevel(root)));
+		System.out.println(String.format("\t\tMine Exp: %.1f", SaveData.getMineExp(root)));
+		System.out.println(String.format("\t\tWoodcutting Level: %.1f", SaveData.getWoodcuttingLevel(root)));
+		System.out.println(String.format("\t\tWoodcutting Exp: %.1f", SaveData.getWoodcuttingExp(root)));
+		System.out.println(String.format("\t\tActive Pickaxe: %s", getDisplay(SaveData.getActivePickaxe(root))));
+		System.out.println(String.format("\t\tActive Axe: %s", getDisplay(SaveData.getActiveAxe(root))));
 		System.out.println();
 		System.out.println("\tUsada Casino:");
 		System.out.println(String.format("\t\tUsaChips: %.1f", SaveData.getUsaChips(root)));
+		System.out.println(String.format("\t\tActive Pet: %s", getDisplay(SaveData.getActivePet(root))));
+		System.out.println(String.format("\t\tActive Trail: %s", getDisplay(SaveData.getActiveTrail(root))));
 
 		final Map<String, JsonElement> unknowns = SaveData.getUnknownFields(root);
 
 		if (!unknowns.isEmpty()) {
 			System.out.println();
-			System.out.println("Unknowns?:");
+			System.out.println(String.format("%d Unknowns?:", unknowns.size()));
 
 			for (final Entry<String, JsonElement> entry : unknowns.entrySet()) {
 				System.out.println(String.format("\t'%s': %s", entry.getKey(), entry.getValue().toString()));
@@ -109,6 +126,14 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println();
 
 		return 0;
+	}
+
+	private static String getDisplay(Displayable value) {
+		if (value == null) {
+			return "null";
+		}
+
+		return value.getDisplay();
 	}
 
 }

@@ -3,7 +3,11 @@ package com.github.rnveach.commands;
 import java.util.concurrent.Callable;
 
 import com.github.rnveach.HoloCureManagerCli;
+import com.github.rnveach.data.Axe;
+import com.github.rnveach.data.Pet;
+import com.github.rnveach.data.Pickaxe;
 import com.github.rnveach.data.SaveData;
+import com.github.rnveach.data.Trail;
 import com.google.gson.JsonElement;
 
 import picocli.CommandLine.Command;
@@ -132,8 +136,42 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--sand" }, description = "Update Sand.")
 	private Double sand;
 
+	@Option(names = { "--managementLevel" }, description = "Update Management Level.")
+	private Double managementLevel;
+
+	@Option(names = { "--managementExp" }, description = "Update Management Exp.")
+	private Double managementExp;
+
+	@Option(names = { "--mineLevel" }, description = "Update Mine Level.")
+	private Double mineLevel;
+
+	@Option(names = { "--mineExp" }, description = "Update Mine Exp.")
+	private Double mineExp;
+
+	@Option(names = { "--woodcuttingLevel" }, description = "Update Woodcutting Level.")
+	private Double woodcuttingLevel;
+
+	@Option(names = { "--woodcuttingExp" }, description = "Update Woodcutting Exp.")
+	private Double woodcuttingExp;
+
+	@Option(names = {
+			"--activePickaxe" }, description = "Update Active Pickaxe. Valid values are: ${COMPLETION-CANDIDATES}.")
+	private Pickaxe activePickaxe;
+
+	@Option(names = { "--activeAxe" }, description = "Update Active Axe. Valid values are: ${COMPLETION-CANDIDATES}.")
+	private Axe activeAxe;
+
 	@Option(names = { "--usaChips" }, description = "Update UsaChips.")
 	private Double usaChips;
+
+	@Option(names = { "--activePet" }, description = "Update Active Pet. Valid values are: ${COMPLETION-CANDIDATES}.")
+	private Pet activePet;
+
+	@Option(names = {
+			"--activeTrail" }, description = "Update Active Trail. Valid values are: ${COMPLETION-CANDIDATES}.")
+	private Trail activeTrail;
+
+	// TODO: fish rod
 
 	public void validateOptions() {
 		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.specialAttack == null)
@@ -147,7 +185,11 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.moneyGainUp == null) && (this.enhancementRateUp == null) && (this.marketing == null)
 				&& (this.weaponLimit == null) && (this.itemLimit == null) && (this.collabBan == null)
 				&& (this.supersBan == null) && (this.gRankOff == null) && (this.hardcore == null)
-				&& (this.refundAll == null) && (this.sand == null) && (this.usaChips == null)) {
+				&& (this.refundAll == null) && (this.sand == null) && (this.managementLevel == null)
+				&& (this.managementExp == null) && (this.mineLevel == null) && (this.mineExp == null)
+				&& (this.woodcuttingLevel == null) && (this.woodcuttingExp == null) && (this.activePickaxe == null)
+				&& (this.activeAxe == null) && (this.usaChips == null) && (this.activePet == null)
+				&& (this.activeTrail == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
 		}
@@ -272,8 +314,38 @@ public class UpdateCommand implements Callable<Integer> {
 		if (this.sand != null) {
 			SaveData.setSand(root, this.sand);
 		}
+		if (this.managementLevel != null) {
+			SaveData.setManagementLevel(root, this.managementLevel);
+		}
+		if (this.managementExp != null) {
+			SaveData.setManagementExp(root, this.managementExp);
+		}
+		if (this.mineLevel != null) {
+			SaveData.setMineLevel(root, this.mineLevel);
+		}
+		if (this.mineExp != null) {
+			SaveData.setMineExp(root, this.mineExp);
+		}
+		if (this.woodcuttingLevel != null) {
+			SaveData.setWoodcuttingLevel(root, this.woodcuttingLevel);
+		}
+		if (this.woodcuttingExp != null) {
+			SaveData.setWoodcuttingExp(root, this.woodcuttingExp);
+		}
+		if (this.activePickaxe != null) {
+			SaveData.setActivePickaxe(root, this.activePickaxe);
+		}
+		if (this.activeAxe != null) {
+			SaveData.setActiveAxe(root, this.activeAxe);
+		}
 		if (this.usaChips != null) {
 			SaveData.setUsaChips(root, this.usaChips);
+		}
+		if (this.activePet != null) {
+			SaveData.setActivePet(root, this.activePet);
+		}
+		if (this.activeTrail != null) {
+			SaveData.setActiveTrail(root, this.activeTrail);
 		}
 
 		this.parent.writeToInputFile(root.toString());

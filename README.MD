@@ -59,9 +59,13 @@ Usage: HoloCureManagerCli list
 ### Update Command
 
 ```
-Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--atkUp=<atkUp>]
-                                 [--collabBan=<collabBan>] [--critUp=<critUp>]
-                                 [--customize=<customize>]
+Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
+                                 [--activeAxe=<activeAxe>]
+                                 [--activePet=<activePet>]
+                                 [--activePickaxe=<activePickaxe>]
+                                 [--activeTrail=<activeTrail>]
+                                 [--atkUp=<atkUp>] [--collabBan=<collabBan>]
+                                 [--critUp=<critUp>] [--customize=<customize>]
                                  [--defenseUp=<defenseUp>]
                                  [--eliminate=<eliminate>]
                                  [--enchantments=<enchantments>]
@@ -74,9 +78,12 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--atkUp=<atkUp>]
                                  [--holdFind=<holdFind>]
                                  [--holoCoins=<holoCoins>]
                                  [--itemLimit=<itemLimit>]
+                                 [--managementExp=<managementExp>]
+                                 [--managementLevel=<managementLevel>]
                                  [--marketing=<marketing>]
                                  [--materialFind=<materialFind>]
-                                 [--maxHpUp=<maxHpUp>]
+                                 [--maxHpUp=<maxHpUp>] [--mineExp=<mineExp>]
+                                 [--mineLevel=<mineLevel>]
                                  [--moneyGainUp=<moneyGainUp>]
                                  [--pickUpRange=<pickUpRange>]
                                  [--refundAll=<refundAll>]
@@ -89,8 +96,25 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--atkUp=<atkUp>]
                                  [--supersBan=<supersBan>]
                                  [--supports=<supports>]
                                  [--usaChips=<usaChips>]
-                                 [--weaponLimit=<weaponLimit>] [COMMAND]
+                                 [--weaponLimit=<weaponLimit>]
+                                 [--woodcuttingExp=<woodcuttingExp>]
+                                 [--woodcuttingLevel=<woodcuttingLevel>]
+                                 [COMMAND]
 Update only portions of a save file.
+      --activeAxe=<activeAxe>
+                            Update Active Axe. Valid values are: OLD, STONE,
+                              LEAD, MYTH, PROMISE, ADVENT, JUSTICE, HOLOLITE.
+      --activePet=<activePet>
+                            Update Active Pet. Valid values are: CAT, DOG,
+                              RABBIT, BEETLE, PENGUIN, MONKEY.
+      --activePickaxe=<activePickaxe>
+                            Update Active Pickaxe. Valid values are: OLD,
+                              STONE, LEAD, MYTH, PROMISE, ADVENT, JUSTICE,
+                              HOLOLITE.
+      --activeTrail=<activeTrail>
+                            Update Active Trail. Valid values are: HEARTS,
+                              SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
+                              SKULLS.
       --atkUp=<atkUp>       Update ATK Up.
       --collabBan=<collabBan>
                             Update Collab Ban.
@@ -122,11 +146,18 @@ Update only portions of a save file.
                             Update HoloCoins.
       --itemLimit=<itemLimit>
                             Update Item Limit.
+      --managementExp=<managementExp>
+                            Update Management Exp.
+      --managementLevel=<managementLevel>
+                            Update Management Level.
       --marketing=<marketing>
                             Update Marketing.
       --materialFind=<materialFind>
                             Update Material Find.
       --maxHpUp=<maxHpUp>   Update Max HP Up.
+      --mineExp=<mineExp>   Update Mine Exp.
+      --mineLevel=<mineLevel>
+                            Update Mine Level.
       --moneyGainUp=<moneyGainUp>
                             Update Money Gain Up.
       --pickUpRange=<pickUpRange>
@@ -151,6 +182,10 @@ Update only portions of a save file.
       --usaChips=<usaChips> Update UsaChips.
       --weaponLimit=<weaponLimit>
                             Update Weapon Limit.
+      --woodcuttingExp=<woodcuttingExp>
+                            Update Woodcutting Exp.
+      --woodcuttingLevel=<woodcuttingLevel>
+                            Update Woodcutting Level.
 Commands:
   raw, --raw, -r  Update raw portions of a save file directly.
 ```
