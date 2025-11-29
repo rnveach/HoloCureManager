@@ -59,8 +59,9 @@ Usage: HoloCureManagerCli list
 ### Update Command
 
 ```
-Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
+Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--unlockAllStages]
                                  [--activeAxe=<activeAxe>]
+                                 [--activeFishRod=<activeFishRod>]
                                  [--activePet=<activePet>]
                                  [--activePickaxe=<activePickaxe>]
                                  [--activeTrail=<activeTrail>]
@@ -99,11 +100,18 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [--weaponLimit=<weaponLimit>]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
-                                 [COMMAND]
+                                 [--addUnlockedStage
+                                 [=<unlockStagesToAdd>...]]...
+                                 [--removeUnlockedStage
+                                 [=<unlockStagesToRemove>...]]... [COMMAND]
 Update only portions of a save file.
       --activeAxe=<activeAxe>
                             Update Active Axe. Valid values are: OLD, STONE,
                               LEAD, MYTH, PROMISE, ADVENT, JUSTICE, HOLOLITE.
+      --activeFishRod=<activeFishRod>
+                            Update Active Fish Rod. Valid values are:
+                              BEGINNERS, DADS, BLACKSMITH_MADE, ATLANTEAN,
+                              TURKEY, GOLDEN.
       --activePet=<activePet>
                             Update Active Pet. Valid values are: CAT, DOG,
                               RABBIT, BEETLE, PENGUIN, MONKEY.
@@ -115,6 +123,12 @@ Update only portions of a save file.
                             Update Active Trail. Valid values are: HEARTS,
                               SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
                               SKULLS.
+      --addUnlockedStage[=<unlockStagesToAdd>...]
+                            Unlocked Stage(s) to add. Does nothing if stage is
+                              already unlocked. Valid values are: STAGE_1,
+                              STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_1_HARD,
+                              STAGE_2_HARD, STAGE_3_HARD, STAGE_4_HARD,
+                              TIME_STAGE_1, HOLO_HOUSE, USADA_CASINO.
       --atkUp=<atkUp>       Update ATK Up.
       --collabBan=<collabBan>
                             Update Collab Ban.
@@ -166,6 +180,12 @@ Update only portions of a save file.
                             Update Refund All.
       --regeneration=<regeneration>
                             Update Regeneration.
+      --removeUnlockedStage[=<unlockStagesToRemove>...]
+                            Unlocked Stage(s) to remove. Does nothing if stage
+                              isn't unlocked. Valid values are: STAGE_1,
+                              STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_1_HARD,
+                              STAGE_2_HARD, STAGE_3_HARD, STAGE_4_HARD,
+                              TIME_STAGE_1, HOLO_HOUSE, USADA_CASINO.
       --reroll=<reroll>     Update Reroll.
       --sand=<sand>         Update Sand.
       --skillUp=<skillUp>   Update Skill Up.
@@ -179,6 +199,7 @@ Update only portions of a save file.
                             Update Supers Ban.
       --supports=<supports> Update Supports.
       --timeModeUnlocked    Update if Time Mode is Unlocked.
+      --unlockAllStages     Unlock all known Stages.
       --usaChips=<usaChips> Update UsaChips.
       --weaponLimit=<weaponLimit>
                             Update Weapon Limit.
@@ -199,7 +220,7 @@ Usage: HoloCureManagerCli update raw [-h] -k=<key> -t=<type> -v=<value>
 Update raw portions of a save file directly.
   -h, --help
   -k, --key=<key>
-  -t, --type=<type>     Supported types are boolean and double.
+  -t, --type=<type>     Supported types are boolean, double, string, and json.
   -v, --value=<value>
 ```
 

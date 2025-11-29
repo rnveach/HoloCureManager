@@ -1,12 +1,18 @@
 package com.github.rnveach.commands;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import com.github.rnveach.HoloCureManagerCli;
 import com.github.rnveach.data.Axe;
+import com.github.rnveach.data.FishRod;
 import com.github.rnveach.data.Pet;
 import com.github.rnveach.data.Pickaxe;
 import com.github.rnveach.data.SaveData;
+import com.github.rnveach.data.Stage;
 import com.github.rnveach.data.Trail;
 import com.google.gson.JsonElement;
 
@@ -30,6 +36,17 @@ public class UpdateCommand implements Callable<Integer> {
 
 	@Option(names = { "--timeModeUnlocked" }, description = "Update if Time Mode is Unlocked.")
 	private Boolean timeModeUnlocked;
+
+	@Option(names = { "--unlockAllStages" }, description = "Unlock all known Stages.")
+	private Boolean unlockAllStages;
+
+	@Option(names = {
+			"--addUnlockedStage" }, description = "Unlocked Stage(s) to add. Does nothing if stage is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Stage[] unlockStagesToAdd;
+
+	@Option(names = {
+			"--removeUnlockedStage" }, description = "Unlocked Stage(s) to remove. Does nothing if stage isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Stage[] unlockStagesToRemove;
 
 	@Option(names = { "--specialAttack" }, description = "Update Special Attack.")
 	private Double specialAttack;
@@ -136,6 +153,10 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--sand" }, description = "Update Sand.")
 	private Double sand;
 
+	@Option(names = {
+			"--activeFishRod" }, description = "Update Active Fish Rod. Valid values are: ${COMPLETION-CANDIDATES}.")
+	private FishRod activeFishRod;
+
 	@Option(names = { "--managementLevel" }, description = "Update Management Level.")
 	private Double managementLevel;
 
@@ -171,25 +192,24 @@ public class UpdateCommand implements Callable<Integer> {
 			"--activeTrail" }, description = "Update Active Trail. Valid values are: ${COMPLETION-CANDIDATES}.")
 	private Trail activeTrail;
 
-	// TODO: fish rod
-
 	public void validateOptions() {
-		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.specialAttack == null)
-				&& (this.growth == null) && (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
-				&& (this.customize == null) && (this.supports == null) && (this.materialFind == null)
-				&& (this.stamps == null) && (this.enchantments == null) && (this.fandom == null)
-				&& (this.fanLetters == null) && (this.maxHpUp == null) && (this.atkUp == null) && (this.spdUp == null)
-				&& (this.critUp == null) && (this.pickUpRange == null) && (this.hasteUp == null)
-				&& (this.regeneration == null) && (this.defenseUp == null) && (this.specialCooldownReduction == null)
-				&& (this.skillUp == null) && (this.expGainUp == null) && (this.foodDropsUp == null)
-				&& (this.moneyGainUp == null) && (this.enhancementRateUp == null) && (this.marketing == null)
-				&& (this.weaponLimit == null) && (this.itemLimit == null) && (this.collabBan == null)
-				&& (this.supersBan == null) && (this.gRankOff == null) && (this.hardcore == null)
-				&& (this.refundAll == null) && (this.sand == null) && (this.managementLevel == null)
-				&& (this.managementExp == null) && (this.mineLevel == null) && (this.mineExp == null)
-				&& (this.woodcuttingLevel == null) && (this.woodcuttingExp == null) && (this.activePickaxe == null)
-				&& (this.activeAxe == null) && (this.usaChips == null) && (this.activePet == null)
-				&& (this.activeTrail == null)) {
+		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.unlockAllStages == null)
+				&& (this.unlockStagesToAdd == null) && (this.unlockStagesToRemove == null)
+				&& (this.specialAttack == null) && (this.growth == null) && (this.reroll == null)
+				&& (this.eliminate == null) && (this.holdFind == null) && (this.customize == null)
+				&& (this.supports == null) && (this.materialFind == null) && (this.stamps == null)
+				&& (this.enchantments == null) && (this.fandom == null) && (this.fanLetters == null)
+				&& (this.maxHpUp == null) && (this.atkUp == null) && (this.spdUp == null) && (this.critUp == null)
+				&& (this.pickUpRange == null) && (this.hasteUp == null) && (this.regeneration == null)
+				&& (this.defenseUp == null) && (this.specialCooldownReduction == null) && (this.skillUp == null)
+				&& (this.expGainUp == null) && (this.foodDropsUp == null) && (this.moneyGainUp == null)
+				&& (this.enhancementRateUp == null) && (this.marketing == null) && (this.weaponLimit == null)
+				&& (this.itemLimit == null) && (this.collabBan == null) && (this.supersBan == null)
+				&& (this.gRankOff == null) && (this.hardcore == null) && (this.refundAll == null) && (this.sand == null)
+				&& (this.activeFishRod == null) && (this.managementLevel == null) && (this.managementExp == null)
+				&& (this.mineLevel == null) && (this.mineExp == null) && (this.woodcuttingLevel == null)
+				&& (this.woodcuttingExp == null) && (this.activePickaxe == null) && (this.activeAxe == null)
+				&& (this.usaChips == null) && (this.activePet == null) && (this.activeTrail == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
 		}
@@ -208,6 +228,13 @@ public class UpdateCommand implements Callable<Integer> {
 		}
 		if (this.timeModeUnlocked != null) {
 			SaveData.setTimeModeUnlocked(root, this.timeModeUnlocked);
+		}
+		if ((this.unlockAllStages != null) && this.unlockAllStages) {
+			SaveData.setUnlockedStages(root, Stage.values());
+		}
+		if ((this.unlockStagesToAdd != null) && (this.unlockStagesToRemove != null)) {
+			SaveData.setUnlockedStages(root,
+					doAddRemove(SaveData.getUnlockedStages(root), this.unlockStagesToAdd, this.unlockStagesToRemove));
 		}
 		if (this.specialAttack != null) {
 			SaveData.setSpecialAttack(root, this.specialAttack);
@@ -314,6 +341,9 @@ public class UpdateCommand implements Callable<Integer> {
 		if (this.sand != null) {
 			SaveData.setSand(root, this.sand);
 		}
+		if (this.activeFishRod != null) {
+			SaveData.setActiveFishRod(root, this.activeFishRod);
+		}
 		if (this.managementLevel != null) {
 			SaveData.setManagementLevel(root, this.managementLevel);
 		}
@@ -351,6 +381,26 @@ public class UpdateCommand implements Callable<Integer> {
 		this.parent.writeToInputFile(root.toString());
 
 		return 0;
+	}
+
+	private static <T> T[] doAddRemove(T[] original, T[] adds, T[] removes) {
+		final Set<T> newList = new HashSet<>(Arrays.asList(original));
+
+		if (adds != null) {
+			for (final T add : adds) {
+				newList.add(add);
+			}
+		}
+		if (removes != null) {
+			for (final T remove : removes) {
+				newList.remove(remove);
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		final T[] result = (T[]) Array.newInstance(original.getClass().getComponentType(), newList.size());
+
+		return newList.toArray(result);
 	}
 
 	public HoloCureManagerCli getParent() {

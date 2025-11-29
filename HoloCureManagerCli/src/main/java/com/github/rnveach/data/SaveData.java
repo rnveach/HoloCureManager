@@ -4,8 +4,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 public final class SaveData {
 
@@ -20,6 +23,8 @@ public final class SaveData {
 	public static final String RANDOM_MONEY_KEY = "randomMoneyKey";
 
 	public static final String TIME_MODE_UNLOCKED = "timeModeUnlocked";
+
+	public static final String UNLOCKED_STAGES = "unlockedStages";
 
 	public static final int SPECIAL_ATTACK_MAX = 1;
 	public static final String SPECIAL_ATTACK = "specUnlock";
@@ -175,6 +180,14 @@ public final class SaveData {
 
 	public static void setTimeModeUnlocked(JsonElement element, Boolean value) {
 		setBoolean(element, TIME_MODE_UNLOCKED, value);
+	}
+
+	public static Stage[] getUnlockedStages(JsonElement element) {
+		return Stage.get(getArrayString(element, UNLOCKED_STAGES));
+	}
+
+	public static void setUnlockedStages(JsonElement element, Stage[] values) {
+		setArrayString(element, UNLOCKED_STAGES, Stage.convert(values));
 	}
 
 	public static Double getSpecialAttack(JsonElement element) {
@@ -702,6 +715,7 @@ public final class SaveData {
 		results.remove(HOLO_COINS);
 		results.remove(RANDOM_MONEY_KEY);
 		results.remove(TIME_MODE_UNLOCKED);
+		results.remove(UNLOCKED_STAGES);
 		results.remove(SPECIAL_ATTACK);
 		results.remove(GROWTH);
 		results.remove(REROLL);
@@ -769,6 +783,20 @@ public final class SaveData {
 				setDouble(element, namedIndex, Double.parseDouble(value));
 			}
 			break;
+		case "string":
+			if (value.isEmpty()) {
+				setString(element, namedIndex, null);
+			} else {
+				setString(element, namedIndex, value);
+			}
+			break;
+		case "json":
+			if (value.isEmpty()) {
+				setArrayString(element, namedIndex, null);
+			} else {
+				set(element, namedIndex, JsonParser.parseString(value));
+			}
+			break;
 		default:
 			throw new IllegalStateException("Unknown type: " + type);
 		}
@@ -804,6 +832,25 @@ public final class SaveData {
 		return t.getAsString();
 	}
 
+	private static String[] getArrayString(JsonElement element, String namedIndex) {
+		final JsonElement t = get(element, namedIndex);
+
+		if (t == null) {
+			return null;
+		}
+
+		final JsonArray a = t.getAsJsonArray();
+		final String[] results = new String[a.size()];
+
+		for (int i = 0; i < results.length; i++) {
+			final JsonElement item = a.get(i);
+
+			results[i] = item.getAsString();
+		}
+
+		return results;
+	}
+
 	private static void setBoolean(JsonElement element, String namedIndex, Boolean value) {
 		final JsonObject t = element.getAsJsonObject();
 
@@ -834,6 +881,22 @@ public final class SaveData {
 		}
 	}
 
+	private static void setArrayString(JsonElement element, String namedIndex, String[] values) {
+		final JsonObject t = element.getAsJsonObject();
+
+		if ((values == null) || (values.length == 0)) {
+			t.remove(namedIndex);
+		} else {
+			final JsonArray array = new JsonArray();
+
+			for (final String value : values) {
+				array.add(new JsonPrimitive(value));
+			}
+
+			t.add(namedIndex, array);
+		}
+	}
+
 	private static JsonElement get(JsonElement element, String namedIndex) {
 		final JsonObject object = element.getAsJsonObject();
 
@@ -842,6 +905,16 @@ public final class SaveData {
 		}
 
 		return null;
+	}
+
+	private static void set(JsonElement element, String namedIndex, JsonElement value) {
+		final JsonObject t = element.getAsJsonObject();
+
+		if (value == null) {
+			t.remove(namedIndex);
+		} else {
+			t.add(namedIndex, value);
+		}
 	}
 
 	private static boolean checkFields(JsonObject object, String... fields) {

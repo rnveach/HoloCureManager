@@ -43,6 +43,8 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\tHoloCoins: %.1f", SaveData.getHoloCoins(root)));
 		System.out.println(String.format("\tRandom Money Key?: %.1f", SaveData.getRandomMoneyKey(root)));
 		System.out.println(String.format("\tTime Mode Unlocked: %b", SaveData.getTimeModeUnlocked(root)));
+		System.out.println();
+		printDisplay("\t", "Unlocked Stages:", SaveData.getUnlockedStages(root));
 
 		System.out.println();
 		System.out.println("\tUpgrades:");
@@ -126,6 +128,14 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println();
 
 		return 0;
+	}
+
+	private static void printDisplay(String tab, String header, Displayable[] values) {
+		System.out.println(tab + header);
+
+		for (final Displayable value : values) {
+			System.out.println(tab + String.format("\t%s", value.getDisplay()));
+		}
 	}
 
 	private static String getDisplay(Displayable value) {

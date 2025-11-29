@@ -24,7 +24,8 @@ public final class UpdateRawCommand implements Callable<Integer> {
 	@Option(names = { "-v", "--value" }, required = true)
 	private String value;
 
-	@Option(names = { "-t", "--type" }, description = "Supported types are boolean and double.", required = true)
+	@Option(names = { "-t",
+			"--type" }, description = "Supported types are boolean, double, string, and json.", required = true)
 	private String type;
 
 	private void validateOptions() {
