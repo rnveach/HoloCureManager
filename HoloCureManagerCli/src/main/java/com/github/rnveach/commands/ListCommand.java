@@ -1,5 +1,7 @@
 package com.github.rnveach.commands;
 
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 
 import com.github.rnveach.HoloCureManagerCli;
@@ -25,14 +27,78 @@ public final class ListCommand implements Callable<Integer> {
 
 		final JsonElement root = this.parent.getInputFileJson();
 
+		// a ? represents unknown
+
+		System.out.println("Game:");
+		System.out.println(String.format("\tMajor Game Version: %.1f", SaveData.getMajorGameVersion(root)));
+		System.out.println(String.format("\tMinor Game Version: %.1f", SaveData.getMinorGameVersion(root)));
+
+		System.out.println();
 		System.out.println("Main:");
 		System.out.println(String.format("\tHoloCoins: %.1f", SaveData.getHoloCoins(root)));
+		System.out.println(String.format("\tRandom Money Key?: %.1f", SaveData.getRandomMoneyKey(root)));
+		System.out.println(String.format("\tTime Mode Unlocked: %b", SaveData.getTimeModeUnlocked(root)));
+
+		System.out.println();
+		System.out.println("\tUpgrades:");
+		System.out.println("\t\tAbilities:");
+		System.out.println(String.format("\t\t\tGrowth: %.1f", SaveData.getGrowth(root)));
+		System.out.println(String.format("\t\t\tReroll: %.1f", SaveData.getReroll(root)));
+		System.out.println(String.format("\t\t\tEliminate: %.1f", SaveData.getEliminate(root)));
+		System.out.println(String.format("\t\t\tHold Find: %.1f", SaveData.getHoldFind(root)));
+		System.out.println(String.format("\t\t\tSupports: %.1f", SaveData.getSupports(root)));
+		System.out.println(String.format("\t\t\tMaterial Find: %.1f", SaveData.getMaterialFind(root)));
+		System.out.println(String.format("\t\t\tStamps: %.1f", SaveData.getStamps(root)));
+		System.out.println(String.format("\t\t\tEnchantments: %.1f", SaveData.getEnchantments(root)));
+		System.out.println(String.format("\t\t\tFandom: %.1f", SaveData.getFandom(root)));
+		System.out.println(String.format("\t\t\tFan Letters: %.1f", SaveData.getFanLetters(root)));
+
+		System.out.println();
+		System.out.println("\t\tStats:");
+		System.out.println(String.format("\t\t\tMax HP Up: %.1f", SaveData.getMaxHpUp(root)));
+		System.out.println(String.format("\t\t\tATK Up: %.1f", SaveData.getAtkUp(root)));
+		System.out.println(String.format("\t\t\tSPD Up: %.1f", SaveData.getSpdUp(root)));
+		System.out.println(String.format("\t\t\tCrit Up: %.1f", SaveData.getCritUp(root)));
+		System.out.println(String.format("\t\t\tPick Up Range: %.1f", SaveData.getPickUpRange(root)));
+		System.out.println(String.format("\t\t\tHaste Up: %.1f", SaveData.getHasteUp(root)));
+		System.out.println(String.format("\t\t\tRegeneration: %.1f", SaveData.getRegeneration(root)));
+		System.out.println(
+				String.format("\t\t\tSpecial Cooldown Reduction: %.1f", SaveData.getSpecialCooldownReduction(root)));
+		System.out.println(String.format("\t\t\tSkill Up: %.1f", SaveData.getSkillUp(root)));
+		System.out.println(String.format("\t\t\tEXP Gain Up: %.1f", SaveData.getExpGainUp(root)));
+		System.out.println(String.format("\t\t\tFood Drops Up: %.1f", SaveData.getFoodDropsUp(root)));
+		System.out.println(String.format("\t\t\tMoney Gain Up: %.1f", SaveData.getMoneyGainUp(root)));
+		System.out.println(String.format("\t\t\tEnhancement Rate Up: %.1f", SaveData.getEnhancementRateUp(root)));
+
+		System.out.println();
+		System.out.println("\t\tOther:");
+		System.out.println(String.format("\t\t\tWeapon Limit: %.1f", SaveData.getWeaponLimit(root)));
+		System.out.println(String.format("\t\t\tItem Limit: %.1f", SaveData.getItemLimit(root)));
+		System.out.println(String.format("\t\t\tCollab Ban: %.1f", SaveData.getCollabBan(root)));
+		System.out.println(String.format("\t\t\tSupers Ban: %.1f", SaveData.getSupersBan(root)));
+		System.out.println(String.format("\t\t\tG-Rank Off: %.1f", SaveData.getGRankOff(root)));
+		System.out.println(String.format("\t\t\tHardcore: %.1f", SaveData.getHardcore(root)));
+		System.out.println(String.format("\t\t\tRefund All: %.1f", SaveData.getRefundAll(root)));
+
 		System.out.println();
 		System.out.println("HoloHouse:");
 		System.out.println(String.format("\tSand: %.1f", SaveData.getSand(root)));
 		System.out.println();
 		System.out.println("\tUsada Casino:");
 		System.out.println(String.format("\t\tUsaChips: %.1f", SaveData.getUsaChips(root)));
+
+		final Map<String, JsonElement> unknowns = SaveData.getUnknownFields(root);
+
+		if (!unknowns.isEmpty()) {
+			System.out.println();
+			System.out.println("Unknowns?:");
+
+			for (final Entry<String, JsonElement> entry : unknowns.entrySet()) {
+				System.out.println(String.format("\t'%s': %s", entry.getKey(), entry.getValue().toString()));
+			}
+		}
+
+		System.out.println();
 
 		return 0;
 	}

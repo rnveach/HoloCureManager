@@ -1,15 +1,135 @@
 package com.github.rnveach.data;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public final class SaveData {
 
+	public static final String MAJOR_GAME_VERSION = "GameVersionNumberMajor";
+
+	public static final String MINOR_GAME_VERSION = "GameVersionNumberMinor";
+
+	public static final String GAME_TIME = "trackedTime";
+
 	public static final String HOLO_COINS = "holoCoins";
+
+	public static final String RANDOM_MONEY_KEY = "randomMoneyKey";
+
+	public static final String TIME_MODE_UNLOCKED = "timeModeUnlocked";
+
+	// TODO special attack 1
+
+	public static final int GROWTH_MAX = 3;
+	public static final String GROWTH = "growth";
+
+	public static final int REROLL_MAX = 10;
+	public static final String REROLL = "reroll";
+
+	public static final int ELIMINATE_MAX = 5;
+	public static final String ELIMINATE = "eliminate";
+
+	public static final int HOLD_FIND_MAX = 5;
+	public static final String HOLD_FIND = "holdOption";
+
+	// TODO customize 1
+
+	public static final int SUPPORTS_MAX = 1;
+	public static final String SUPPORTS = "supports";
+
+	public static final int MATERIAL_FIND_MAX = 1;
+	public static final String MATERIAL_FIND = "materialDrops";
+
+	public static final int STAMPS_MAX = 1;
+	public static final String STAMPS = "stamps";
+
+	public static final int ENCHANTMENTS_MAX = 1;
+	public static final String ENCHANTMENTS = "enchantments";
+
+	public static final int FANDOM_MAX = 1;
+	public static final String FANDOM = "fandom";
+
+	public static final int FAN_LETTERS_MAX = 1;
+	public static final String FAN_LETTERS = "fanLetterUnlock";
+
+	public static final int MAX_HP_UP_MAX = 10;
+	public static final String MAX_HP_UP = "HP";
+
+	public static final int ATK_UP_MAX = 10;
+	public static final String ATK_UP = "ATK";
+
+	public static final int SPD_UP_MAX = 10;
+	public static final String SPD_UP = "SPD";
+
+	public static final int CRIT_UP_MAX = 5;
+	public static final String CRIT_UP = "crit";
+
+	public static final int PICK_UP_RANGE_MAX = 10;
+	public static final String PICK_UP_RANGE = "pickupRange";
+
+	public static final int HASTE_UP_MAX = 5;
+	public static final String HASTE_UP = "haste";
+
+	public static final int REGENERATION_MAX = 5;
+	public static final String REGENERATION = "regen";
+
+	// TODO defense up 5
+
+	public static final int SPECIAL_COOLDOWN_REDUCTION_MAX = 5;
+	public static final String SPECIAL_COOLDOWN_REDUCTION = "specCDR";
+
+	public static final int SKILL_UP_MAX = 10;
+	public static final String SKILL_UP = "skillDamage";
+
+	public static final int EXP_GAIN_UP_MAX = 5;
+	public static final String EXP_GAIN_UP = "EXP";
+
+	public static final int FOOD_DROPS_UP_MAX = 5;
+	public static final String FOOD_DROPS_UP = "food";
+
+	public static final int MONEY_GAIN_UP_MAX = 10;
+	public static final String MONEY_GAIN_UP = "moneyGain";
+
+	public static final int ENHANCEMENT_RATE_UP_MAX = 5;
+	public static final String ENHANCEMENT_RATE_UP = "enhanceUp";
+
+	// TODO marketing 5
+
+	public static final int WEAPON_LIMIT_MAX = 5;
+	public static final String WEAPON_LIMIT = "weaponLimit";
+
+	public static final int ITEM_LIMIT_MAX = 6;
+	public static final String ITEM_LIMIT = "itemLimit";
+
+	public static final int COLLAB_BAN_MAX = 1;
+	public static final String COLLAB_BAN = "noCollabs";
+
+	public static final int SUPERS_BAN_MAX = 1;
+	public static final String SUPERS_BAN = "noSupers";
+
+	public static final int G_RANK_OFF_MAX = 1;
+	public static final String G_RANK_OFF = "GROff";
+
+	public static final int HARDCORE_MAX = 1;
+	public static final String HARDCORE = "challenge";
+
+	public static final int REFUND_ALL_MAX = 1;
+	public static final String REFUND_ALL = "refund";
 
 	public static final String SAND = "fishSand";
 
 	public static final String USA_CHIPS = "holoChips";
+
+	public static Double getMajorGameVersion(JsonElement element) {
+		return getDouble(element, MAJOR_GAME_VERSION);
+	}
+
+	public static Double getMinorGameVersion(JsonElement element) {
+		return getDouble(element, MINOR_GAME_VERSION);
+	}
 
 	public static Double getHoloCoins(JsonElement element) {
 		return getDouble(element, HOLO_COINS);
@@ -17,6 +137,378 @@ public final class SaveData {
 
 	public static void setHoloCoins(JsonElement element, Double value) {
 		setDouble(element, HOLO_COINS, value);
+	}
+
+	public static Double getRandomMoneyKey(JsonElement element) {
+		return getDouble(element, RANDOM_MONEY_KEY);
+	}
+
+	public static Boolean getTimeModeUnlocked(JsonElement element) {
+		return getBoolean(element, TIME_MODE_UNLOCKED);
+	}
+
+	public static void setTimeModeUnlocked(JsonElement element, Boolean value) {
+		setBoolean(element, TIME_MODE_UNLOCKED, value);
+	}
+
+	public static Double getGrowth(JsonElement element) {
+		return getDouble(element, GROWTH);
+	}
+
+	public static void setGrowth(JsonElement element, Double value) {
+		if ((value != null) && (value > GROWTH_MAX)) {
+			value = (double) GROWTH_MAX;
+		}
+
+		setDouble(element, GROWTH, value);
+	}
+
+	public static Double getReroll(JsonElement element) {
+		return getDouble(element, REROLL);
+	}
+
+	public static void setReroll(JsonElement element, Double value) {
+		if ((value != null) && (value > REROLL_MAX)) {
+			value = (double) REROLL_MAX;
+		}
+
+		setDouble(element, REROLL, value);
+	}
+
+	public static Double getEliminate(JsonElement element) {
+		return getDouble(element, ELIMINATE);
+	}
+
+	public static void setEliminate(JsonElement element, Double value) {
+		if ((value != null) && (value > ELIMINATE_MAX)) {
+			value = (double) ELIMINATE_MAX;
+		}
+
+		setDouble(element, ELIMINATE, value);
+	}
+
+	public static Double getHoldFind(JsonElement element) {
+		return getDouble(element, HOLD_FIND);
+	}
+
+	public static void setHoldFind(JsonElement element, Double value) {
+		if ((value != null) && (value > HOLD_FIND_MAX)) {
+			value = (double) HOLD_FIND_MAX;
+		}
+
+		setDouble(element, HOLD_FIND, value);
+	}
+
+	public static Double getSupports(JsonElement element) {
+		return getDouble(element, SUPPORTS);
+	}
+
+	public static void setSupports(JsonElement element, Double value) {
+		if ((value != null) && (value > SUPPORTS_MAX)) {
+			value = (double) SUPPORTS_MAX;
+		}
+
+		setDouble(element, SUPPORTS, value);
+	}
+
+	public static Double getMaterialFind(JsonElement element) {
+		return getDouble(element, MATERIAL_FIND);
+	}
+
+	public static void setMaterialFind(JsonElement element, Double value) {
+		if ((value != null) && (value > MATERIAL_FIND_MAX)) {
+			value = (double) MATERIAL_FIND_MAX;
+		}
+
+		setDouble(element, MATERIAL_FIND, value);
+	}
+
+	public static Double getStamps(JsonElement element) {
+		return getDouble(element, STAMPS);
+	}
+
+	public static void setStamps(JsonElement element, Double value) {
+		if ((value != null) && (value > STAMPS_MAX)) {
+			value = (double) STAMPS_MAX;
+		}
+
+		setDouble(element, STAMPS, value);
+	}
+
+	public static Double getEnchantments(JsonElement element) {
+		return getDouble(element, ENCHANTMENTS);
+	}
+
+	public static void setEnchantments(JsonElement element, Double value) {
+		if ((value != null) && (value > ENCHANTMENTS_MAX)) {
+			value = (double) ENCHANTMENTS_MAX;
+		}
+
+		setDouble(element, ENCHANTMENTS, value);
+	}
+
+	public static Double getFandom(JsonElement element) {
+		return getDouble(element, FANDOM);
+	}
+
+	public static void setFandom(JsonElement element, Double value) {
+		if ((value != null) && (value > FANDOM_MAX)) {
+			value = (double) FANDOM_MAX;
+		}
+
+		setDouble(element, FANDOM, value);
+	}
+
+	public static Double getFanLetters(JsonElement element) {
+		return getDouble(element, FAN_LETTERS);
+	}
+
+	public static void setFanLetters(JsonElement element, Double value) {
+		if ((value != null) && (value > FAN_LETTERS_MAX)) {
+			value = (double) FAN_LETTERS_MAX;
+		}
+
+		setDouble(element, FAN_LETTERS, value);
+	}
+
+	public static Double getMaxHpUp(JsonElement element) {
+		return getDouble(element, MAX_HP_UP);
+	}
+
+	public static void setMaxHpUp(JsonElement element, Double value) {
+		if ((value != null) && (value > MAX_HP_UP_MAX)) {
+			value = (double) MAX_HP_UP_MAX;
+		}
+
+		setDouble(element, MAX_HP_UP, value);
+	}
+
+	public static Double getAtkUp(JsonElement element) {
+		return getDouble(element, ATK_UP);
+	}
+
+	public static void setAtkUp(JsonElement element, Double value) {
+		if ((value != null) && (value > ATK_UP_MAX)) {
+			value = (double) ATK_UP_MAX;
+		}
+
+		setDouble(element, ATK_UP, value);
+	}
+
+	public static Double getSpdUp(JsonElement element) {
+		return getDouble(element, SPD_UP);
+	}
+
+	public static void setSpdUp(JsonElement element, Double value) {
+		if ((value != null) && (value > SPD_UP_MAX)) {
+			value = (double) SPD_UP_MAX;
+		}
+
+		setDouble(element, SPD_UP, value);
+	}
+
+	public static Double getCritUp(JsonElement element) {
+		return getDouble(element, CRIT_UP);
+	}
+
+	public static void setCritUp(JsonElement element, Double value) {
+		if ((value != null) && (value > CRIT_UP_MAX)) {
+			value = (double) CRIT_UP_MAX;
+		}
+
+		setDouble(element, CRIT_UP, value);
+	}
+
+	public static Double getPickUpRange(JsonElement element) {
+		return getDouble(element, PICK_UP_RANGE);
+	}
+
+	public static void setPickUpRange(JsonElement element, Double value) {
+		if ((value != null) && (value > PICK_UP_RANGE_MAX)) {
+			value = (double) PICK_UP_RANGE_MAX;
+		}
+
+		setDouble(element, PICK_UP_RANGE, value);
+	}
+
+	public static Double getHasteUp(JsonElement element) {
+		return getDouble(element, HASTE_UP);
+	}
+
+	public static void setHasteUp(JsonElement element, Double value) {
+		if ((value != null) && (value > HASTE_UP_MAX)) {
+			value = (double) HASTE_UP_MAX;
+		}
+
+		setDouble(element, HASTE_UP, value);
+	}
+
+	public static Double getRegeneration(JsonElement element) {
+		return getDouble(element, REGENERATION);
+	}
+
+	public static void setRegeneration(JsonElement element, Double value) {
+		if ((value != null) && (value > REGENERATION_MAX)) {
+			value = (double) REGENERATION_MAX;
+		}
+
+		setDouble(element, REGENERATION, value);
+	}
+
+	public static Double getSpecialCooldownReduction(JsonElement element) {
+		return getDouble(element, SPECIAL_COOLDOWN_REDUCTION);
+	}
+
+	public static void setSpecialCooldownReduction(JsonElement element, Double value) {
+		if ((value != null) && (value > SPECIAL_COOLDOWN_REDUCTION_MAX)) {
+			value = (double) SPECIAL_COOLDOWN_REDUCTION_MAX;
+		}
+
+		setDouble(element, SPECIAL_COOLDOWN_REDUCTION, value);
+	}
+
+	public static Double getSkillUp(JsonElement element) {
+		return getDouble(element, SKILL_UP);
+	}
+
+	public static void setSkillUp(JsonElement element, Double value) {
+		if ((value != null) && (value > SKILL_UP_MAX)) {
+			value = (double) SKILL_UP_MAX;
+		}
+
+		setDouble(element, SKILL_UP, value);
+	}
+
+	public static Double getExpGainUp(JsonElement element) {
+		return getDouble(element, EXP_GAIN_UP);
+	}
+
+	public static void setExpGainUp(JsonElement element, Double value) {
+		if ((value != null) && (value > EXP_GAIN_UP_MAX)) {
+			value = (double) EXP_GAIN_UP_MAX;
+		}
+
+		setDouble(element, EXP_GAIN_UP, value);
+	}
+
+	public static Double getFoodDropsUp(JsonElement element) {
+		return getDouble(element, FOOD_DROPS_UP);
+	}
+
+	public static void setFoodDropsUp(JsonElement element, Double value) {
+		if ((value != null) && (value > FOOD_DROPS_UP_MAX)) {
+			value = (double) FOOD_DROPS_UP_MAX;
+		}
+
+		setDouble(element, FOOD_DROPS_UP, value);
+	}
+
+	public static Double getMoneyGainUp(JsonElement element) {
+		return getDouble(element, MONEY_GAIN_UP);
+	}
+
+	public static void setMoneyGainUp(JsonElement element, Double value) {
+		if ((value != null) && (value > MONEY_GAIN_UP_MAX)) {
+			value = (double) MONEY_GAIN_UP_MAX;
+		}
+
+		setDouble(element, MONEY_GAIN_UP, value);
+	}
+
+	public static Double getEnhancementRateUp(JsonElement element) {
+		return getDouble(element, ENHANCEMENT_RATE_UP);
+	}
+
+	public static void setEnhancementRateUp(JsonElement element, Double value) {
+		if ((value != null) && (value > ENHANCEMENT_RATE_UP_MAX)) {
+			value = (double) ENHANCEMENT_RATE_UP_MAX;
+		}
+
+		setDouble(element, ENHANCEMENT_RATE_UP, value);
+	}
+
+	public static Double getWeaponLimit(JsonElement element) {
+		return getDouble(element, WEAPON_LIMIT);
+	}
+
+	public static void setWeaponLimit(JsonElement element, Double value) {
+		if ((value != null) && (value > WEAPON_LIMIT_MAX)) {
+			value = (double) WEAPON_LIMIT_MAX;
+		}
+
+		setDouble(element, WEAPON_LIMIT, value);
+	}
+
+	public static Double getItemLimit(JsonElement element) {
+		return getDouble(element, ITEM_LIMIT);
+	}
+
+	public static void setItemLimit(JsonElement element, Double value) {
+		if ((value != null) && (value > ITEM_LIMIT_MAX)) {
+			value = (double) ITEM_LIMIT_MAX;
+		}
+
+		setDouble(element, ITEM_LIMIT, value);
+	}
+
+	public static Double getCollabBan(JsonElement element) {
+		return getDouble(element, COLLAB_BAN);
+	}
+
+	public static void setCollabBan(JsonElement element, Double value) {
+		if ((value != null) && (value > COLLAB_BAN_MAX)) {
+			value = (double) COLLAB_BAN_MAX;
+		}
+
+		setDouble(element, COLLAB_BAN, value);
+	}
+
+	public static Double getSupersBan(JsonElement element) {
+		return getDouble(element, SUPERS_BAN);
+	}
+
+	public static void setSupersBan(JsonElement element, Double value) {
+		if ((value != null) && (value > SUPERS_BAN_MAX)) {
+			value = (double) SUPERS_BAN_MAX;
+		}
+
+		setDouble(element, SUPERS_BAN, value);
+	}
+
+	public static Double getGRankOff(JsonElement element) {
+		return getDouble(element, G_RANK_OFF);
+	}
+
+	public static void setGRankOff(JsonElement element, Double value) {
+		if ((value != null) && (value > G_RANK_OFF_MAX)) {
+			value = (double) G_RANK_OFF_MAX;
+		}
+
+		setDouble(element, G_RANK_OFF, value);
+	}
+
+	public static Double getHardcore(JsonElement element) {
+		return getDouble(element, HARDCORE);
+	}
+
+	public static void setHardcore(JsonElement element, Double value) {
+		if ((value != null) && (value > HARDCORE_MAX)) {
+			value = (double) HARDCORE_MAX;
+		}
+
+		setDouble(element, HARDCORE, value);
+	}
+
+	public static Double getRefundAll(JsonElement element) {
+		return getDouble(element, REFUND_ALL);
+	}
+
+	public static void setRefundAll(JsonElement element, Double value) {
+		if ((value != null) && (value > REFUND_ALL_MAX)) {
+			value = (double) REFUND_ALL_MAX;
+		}
+
+		setDouble(element, REFUND_ALL, value);
 	}
 
 	public static Double getSand(JsonElement element) {
@@ -35,6 +527,65 @@ public final class SaveData {
 		setDouble(element, USA_CHIPS, value);
 	}
 
+	public static Map<String, JsonElement> getUnknownFields(JsonElement element) {
+		final Map<String, JsonElement> results = new HashMap<>();
+
+		for (final Entry<String, JsonElement> entry : element.getAsJsonObject().entrySet()) {
+			results.put(entry.getKey(), entry.getValue());
+		}
+
+		results.remove(MAJOR_GAME_VERSION);
+		results.remove(MINOR_GAME_VERSION);
+		results.remove(GAME_TIME);
+		results.remove(HOLO_COINS);
+		results.remove(RANDOM_MONEY_KEY);
+		results.remove(TIME_MODE_UNLOCKED);
+		results.remove(GROWTH);
+		results.remove(REROLL);
+		results.remove(ELIMINATE);
+		results.remove(HOLD_FIND);
+		results.remove(SUPPORTS);
+		results.remove(MATERIAL_FIND);
+		results.remove(STAMPS);
+		results.remove(ENCHANTMENTS);
+		results.remove(FANDOM);
+		results.remove(FAN_LETTERS);
+		results.remove(MAX_HP_UP);
+		results.remove(ATK_UP);
+		results.remove(SPD_UP);
+		results.remove(CRIT_UP);
+		results.remove(PICK_UP_RANGE);
+		results.remove(HASTE_UP);
+		results.remove(REGENERATION);
+		results.remove(SPECIAL_COOLDOWN_REDUCTION);
+		results.remove(SKILL_UP);
+		results.remove(EXP_GAIN_UP);
+		results.remove(FOOD_DROPS_UP);
+		results.remove(MONEY_GAIN_UP);
+		results.remove(ENHANCEMENT_RATE_UP);
+		results.remove(WEAPON_LIMIT);
+		results.remove(ITEM_LIMIT);
+		results.remove(COLLAB_BAN);
+		results.remove(SUPERS_BAN);
+		results.remove(G_RANK_OFF);
+		results.remove(HARDCORE);
+		results.remove(REFUND_ALL);
+		results.remove(SAND);
+		results.remove(USA_CHIPS);
+
+		return results;
+	}
+
+	private static Boolean getBoolean(JsonElement element, String namedIndex) {
+		final JsonElement t = get(element, namedIndex);
+
+		if (t == null) {
+			return null;
+		}
+
+		return t.getAsBoolean();
+	}
+
 	private static Double getDouble(JsonElement element, String namedIndex) {
 		final JsonElement t = get(element, namedIndex);
 
@@ -45,10 +596,24 @@ public final class SaveData {
 		return t.getAsDouble();
 	}
 
-	private static void setDouble(JsonElement element, String namedIndex, double value) {
+	private static void setBoolean(JsonElement element, String namedIndex, Boolean value) {
 		final JsonObject t = element.getAsJsonObject();
 
-		t.addProperty(namedIndex, value);
+		if (value == null) {
+			t.remove(namedIndex);
+		} else {
+			t.addProperty(namedIndex, value);
+		}
+	}
+
+	private static void setDouble(JsonElement element, String namedIndex, Double value) {
+		final JsonObject t = element.getAsJsonObject();
+
+		if (value == null) {
+			t.remove(namedIndex);
+		} else {
+			t.addProperty(namedIndex, value);
+		}
 	}
 
 	private static JsonElement get(JsonElement element, String namedIndex) {

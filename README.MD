@@ -59,16 +59,86 @@ Usage: HoloCureManagerCli list
 ### Update Command
 
 ```
-Usage: HoloCureManagerCli update [-h] [--holoCoins=<holoCoins>] [--sand=<sand>]
-                                 [--usaChips=<usaChips>] [COMMAND]
+Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--atkUp=<atkUp>]
+                                 [--collabBan=<collabBan>] [--critUp=<critUp>]
+                                 [--eliminate=<eliminate>]
+                                 [--enchantments=<enchantments>]
+                                 [--enhancementRateUp=<enhancementRateUp>]
+                                 [--expGainUp=<expGainUp>] [--fandom=<fandom>]
+                                 [--fanLetters=<fanLetters>]
+                                 [--foodDropsUp=<foodDropsUp>]
+                                 [--gRankOff=<gRankOff>] [--growth=<growth>]
+                                 [--hardcore=<hardcore>] [--hasteUp=<hasteUp>]
+                                 [--holdFind=<holdFind>]
+                                 [--holoCoins=<holoCoins>]
+                                 [--itemLimit=<itemLimit>]
+                                 [--materialFind=<materialFind>]
+                                 [--maxHpUp=<maxHpUp>]
+                                 [--moneyGainUp=<moneyGainUp>]
+                                 [--pickUpRange=<pickUpRange>]
+                                 [--refundAll=<refundAll>]
+                                 [--regeneration=<regeneration>]
+                                 [--reroll=<reroll>] [--sand=<sand>]
+                                 [--skillUp=<skillUp>] [--spdUp=<spdUp>]
+                                 [--specialCooldownReduction=<specialCooldownRed
+                                 uction>] [--stamps=<stamps>]
+                                 [--supersBan=<supersBan>]
+                                 [--supports=<supports>]
+                                 [--usaChips=<usaChips>]
+                                 [--weaponLimit=<weaponLimit>]
 Update only portions of a save file.
-      [COMMAND]       The COMMAND to display the usage help message for.
-  -h, --help          Show usage help for the help command and exit.
+      --atkUp=<atkUp>       Update ATK Up.
+      --collabBan=<collabBan>
+                            Update Collab Ban.
+      --critUp=<critUp>     Update Crit Up.
+      --eliminate=<eliminate>
+                            Update Eliminate.
+      --enchantments=<enchantments>
+                            Update Enchantments.
+      --enhancementRateUp=<enhancementRateUp>
+                            Update Enhancement Rate Up.
+      --expGainUp=<expGainUp>
+                            Update EXP Gain Up.
+      --fandom=<fandom>     Update Fandom.
+      --fanLetters=<fanLetters>
+                            Update Fan Letters.
+      --foodDropsUp=<foodDropsUp>
+                            Update Food Drops Up.
+      --gRankOff=<gRankOff> Update G Rank Off.
+      --growth=<growth>     Update Growth.
+  -h, --help
+      --hardcore=<hardcore> Update Hardcore.
+      --hasteUp=<hasteUp>   Update Haste Up.
+      --holdFind=<holdFind> Update Hold Find.
       --holoCoins=<holoCoins>
-                      Update HoloCoins.
-      --sand=<sand>   Update Sand.
-      --usaChips=<usaChips>
-                      Update UsaChips.
+                            Update HoloCoins.
+      --itemLimit=<itemLimit>
+                            Update Item Limit.
+      --materialFind=<materialFind>
+                            Update Material Find.
+      --maxHpUp=<maxHpUp>   Update Max HP Up.
+      --moneyGainUp=<moneyGainUp>
+                            Update Money Gain Up.
+      --pickUpRange=<pickUpRange>
+                            Update Pick Up Range.
+      --refundAll=<refundAll>
+                            Update Refund All.
+      --regeneration=<regeneration>
+                            Update Regeneration.
+      --reroll=<reroll>     Update Reroll.
+      --sand=<sand>         Update Sand.
+      --skillUp=<skillUp>   Update Skill Up.
+      --spdUp=<spdUp>       Update SPD Up.
+      --specialCooldownReduction=<specialCooldownReduction>
+                            Update Special Cooldown Reduction.
+      --stamps=<stamps>     Update Stamps.
+      --supersBan=<supersBan>
+                            Update Supers Ban.
+      --supports=<supports> Update Supports.
+      --timeModeUnlocked    Update if Time Mode is Unlocked.
+      --usaChips=<usaChips> Update UsaChips.
+      --weaponLimit=<weaponLimit>
+                            Update Weapon Limit.
 ```
 
 Note: At least one item is required to update the file with. Multiple updates can be done at a time.
