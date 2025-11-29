@@ -28,6 +28,10 @@ public final class SaveData {
 
 	public static final String UNLOCKED_OUTFITS = "unlockedOutfits";
 
+	public static final String UNLOCKED_WEAPONS = "unlockedWeapons";
+
+	public static final String UNLOCKED_ITEMS = "unlockedItems";
+
 	public static final int SPECIAL_ATTACK_MAX = 1;
 	public static final String SPECIAL_ATTACK = "specUnlock";
 
@@ -200,6 +204,22 @@ public final class SaveData {
 
 	public static void setUnlockedOutfits(JsonElement element, Outfit[] values) {
 		setArrayString(element, UNLOCKED_OUTFITS, Outfit.convert(values));
+	}
+
+	public static Weapon[] getUnlockedWeapons(JsonElement element) {
+		return Weapon.get(getArrayString(element, UNLOCKED_WEAPONS));
+	}
+
+	public static void setUnlockedWeapons(JsonElement element, Weapon[] values) {
+		setArrayString(element, UNLOCKED_WEAPONS, Weapon.convert(values));
+	}
+
+	public static Item[] getUnlockedItems(JsonElement element) {
+		return Item.get(getArrayString(element, UNLOCKED_ITEMS));
+	}
+
+	public static void setUnlockedItems(JsonElement element, Item[] values) {
+		setArrayString(element, UNLOCKED_ITEMS, Item.convert(values));
 	}
 
 	public static Double getSpecialAttack(JsonElement element) {
@@ -737,6 +757,8 @@ public final class SaveData {
 		results.remove(TIME_MODE_UNLOCKED);
 		results.remove(UNLOCKED_STAGES);
 		results.remove(UNLOCKED_OUTFITS);
+		results.remove(UNLOCKED_WEAPONS);
+		results.remove(UNLOCKED_ITEMS);
 		results.remove(SPECIAL_ATTACK);
 		results.remove(GROWTH);
 		results.remove(REROLL);

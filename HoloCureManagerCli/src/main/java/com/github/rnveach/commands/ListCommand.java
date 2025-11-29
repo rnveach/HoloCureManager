@@ -47,6 +47,10 @@ public final class ListCommand implements Callable<Integer> {
 		printDisplay("\t", "Unlocked Stages:", SaveData.getUnlockedStages(root));
 		System.out.println();
 		printDisplay("\t", "Unlocked Outfits:", SaveData.getUnlockedOutfits(root));
+		System.out.println();
+		printDisplay("\t", "Unlocked Weapons:", SaveData.getUnlockedWeapons(root));
+		System.out.println();
+		printDisplay("\t", "Unlocked Items:", SaveData.getUnlockedItems(root));
 
 		System.out.println();
 		System.out.println("\tUpgrades:");

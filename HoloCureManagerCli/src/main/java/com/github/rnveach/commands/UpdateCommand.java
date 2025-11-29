@@ -10,12 +10,14 @@ import com.github.rnveach.HoloCureManagerCli;
 import com.github.rnveach.data.Axe;
 import com.github.rnveach.data.FishRod;
 import com.github.rnveach.data.Furniture;
+import com.github.rnveach.data.Item;
 import com.github.rnveach.data.Outfit;
 import com.github.rnveach.data.Pet;
 import com.github.rnveach.data.Pickaxe;
 import com.github.rnveach.data.SaveData;
 import com.github.rnveach.data.Stage;
 import com.github.rnveach.data.Trail;
+import com.github.rnveach.data.Weapon;
 import com.google.gson.JsonElement;
 
 import picocli.CommandLine.Command;
@@ -60,6 +62,28 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = {
 			"--removeUnlockedOutfit" }, description = "Unlocked Outfit(s) to remove. Does nothing if outfit isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Outfit[] unlockOutfitsToRemove;
+
+	@Option(names = { "--unlockAllWeapons" }, description = "Unlock all known Weapons.")
+	private Boolean unlockAllWeapons;
+
+	@Option(names = {
+			"--addUnlockedWeapon" }, description = "Unlocked Weapon(s) to add. Does nothing if weapon is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Weapon[] unlockWeaponsToAdd;
+
+	@Option(names = {
+			"--removeUnlockedWeapon" }, description = "Unlocked Weapon(s) to remove. Does nothing if weapon isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Weapon[] unlockWeaponsToRemove;
+
+	@Option(names = { "--unlockAllItems" }, description = "Unlock all known Items.")
+	private Boolean unlockAllItems;
+
+	@Option(names = {
+			"--addUnlockedItem" }, description = "Unlocked Item(s) to add. Does nothing if item is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Item[] unlockItemsToAdd;
+
+	@Option(names = {
+			"--removeUnlockedItem" }, description = "Unlocked Item(s) to remove. Does nothing if item isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Item[] unlockItemsToRemove;
 
 	@Option(names = { "--specialAttack" }, description = "Update Special Attack.")
 	private Double specialAttack;
@@ -220,7 +244,10 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.unlockAllStages == null)
 				&& (this.unlockStagesToAdd == null) && (this.unlockStagesToRemove == null)
 				&& (this.unlockAllOutfits == null) && (this.unlockOutfitsToAdd == null)
-				&& (this.unlockOutfitsToRemove == null) && (this.specialAttack == null) && (this.growth == null)
+				&& (this.unlockOutfitsToRemove == null) && (this.unlockAllItems == null)
+				&& (this.unlockItemsToAdd == null) && (this.unlockItemsToRemove == null)
+				&& (this.unlockAllWeapons == null) && (this.unlockWeaponsToAdd == null)
+				&& (this.unlockWeaponsToRemove == null) && (this.specialAttack == null) && (this.growth == null)
 				&& (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
 				&& (this.customize == null) && (this.supports == null) && (this.materialFind == null)
 				&& (this.stamps == null) && (this.enchantments == null) && (this.fandom == null)
@@ -270,6 +297,20 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.unlockOutfitsToAdd != null) && (this.unlockOutfitsToRemove != null)) {
 			SaveData.setUnlockedOutfits(root, doAddRemove(SaveData.getUnlockedOutfits(root), this.unlockOutfitsToAdd,
 					this.unlockOutfitsToRemove));
+		}
+		if ((this.unlockAllWeapons != null) && this.unlockAllWeapons) {
+			SaveData.setUnlockedWeapons(root, Weapon.values());
+		}
+		if ((this.unlockWeaponsToAdd != null) && (this.unlockWeaponsToRemove != null)) {
+			SaveData.setUnlockedWeapons(root, doAddRemove(SaveData.getUnlockedWeapons(root), this.unlockWeaponsToAdd,
+					this.unlockWeaponsToRemove));
+		}
+		if ((this.unlockAllItems != null) && this.unlockAllItems) {
+			SaveData.setUnlockedItems(root, Item.values());
+		}
+		if ((this.unlockItemsToAdd != null) && (this.unlockItemsToRemove != null)) {
+			SaveData.setUnlockedItems(root,
+					doAddRemove(SaveData.getUnlockedItems(root), this.unlockItemsToAdd, this.unlockItemsToRemove));
 		}
 		if (this.specialAttack != null) {
 			SaveData.setSpecialAttack(root, this.specialAttack);

@@ -60,8 +60,9 @@ Usage: HoloCureManagerCli list
 
 ```
 Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
-                                 [--unlockAllFurnitures] [--unlockAllOutfits]
-                                 [--unlockAllStages] [--activeAxe=<activeAxe>]
+                                 [--unlockAllFurnitures] [--unlockAllItems]
+                                 [--unlockAllOutfits] [--unlockAllStages]
+                                 [--unlockAllWeapons] [--activeAxe=<activeAxe>]
                                  [--activeFishRod=<activeFishRod>]
                                  [--activePet=<activePet>]
                                  [--activePickaxe=<activePickaxe>]
@@ -103,16 +104,23 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
                                  [--addUnlockedFurniture
                                  [=<unlockFurnituresToAdd>...]]...
+                                 [--addUnlockedItem[=<unlockItemsToAdd>...]]...
                                  [--addUnlockedOutfit
                                  [=<unlockOutfitsToAdd>...]]...
                                  [--addUnlockedStage
                                  [=<unlockStagesToAdd>...]]...
+                                 [--addUnlockedWeapon
+                                 [=<unlockWeaponsToAdd>...]]...
                                  [--removeUnlockedFurniture
                                  [=<unlockFurnituresToRemove>...]]...
+                                 [--removeUnlockedItem
+                                 [=<unlockItemsToRemove>...]]...
                                  [--removeUnlockedOutfit
                                  [=<unlockOutfitsToRemove>...]]...
                                  [--removeUnlockedStage
-                                 [=<unlockStagesToRemove>...]]... [COMMAND]
+                                 [=<unlockStagesToRemove>...]]...
+                                 [--removeUnlockedWeapon
+                                 [=<unlockWeaponsToRemove>...]]... [COMMAND]
 Update only portions of a save file.
       --activeAxe=<activeAxe>
                             Update Active Axe. Valid values are: OLD, STONE,
@@ -172,6 +180,20 @@ Update only portions of a save file.
                               TATAMI_FLOOR, FLAT_WALL, STRIPED_WALL, SKY_WALL,
                               POLKA_WALL_A, POLKA_WALL_B, POLKA_WALL_C,
                               OCEAN_WALL, MODERN_WALL, STONE_WALL, EASTERN_WALL.
+      --addUnlockedItem[=<unlockItemsToAdd>...]
+                            Unlocked Item(s) to add. Does nothing if item is
+                              already unlocked. Valid values are: BODY_PILLOW,
+                              FULL_MEAL, PIKI_PIKI_PIMAN, SUCCUBUS_HORN,
+                              HEADPHONES, UBER_SHEEP, HOLY_MILK, SAKE,
+                              FACE_MASK, CREDIT_CARD, SUPER_CHATTO_TIME,
+                              IDOL_COSTUME, BLACKSMITHS_GEAR, BREASTPLATE,
+                              STUDY_GLASSES, GORILLAS_PAW, HALU,
+                              INJECTION_ASACOCO, MEMBERSHIP, PIGGY_BANK,
+                              BANDAID, CHICKENS_FEATHER, ENERGY_DRINK,
+                              GWS_PILL, PLUSHIE, DEVIL_HAT, LIMITER,
+                              NINJA_HEADBAND, FOCUS_SHADES, CANDY, BEETLE,
+                              SHACKLESS, HOPE_SODA, LAB_COAT, PROMISE_TIARA,
+                              RAVEN_FEATHER, CORPORATION_PIN.
       --addUnlockedOutfit[=<unlockOutfitsToAdd>...]
                             Unlocked Outfit(s) to add. Does nothing if outfit
                               is already unlocked. Valid values are: DEFAULT,
@@ -207,6 +229,14 @@ Update only portions of a save file.
                               STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_1_HARD,
                               STAGE_2_HARD, STAGE_3_HARD, STAGE_4_HARD,
                               TIME_STAGE_1, HOLO_HOUSE, USADA_CASINO.
+      --addUnlockedWeapon[=<unlockWeaponsToAdd>...]
+                            Unlocked Weapon(s) to add. Does nothing if weapon
+                              is already unlocked. Valid values are:
+                              PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING, TAILPLUG,
+                              BL_BOOK, ELITE_LAVA, HOLO_BOMB, HOLO_LASER,
+                              WAMY_WATER, CEO_TEARS, CUTTING_BOARD,
+                              BOUNCE_BALL, EN_CURSE, IDOL_SONG, X_POTATO,
+                              SAUSAGE, OWL_DAGGER.
       --atkUp=<atkUp>       Update ATK Up.
       --collabBan=<collabBan>
                             Update Collab Ban.
@@ -298,6 +328,20 @@ Update only portions of a save file.
                               TATAMI_FLOOR, FLAT_WALL, STRIPED_WALL, SKY_WALL,
                               POLKA_WALL_A, POLKA_WALL_B, POLKA_WALL_C,
                               OCEAN_WALL, MODERN_WALL, STONE_WALL, EASTERN_WALL.
+      --removeUnlockedItem[=<unlockItemsToRemove>...]
+                            Unlocked Item(s) to remove. Does nothing if item
+                              isn't unlocked. Valid values are: BODY_PILLOW,
+                              FULL_MEAL, PIKI_PIKI_PIMAN, SUCCUBUS_HORN,
+                              HEADPHONES, UBER_SHEEP, HOLY_MILK, SAKE,
+                              FACE_MASK, CREDIT_CARD, SUPER_CHATTO_TIME,
+                              IDOL_COSTUME, BLACKSMITHS_GEAR, BREASTPLATE,
+                              STUDY_GLASSES, GORILLAS_PAW, HALU,
+                              INJECTION_ASACOCO, MEMBERSHIP, PIGGY_BANK,
+                              BANDAID, CHICKENS_FEATHER, ENERGY_DRINK,
+                              GWS_PILL, PLUSHIE, DEVIL_HAT, LIMITER,
+                              NINJA_HEADBAND, FOCUS_SHADES, CANDY, BEETLE,
+                              SHACKLESS, HOPE_SODA, LAB_COAT, PROMISE_TIARA,
+                              RAVEN_FEATHER, CORPORATION_PIN.
       --removeUnlockedOutfit[=<unlockOutfitsToRemove>...]
                             Unlocked Outfit(s) to remove. Does nothing if
                               outfit isn't unlocked. Valid values are: DEFAULT,
@@ -333,6 +377,14 @@ Update only portions of a save file.
                               STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_1_HARD,
                               STAGE_2_HARD, STAGE_3_HARD, STAGE_4_HARD,
                               TIME_STAGE_1, HOLO_HOUSE, USADA_CASINO.
+      --removeUnlockedWeapon[=<unlockWeaponsToRemove>...]
+                            Unlocked Weapon(s) to remove. Does nothing if
+                              weapon isn't unlocked. Valid values are:
+                              PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING, TAILPLUG,
+                              BL_BOOK, ELITE_LAVA, HOLO_BOMB, HOLO_LASER,
+                              WAMY_WATER, CEO_TEARS, CUTTING_BOARD,
+                              BOUNCE_BALL, EN_CURSE, IDOL_SONG, X_POTATO,
+                              SAUSAGE, OWL_DAGGER.
       --reroll=<reroll>     Update Reroll.
       --sand=<sand>         Update Sand.
       --skillUp=<skillUp>   Update Skill Up.
@@ -347,8 +399,10 @@ Update only portions of a save file.
       --supports=<supports> Update Supports.
       --timeModeUnlocked    Update if Time Mode is Unlocked.
       --unlockAllFurnitures Unlock all known Furnitures.
+      --unlockAllItems      Unlock all known Items.
       --unlockAllOutfits    Unlock all known Outfits.
       --unlockAllStages     Unlock all known Stages.
+      --unlockAllWeapons    Unlock all known Weapons.
       --usaChips=<usaChips> Update UsaChips.
       --weaponLimit=<weaponLimit>
                             Update Weapon Limit.
