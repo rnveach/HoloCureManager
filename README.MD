@@ -59,8 +59,9 @@ Usage: HoloCureManagerCli list
 ### Update Command
 
 ```
-Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--unlockAllStages]
-                                 [--activeAxe=<activeAxe>]
+Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
+                                 [--unlockAllFurnitures] [--unlockAllOutfits]
+                                 [--unlockAllStages] [--activeAxe=<activeAxe>]
                                  [--activeFishRod=<activeFishRod>]
                                  [--activePet=<activePet>]
                                  [--activePickaxe=<activePickaxe>]
@@ -100,8 +101,16 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--unlockAllStages]
                                  [--weaponLimit=<weaponLimit>]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
+                                 [--addUnlockedFurniture
+                                 [=<unlockFurnituresToAdd>...]]...
+                                 [--addUnlockedOutfit
+                                 [=<unlockOutfitsToAdd>...]]...
                                  [--addUnlockedStage
                                  [=<unlockStagesToAdd>...]]...
+                                 [--removeUnlockedFurniture
+                                 [=<unlockFurnituresToRemove>...]]...
+                                 [--removeUnlockedOutfit
+                                 [=<unlockOutfitsToRemove>...]]...
                                  [--removeUnlockedStage
                                  [=<unlockStagesToRemove>...]]... [COMMAND]
 Update only portions of a save file.
@@ -123,6 +132,75 @@ Update only portions of a save file.
                             Update Active Trail. Valid values are: HEARTS,
                               SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
                               SKULLS.
+      --addUnlockedFurniture[=<unlockFurnituresToAdd>...]
+                            Unlocked Furniture(s) to add. Does nothing if
+                              furniture is already unlocked. Valid values are:
+                              WOODEN_BED, WOODEN_BED_B, WOODEN_BED_C,
+                              WOODEN_BED_D, MARBLE_BED, FUTON, COUCH_A,
+                              FOXBURGER, NIGHTSTAND_A, NIGHTSTAND_B,
+                              WOODEN_DRESSER_A, WOODEN_DESK, WOODEN_PC_DESK,
+                              MARBLE_DESK, MARBLE_LAPTOP_DESK, BEANBAG,
+                              OFFICE_CHAIR, GAMER_CHAIR_A, GAMER_CHAIR_B,
+                              GAMER_CHAIR_C, GAMER_CHAIR_D, GAMER_CHAIR_E,
+                              GAMER_CHAIR_F, GAMER_CHAIR_G, GAMER_CHAIR_H,
+                              VANITY, BODY_PILLOW, WOODEN_DINING_TABLE,
+                              MARBLE_TABLE, WOODEN_DINING_CHAIR, MARBLE_CHAIR,
+                              STOOL_A1, WOODEN_TABLE, MARBLE_TABLE_2,
+                              GLASS_TABLE, EASTERN_TABLE, FLOOR_CUSHION,
+                              WOODEN_TALL_CABINET, STANDING_LAMP_A, FIREPLACE,
+                              TV_STAND, CRT_TV, RETRO_CONSOLE, VR_SET,
+                              WOODEN_BOOKSHELF, MARBLE_BOOKSHELF, DISPLAY_CASE,
+                              KITCHEN_COUNTER_A, MICROWAVE, MARBLE_COUNTER,
+                              SINK, MARBLE_SINK, FRIDGE, STOVE, WOODEN_CRATE,
+                              WOODEN_BARREL, BOX_A, BOX_B, TREASURE_CHEST_A,
+                              PLANT_POT_A, PLANT_POT_B, PLANT_POT_C,
+                              BERRY_PLANT, MARBLE_STUMP, DUMBELL,
+                              EXERCISE_BALL, BOXING_DUMMY, VAMPIRE_COFFIN,
+                              BAEGEMITE, TAIKO_DRUMS, SHRINE_BOX, KFP_BUCKET,
+                              SHARK_PLUSH, NEKO_PLUSH, ACHAN_DOLL,
+                              WOODEN_DIVIDER, MARBLE_PARTITION,
+                              EASTERN_DIVIDER, WOODEN_WALL, WOODEN_WALL_2,
+                              WOODEN_HALF_WALL, WOODEN_COLUMN, MARBLE_COLUMN,
+                              WOODEN_DOOR, BATH_STOOL, BATHTUB, TOILET,
+                              WASHING_MACHINE, LAUNDRY_BASKET, CLOCK,
+                              KRONIC_CLOCK, PAINTING_A, PAINTING_C, PAINTING_B,
+                              PAINTING_D, WALL_MIRROR, LANTERN, HANGING_VINE,
+                              MOUNTED_SWORD, DEMON_SWORD, WINDOW, WOODEN_FLOOR,
+                              WOODEN_FLOOR_2, STONE_FLOOR, RED_CARPET_FLOOR,
+                              BLUE_CARPET_FLOOR, PINK_CARPET_FLOOR,
+                              CONCRETE_FLOOR, MARBLE_FLOOR, TILED_FLOOR,
+                              TATAMI_FLOOR, FLAT_WALL, STRIPED_WALL, SKY_WALL,
+                              POLKA_WALL_A, POLKA_WALL_B, POLKA_WALL_C,
+                              OCEAN_WALL, MODERN_WALL, STONE_WALL, EASTERN_WALL.
+      --addUnlockedOutfit[=<unlockOutfitsToAdd>...]
+                            Unlocked Outfit(s) to add. Does nothing if outfit
+                              is already unlocked. Valid values are: DEFAULT,
+                              AME_ALT1, AME_ALT2, AME_ALT3, AME_ALT4,
+                              GURA_ALT1, GURA_ALT2, GURA_ALT3, GURA_ALT4,
+                              CALLI_ALT1, CALLI_ALT2, CALLI_ALT3, CALLI_ALT4,
+                              INA_ALT1, INA_ALT2, INA_ALT3, INA_ALT4,
+                              KIARA_ALT1, KIARA_ALT2, KIARA_ALT3, KIARA_ALT4,
+                              IRYS_ALT1, IRYS_ALT2, IRYS_ALT3, IRYS_ALT4,
+                              BAE_ALT1, BAE_ALT2, BAE_ALT3, KRONII_ALT1,
+                              KRONII_ALT2, KRONII_ALT3, FAUNA_ALT1, FAUNA_ALT2,
+                              FAUNA_ALT3, MUMEI_ALT1, MUMEI_ALT2, MUMEI_ALT3,
+                              SANA_ALT1, SANA_ALT2, KUROKAMI, FUBUKI_ALT1,
+                              FUBUKI_ALT2, FUBUKI_ALT3, OKAYU_ALT1, OKAYU_ALT2,
+                              OKAYU_ALT3, KORONE_ALT1, KORONE_ALT2,
+                              KORONE_ALT3, MIO_ALT1, MIO_ALT2, MIO_ALT3,
+                              SORA_ALT1, SORA_ALT2, SORA_ALT3, AZKI_ALT1,
+                              AZKI_ALT2, AZKI_ALT3, MIKO_ALT1, MIKO_ALT2,
+                              MIKO_ALT3, SUISEI_ALT1, SUISEI_ALT2, SUISEI_ALT3,
+                              ROBOCO_ALT1, ROBOCO_ALT2, ROBOCO_ALT3,
+                              HAATO_ALT1, HAATO_ALT2, MEL_ALT1, MEL_ALT2,
+                              MATSURI_ALT1, MATSURI_ALT2, AKI_ALT1, AKI_ALT2,
+                              SUBARU_ALT1, SUBARU_ALT2, CHOCO_ALT1, CHOCO_ALT2,
+                              SHION_ALT1, SHION_ALT2, AYAME_ALT1, AYAME_ALT2,
+                              AQUA_ALT1, AQUA_ALT2, MOONA_ALT1, RISU_ALT1,
+                              IOFI_ALT1, OLLIE_ALT1, REINE_ALT1, ANYA_ALT1,
+                              KAELA_ALT1, ZETA_ALT1, KOBO_ALT1, PEKORA_ALT1,
+                              NOEL_ALT1, FLARE_ALT1, MARINE_ALT1, COCO_ALT1,
+                              KANATA_ALT1, WATAME_ALT1, LUNA_ALT1, TOWA_ALT1.
       --addUnlockedStage[=<unlockStagesToAdd>...]
                             Unlocked Stage(s) to add. Does nothing if stage is
                               already unlocked. Valid values are: STAGE_1,
@@ -180,6 +258,75 @@ Update only portions of a save file.
                             Update Refund All.
       --regeneration=<regeneration>
                             Update Regeneration.
+      --removeUnlockedFurniture[=<unlockFurnituresToRemove>...]
+                            Unlocked Furniture(s) to remove. Does nothing if
+                              furniture isn't unlocked. Valid values are:
+                              WOODEN_BED, WOODEN_BED_B, WOODEN_BED_C,
+                              WOODEN_BED_D, MARBLE_BED, FUTON, COUCH_A,
+                              FOXBURGER, NIGHTSTAND_A, NIGHTSTAND_B,
+                              WOODEN_DRESSER_A, WOODEN_DESK, WOODEN_PC_DESK,
+                              MARBLE_DESK, MARBLE_LAPTOP_DESK, BEANBAG,
+                              OFFICE_CHAIR, GAMER_CHAIR_A, GAMER_CHAIR_B,
+                              GAMER_CHAIR_C, GAMER_CHAIR_D, GAMER_CHAIR_E,
+                              GAMER_CHAIR_F, GAMER_CHAIR_G, GAMER_CHAIR_H,
+                              VANITY, BODY_PILLOW, WOODEN_DINING_TABLE,
+                              MARBLE_TABLE, WOODEN_DINING_CHAIR, MARBLE_CHAIR,
+                              STOOL_A1, WOODEN_TABLE, MARBLE_TABLE_2,
+                              GLASS_TABLE, EASTERN_TABLE, FLOOR_CUSHION,
+                              WOODEN_TALL_CABINET, STANDING_LAMP_A, FIREPLACE,
+                              TV_STAND, CRT_TV, RETRO_CONSOLE, VR_SET,
+                              WOODEN_BOOKSHELF, MARBLE_BOOKSHELF, DISPLAY_CASE,
+                              KITCHEN_COUNTER_A, MICROWAVE, MARBLE_COUNTER,
+                              SINK, MARBLE_SINK, FRIDGE, STOVE, WOODEN_CRATE,
+                              WOODEN_BARREL, BOX_A, BOX_B, TREASURE_CHEST_A,
+                              PLANT_POT_A, PLANT_POT_B, PLANT_POT_C,
+                              BERRY_PLANT, MARBLE_STUMP, DUMBELL,
+                              EXERCISE_BALL, BOXING_DUMMY, VAMPIRE_COFFIN,
+                              BAEGEMITE, TAIKO_DRUMS, SHRINE_BOX, KFP_BUCKET,
+                              SHARK_PLUSH, NEKO_PLUSH, ACHAN_DOLL,
+                              WOODEN_DIVIDER, MARBLE_PARTITION,
+                              EASTERN_DIVIDER, WOODEN_WALL, WOODEN_WALL_2,
+                              WOODEN_HALF_WALL, WOODEN_COLUMN, MARBLE_COLUMN,
+                              WOODEN_DOOR, BATH_STOOL, BATHTUB, TOILET,
+                              WASHING_MACHINE, LAUNDRY_BASKET, CLOCK,
+                              KRONIC_CLOCK, PAINTING_A, PAINTING_C, PAINTING_B,
+                              PAINTING_D, WALL_MIRROR, LANTERN, HANGING_VINE,
+                              MOUNTED_SWORD, DEMON_SWORD, WINDOW, WOODEN_FLOOR,
+                              WOODEN_FLOOR_2, STONE_FLOOR, RED_CARPET_FLOOR,
+                              BLUE_CARPET_FLOOR, PINK_CARPET_FLOOR,
+                              CONCRETE_FLOOR, MARBLE_FLOOR, TILED_FLOOR,
+                              TATAMI_FLOOR, FLAT_WALL, STRIPED_WALL, SKY_WALL,
+                              POLKA_WALL_A, POLKA_WALL_B, POLKA_WALL_C,
+                              OCEAN_WALL, MODERN_WALL, STONE_WALL, EASTERN_WALL.
+      --removeUnlockedOutfit[=<unlockOutfitsToRemove>...]
+                            Unlocked Outfit(s) to remove. Does nothing if
+                              outfit isn't unlocked. Valid values are: DEFAULT,
+                              AME_ALT1, AME_ALT2, AME_ALT3, AME_ALT4,
+                              GURA_ALT1, GURA_ALT2, GURA_ALT3, GURA_ALT4,
+                              CALLI_ALT1, CALLI_ALT2, CALLI_ALT3, CALLI_ALT4,
+                              INA_ALT1, INA_ALT2, INA_ALT3, INA_ALT4,
+                              KIARA_ALT1, KIARA_ALT2, KIARA_ALT3, KIARA_ALT4,
+                              IRYS_ALT1, IRYS_ALT2, IRYS_ALT3, IRYS_ALT4,
+                              BAE_ALT1, BAE_ALT2, BAE_ALT3, KRONII_ALT1,
+                              KRONII_ALT2, KRONII_ALT3, FAUNA_ALT1, FAUNA_ALT2,
+                              FAUNA_ALT3, MUMEI_ALT1, MUMEI_ALT2, MUMEI_ALT3,
+                              SANA_ALT1, SANA_ALT2, KUROKAMI, FUBUKI_ALT1,
+                              FUBUKI_ALT2, FUBUKI_ALT3, OKAYU_ALT1, OKAYU_ALT2,
+                              OKAYU_ALT3, KORONE_ALT1, KORONE_ALT2,
+                              KORONE_ALT3, MIO_ALT1, MIO_ALT2, MIO_ALT3,
+                              SORA_ALT1, SORA_ALT2, SORA_ALT3, AZKI_ALT1,
+                              AZKI_ALT2, AZKI_ALT3, MIKO_ALT1, MIKO_ALT2,
+                              MIKO_ALT3, SUISEI_ALT1, SUISEI_ALT2, SUISEI_ALT3,
+                              ROBOCO_ALT1, ROBOCO_ALT2, ROBOCO_ALT3,
+                              HAATO_ALT1, HAATO_ALT2, MEL_ALT1, MEL_ALT2,
+                              MATSURI_ALT1, MATSURI_ALT2, AKI_ALT1, AKI_ALT2,
+                              SUBARU_ALT1, SUBARU_ALT2, CHOCO_ALT1, CHOCO_ALT2,
+                              SHION_ALT1, SHION_ALT2, AYAME_ALT1, AYAME_ALT2,
+                              AQUA_ALT1, AQUA_ALT2, MOONA_ALT1, RISU_ALT1,
+                              IOFI_ALT1, OLLIE_ALT1, REINE_ALT1, ANYA_ALT1,
+                              KAELA_ALT1, ZETA_ALT1, KOBO_ALT1, PEKORA_ALT1,
+                              NOEL_ALT1, FLARE_ALT1, MARINE_ALT1, COCO_ALT1,
+                              KANATA_ALT1, WATAME_ALT1, LUNA_ALT1, TOWA_ALT1.
       --removeUnlockedStage[=<unlockStagesToRemove>...]
                             Unlocked Stage(s) to remove. Does nothing if stage
                               isn't unlocked. Valid values are: STAGE_1,
@@ -199,6 +346,8 @@ Update only portions of a save file.
                             Update Supers Ban.
       --supports=<supports> Update Supports.
       --timeModeUnlocked    Update if Time Mode is Unlocked.
+      --unlockAllFurnitures Unlock all known Furnitures.
+      --unlockAllOutfits    Unlock all known Outfits.
       --unlockAllStages     Unlock all known Stages.
       --usaChips=<usaChips> Update UsaChips.
       --weaponLimit=<weaponLimit>

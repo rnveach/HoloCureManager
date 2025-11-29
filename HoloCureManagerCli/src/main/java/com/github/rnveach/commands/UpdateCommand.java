@@ -9,6 +9,8 @@ import java.util.concurrent.Callable;
 import com.github.rnveach.HoloCureManagerCli;
 import com.github.rnveach.data.Axe;
 import com.github.rnveach.data.FishRod;
+import com.github.rnveach.data.Furniture;
+import com.github.rnveach.data.Outfit;
 import com.github.rnveach.data.Pet;
 import com.github.rnveach.data.Pickaxe;
 import com.github.rnveach.data.SaveData;
@@ -47,6 +49,17 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = {
 			"--removeUnlockedStage" }, description = "Unlocked Stage(s) to remove. Does nothing if stage isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Stage[] unlockStagesToRemove;
+
+	@Option(names = { "--unlockAllOutfits" }, description = "Unlock all known Outfits.")
+	private Boolean unlockAllOutfits;
+
+	@Option(names = {
+			"--addUnlockedOutfit" }, description = "Unlocked Outfit(s) to add. Does nothing if outfit is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Outfit[] unlockOutfitsToAdd;
+
+	@Option(names = {
+			"--removeUnlockedOutfit" }, description = "Unlocked Outfit(s) to remove. Does nothing if outfit isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Outfit[] unlockOutfitsToRemove;
 
 	@Option(names = { "--specialAttack" }, description = "Update Special Attack.")
 	private Double specialAttack;
@@ -150,6 +163,17 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--refundAll" }, description = "Update Refund All.")
 	private Double refundAll;
 
+	@Option(names = { "--unlockAllFurnitures" }, description = "Unlock all known Furnitures.")
+	private Boolean unlockAllFurnitures;
+
+	@Option(names = {
+			"--addUnlockedFurniture" }, description = "Unlocked Furniture(s) to add. Does nothing if furniture is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Furniture[] unlockFurnituresToAdd;
+
+	@Option(names = {
+			"--removeUnlockedFurniture" }, description = "Unlocked Furniture(s) to remove. Does nothing if furniture isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Furniture[] unlockFurnituresToRemove;
+
 	@Option(names = { "--sand" }, description = "Update Sand.")
 	private Double sand;
 
@@ -195,21 +219,25 @@ public class UpdateCommand implements Callable<Integer> {
 	public void validateOptions() {
 		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.unlockAllStages == null)
 				&& (this.unlockStagesToAdd == null) && (this.unlockStagesToRemove == null)
-				&& (this.specialAttack == null) && (this.growth == null) && (this.reroll == null)
-				&& (this.eliminate == null) && (this.holdFind == null) && (this.customize == null)
-				&& (this.supports == null) && (this.materialFind == null) && (this.stamps == null)
-				&& (this.enchantments == null) && (this.fandom == null) && (this.fanLetters == null)
-				&& (this.maxHpUp == null) && (this.atkUp == null) && (this.spdUp == null) && (this.critUp == null)
-				&& (this.pickUpRange == null) && (this.hasteUp == null) && (this.regeneration == null)
-				&& (this.defenseUp == null) && (this.specialCooldownReduction == null) && (this.skillUp == null)
-				&& (this.expGainUp == null) && (this.foodDropsUp == null) && (this.moneyGainUp == null)
-				&& (this.enhancementRateUp == null) && (this.marketing == null) && (this.weaponLimit == null)
-				&& (this.itemLimit == null) && (this.collabBan == null) && (this.supersBan == null)
-				&& (this.gRankOff == null) && (this.hardcore == null) && (this.refundAll == null) && (this.sand == null)
-				&& (this.activeFishRod == null) && (this.managementLevel == null) && (this.managementExp == null)
-				&& (this.mineLevel == null) && (this.mineExp == null) && (this.woodcuttingLevel == null)
-				&& (this.woodcuttingExp == null) && (this.activePickaxe == null) && (this.activeAxe == null)
-				&& (this.usaChips == null) && (this.activePet == null) && (this.activeTrail == null)) {
+				&& (this.unlockAllOutfits == null) && (this.unlockOutfitsToAdd == null)
+				&& (this.unlockOutfitsToRemove == null) && (this.specialAttack == null) && (this.growth == null)
+				&& (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
+				&& (this.customize == null) && (this.supports == null) && (this.materialFind == null)
+				&& (this.stamps == null) && (this.enchantments == null) && (this.fandom == null)
+				&& (this.fanLetters == null) && (this.maxHpUp == null) && (this.atkUp == null) && (this.spdUp == null)
+				&& (this.critUp == null) && (this.pickUpRange == null) && (this.hasteUp == null)
+				&& (this.regeneration == null) && (this.defenseUp == null) && (this.specialCooldownReduction == null)
+				&& (this.skillUp == null) && (this.expGainUp == null) && (this.foodDropsUp == null)
+				&& (this.moneyGainUp == null) && (this.enhancementRateUp == null) && (this.marketing == null)
+				&& (this.weaponLimit == null) && (this.itemLimit == null) && (this.collabBan == null)
+				&& (this.supersBan == null) && (this.gRankOff == null) && (this.hardcore == null)
+				&& (this.refundAll == null) && (this.unlockAllFurnitures == null)
+				&& (this.unlockFurnituresToAdd == null) && (this.unlockFurnituresToRemove == null)
+				&& (this.sand == null) && (this.activeFishRod == null) && (this.managementLevel == null)
+				&& (this.managementExp == null) && (this.mineLevel == null) && (this.mineExp == null)
+				&& (this.woodcuttingLevel == null) && (this.woodcuttingExp == null) && (this.activePickaxe == null)
+				&& (this.activeAxe == null) && (this.usaChips == null) && (this.activePet == null)
+				&& (this.activeTrail == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
 		}
@@ -235,6 +263,13 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.unlockStagesToAdd != null) && (this.unlockStagesToRemove != null)) {
 			SaveData.setUnlockedStages(root,
 					doAddRemove(SaveData.getUnlockedStages(root), this.unlockStagesToAdd, this.unlockStagesToRemove));
+		}
+		if ((this.unlockAllOutfits != null) && this.unlockAllOutfits) {
+			SaveData.setUnlockedOutfits(root, Outfit.values());
+		}
+		if ((this.unlockOutfitsToAdd != null) && (this.unlockOutfitsToRemove != null)) {
+			SaveData.setUnlockedOutfits(root, doAddRemove(SaveData.getUnlockedOutfits(root), this.unlockOutfitsToAdd,
+					this.unlockOutfitsToRemove));
 		}
 		if (this.specialAttack != null) {
 			SaveData.setSpecialAttack(root, this.specialAttack);
@@ -337,6 +372,13 @@ public class UpdateCommand implements Callable<Integer> {
 		}
 		if (this.refundAll != null) {
 			SaveData.setRefundAll(root, this.refundAll);
+		}
+		if ((this.unlockAllFurnitures != null) && this.unlockAllFurnitures) {
+			SaveData.setUnlockedFurnitures(root, Furniture.values());
+		}
+		if ((this.unlockFurnituresToAdd != null) && (this.unlockFurnituresToRemove != null)) {
+			SaveData.setUnlockedFurnitures(root, doAddRemove(SaveData.getUnlockedFurnitures(root),
+					this.unlockFurnituresToAdd, this.unlockFurnituresToRemove));
 		}
 		if (this.sand != null) {
 			SaveData.setSand(root, this.sand);

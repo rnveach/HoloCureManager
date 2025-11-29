@@ -45,6 +45,8 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\tTime Mode Unlocked: %b", SaveData.getTimeModeUnlocked(root)));
 		System.out.println();
 		printDisplay("\t", "Unlocked Stages:", SaveData.getUnlockedStages(root));
+		System.out.println();
+		printDisplay("\t", "Unlocked Outfits:", SaveData.getUnlockedOutfits(root));
 
 		System.out.println();
 		System.out.println("\tUpgrades:");
@@ -93,6 +95,8 @@ public final class ListCommand implements Callable<Integer> {
 
 		System.out.println();
 		System.out.println("HoloHouse:");
+		printDisplay("\t", "Unlocked Furniture:", SaveData.getUnlockedFurnitures(root));
+		System.out.println();
 		System.out.println("\tFishing Pond:");
 		System.out.println(String.format("\t\tSand: %.1f", SaveData.getSand(root)));
 		System.out.println(String.format("\t\tActive Fish Rod: %s", getDisplay(SaveData.getActiveFishRod(root))));
@@ -131,10 +135,14 @@ public final class ListCommand implements Callable<Integer> {
 	}
 
 	private static void printDisplay(String tab, String header, Displayable[] values) {
-		System.out.println(tab + header);
+		System.out.println(tab + header + " (" + values.length + ")");
 
-		for (final Displayable value : values) {
-			System.out.println(tab + String.format("\t%s", value.getDisplay()));
+		if (values.length == 0) {
+			System.out.println(tab + "\t<None>");
+		} else {
+			for (final Displayable value : values) {
+				System.out.println(tab + String.format("\t%s", value.getDisplay()));
+			}
 		}
 	}
 

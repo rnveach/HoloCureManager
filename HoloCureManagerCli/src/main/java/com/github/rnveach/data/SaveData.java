@@ -26,6 +26,8 @@ public final class SaveData {
 
 	public static final String UNLOCKED_STAGES = "unlockedStages";
 
+	public static final String UNLOCKED_OUTFITS = "unlockedOutfits";
+
 	public static final int SPECIAL_ATTACK_MAX = 1;
 	public static final String SPECIAL_ATTACK = "specUnlock";
 
@@ -128,6 +130,8 @@ public final class SaveData {
 	public static final int REFUND_ALL_MAX = 1;
 	public static final String REFUND_ALL = "refund";
 
+	public static final String UNLOCKED_FURNITURES = "unlockedFurniture";
+
 	public static final String SAND = "fishSand";
 
 	public static final String ACTIVE_FISH_ROD = "fishRod";
@@ -188,6 +192,14 @@ public final class SaveData {
 
 	public static void setUnlockedStages(JsonElement element, Stage[] values) {
 		setArrayString(element, UNLOCKED_STAGES, Stage.convert(values));
+	}
+
+	public static Outfit[] getUnlockedOutfits(JsonElement element) {
+		return Outfit.get(getArrayString(element, UNLOCKED_OUTFITS));
+	}
+
+	public static void setUnlockedOutfits(JsonElement element, Outfit[] values) {
+		setArrayString(element, UNLOCKED_OUTFITS, Outfit.convert(values));
 	}
 
 	public static Double getSpecialAttack(JsonElement element) {
@@ -598,6 +610,14 @@ public final class SaveData {
 		setDouble(element, REFUND_ALL, value);
 	}
 
+	public static Furniture[] getUnlockedFurnitures(JsonElement element) {
+		return Furniture.get(getArrayString(element, UNLOCKED_FURNITURES));
+	}
+
+	public static void setUnlockedFurnitures(JsonElement element, Furniture[] values) {
+		setArrayString(element, UNLOCKED_FURNITURES, Furniture.convert(values));
+	}
+
 	public static Double getSand(JsonElement element) {
 		return getDouble(element, SAND);
 	}
@@ -716,6 +736,7 @@ public final class SaveData {
 		results.remove(RANDOM_MONEY_KEY);
 		results.remove(TIME_MODE_UNLOCKED);
 		results.remove(UNLOCKED_STAGES);
+		results.remove(UNLOCKED_OUTFITS);
 		results.remove(SPECIAL_ATTACK);
 		results.remove(GROWTH);
 		results.remove(REROLL);
@@ -750,6 +771,7 @@ public final class SaveData {
 		results.remove(G_RANK_OFF);
 		results.remove(HARDCORE);
 		results.remove(REFUND_ALL);
+		results.remove(UNLOCKED_FURNITURES);
 		results.remove(SAND);
 		results.remove(ACTIVE_FISH_ROD);
 		results.remove(MANAGEMENT_LEVEL);
