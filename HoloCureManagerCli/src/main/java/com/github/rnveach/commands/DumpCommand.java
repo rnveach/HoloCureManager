@@ -21,9 +21,13 @@ public final class DumpCommand implements Callable<Integer> {
 	@Option(names = { "-p", "--pretty" }, description = "Pretty print the dump display.")
 	private boolean pretty;
 
+	private void validateOptions() {
+		this.parent.validateOptions();
+	}
+
 	@Override
 	public Integer call() throws Exception {
-		this.parent.validateOptions();
+		validateOptions();
 
 		if (this.pretty) {
 			System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(this.parent.getInputFileJson()));

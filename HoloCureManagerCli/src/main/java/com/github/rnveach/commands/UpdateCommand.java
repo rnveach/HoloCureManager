@@ -11,7 +11,8 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.ParameterException;
 import picocli.CommandLine.ParentCommand;
 
-@Command(name = "update", aliases = { "--update", "-u" }, description = "Update only portions of a save file.")
+@Command(name = "update", aliases = { "--update", "-u" }, description = "Update only portions of a save file.", //
+		subcommands = { UpdateRawCommand.class })
 public class UpdateCommand implements Callable<Integer> {
 
 	@ParentCommand
@@ -26,6 +27,9 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--timeModeUnlocked" }, description = "Update if Time Mode is Unlocked.")
 	private Boolean timeModeUnlocked;
 
+	@Option(names = { "--specialAttack" }, description = "Update Special Attack.")
+	private Double specialAttack;
+
 	@Option(names = { "--growth" }, description = "Update Growth.")
 	private Double growth;
 
@@ -37,6 +41,9 @@ public class UpdateCommand implements Callable<Integer> {
 
 	@Option(names = { "--holdFind" }, description = "Update Hold Find.")
 	private Double holdFind;
+
+	@Option(names = { "--customize" }, description = "Update Customize.")
+	private Double customize;
 
 	@Option(names = { "--supports" }, description = "Update Supports.")
 	private Double supports;
@@ -77,6 +84,9 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--regeneration" }, description = "Update Regeneration.")
 	private Double regeneration;
 
+	@Option(names = { "--defenseUp" }, description = "Update Defense Up.")
+	private Double defenseUp;
+
 	@Option(names = { "--specialCooldownReduction" }, description = "Update Special Cooldown Reduction.")
 	private Double specialCooldownReduction;
 
@@ -94,6 +104,9 @@ public class UpdateCommand implements Callable<Integer> {
 
 	@Option(names = { "--enhancementRateUp" }, description = "Update Enhancement Rate Up.")
 	private Double enhancementRateUp;
+
+	@Option(names = { "--marketing" }, description = "Update Marketing.")
+	private Double marketing;
 
 	@Option(names = { "--weaponLimit" }, description = "Update Weapon Limit.")
 	private Double weaponLimit;
@@ -122,28 +135,28 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--usaChips" }, description = "Update UsaChips.")
 	private Double usaChips;
 
-	// TODO: raw support
-
-	private void validateOptions() {
-		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.growth == null)
-				&& (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
-				&& (this.supports == null) && (this.materialFind == null) && (this.stamps == null)
-				&& (this.enchantments == null) && (this.fandom == null) && (this.fanLetters == null)
-				&& (this.maxHpUp == null) && (this.atkUp == null) && (this.spdUp == null) && (this.critUp == null)
-				&& (this.pickUpRange == null) && (this.hasteUp == null) && (this.regeneration == null)
-				&& (this.specialCooldownReduction == null) && (this.skillUp == null) && (this.expGainUp == null)
-				&& (this.foodDropsUp == null) && (this.moneyGainUp == null) && (this.enhancementRateUp == null)
+	public void validateOptions() {
+		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.specialAttack == null)
+				&& (this.growth == null) && (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
+				&& (this.customize == null) && (this.supports == null) && (this.materialFind == null)
+				&& (this.stamps == null) && (this.enchantments == null) && (this.fandom == null)
+				&& (this.fanLetters == null) && (this.maxHpUp == null) && (this.atkUp == null) && (this.spdUp == null)
+				&& (this.critUp == null) && (this.pickUpRange == null) && (this.hasteUp == null)
+				&& (this.regeneration == null) && (this.defenseUp == null) && (this.specialCooldownReduction == null)
+				&& (this.skillUp == null) && (this.expGainUp == null) && (this.foodDropsUp == null)
+				&& (this.moneyGainUp == null) && (this.enhancementRateUp == null) && (this.marketing == null)
 				&& (this.weaponLimit == null) && (this.itemLimit == null) && (this.collabBan == null)
 				&& (this.supersBan == null) && (this.gRankOff == null) && (this.hardcore == null)
 				&& (this.refundAll == null) && (this.sand == null) && (this.usaChips == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
 		}
+
+		this.parent.validateOptions();
 	}
 
 	@Override
 	public Integer call() throws Exception {
-		this.parent.validateOptions();
 		validateOptions();
 
 		final JsonElement root = this.parent.getInputFileJson();
@@ -153,6 +166,9 @@ public class UpdateCommand implements Callable<Integer> {
 		}
 		if (this.timeModeUnlocked != null) {
 			SaveData.setTimeModeUnlocked(root, this.timeModeUnlocked);
+		}
+		if (this.specialAttack != null) {
+			SaveData.setSpecialAttack(root, this.specialAttack);
 		}
 		if (this.growth != null) {
 			SaveData.setGrowth(root, this.growth);
@@ -165,6 +181,9 @@ public class UpdateCommand implements Callable<Integer> {
 		}
 		if (this.holdFind != null) {
 			SaveData.setHoldFind(root, this.holdFind);
+		}
+		if (this.customize != null) {
+			SaveData.setCustomize(root, this.customize);
 		}
 		if (this.supports != null) {
 			SaveData.setSupports(root, this.supports);
@@ -205,6 +224,9 @@ public class UpdateCommand implements Callable<Integer> {
 		if (this.regeneration != null) {
 			SaveData.setRegeneration(root, this.regeneration);
 		}
+		if (this.defenseUp != null) {
+			SaveData.setDefenseUp(root, this.defenseUp);
+		}
 		if (this.specialCooldownReduction != null) {
 			SaveData.setSpecialCooldownReduction(root, this.specialCooldownReduction);
 		}
@@ -222,6 +244,9 @@ public class UpdateCommand implements Callable<Integer> {
 		}
 		if (this.enhancementRateUp != null) {
 			SaveData.setEnhancementRateUp(root, this.enhancementRateUp);
+		}
+		if (this.marketing != null) {
+			SaveData.setMarketing(root, this.marketing);
 		}
 		if (this.weaponLimit != null) {
 			SaveData.setWeaponLimit(root, this.weaponLimit);
@@ -254,6 +279,10 @@ public class UpdateCommand implements Callable<Integer> {
 		this.parent.writeToInputFile(root.toString());
 
 		return 0;
+	}
+
+	public HoloCureManagerCli getParent() {
+		return this.parent;
 	}
 
 }

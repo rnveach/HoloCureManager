@@ -24,9 +24,13 @@ public final class WriteCommand implements Callable<Integer> {
 			"--data" }, description = "Data to directly write to file instead of input stream.", paramLabel = "STRING")
 	private String data;
 
+	private void validateOptions() {
+		this.parent.validateOptions();
+	}
+
 	@Override
 	public Integer call() throws Exception {
-		this.parent.validateOptions();
+		validateOptions();
 
 		if (System.in.available() > 0) {
 			final StringBuilder stringBuilder = new StringBuilder();

@@ -21,7 +21,8 @@ public final class SaveData {
 
 	public static final String TIME_MODE_UNLOCKED = "timeModeUnlocked";
 
-	// TODO special attack 1
+	public static final int SPECIAL_ATTACK_MAX = 1;
+	public static final String SPECIAL_ATTACK = "specUnlock";
 
 	public static final int GROWTH_MAX = 3;
 	public static final String GROWTH = "growth";
@@ -35,7 +36,8 @@ public final class SaveData {
 	public static final int HOLD_FIND_MAX = 5;
 	public static final String HOLD_FIND = "holdOption";
 
-	// TODO customize 1
+	public static final int CUSTOMIZE_MAX = 1;
+	public static final String CUSTOMIZE = "canDisable";
 
 	public static final int SUPPORTS_MAX = 1;
 	public static final String SUPPORTS = "supports";
@@ -76,7 +78,8 @@ public final class SaveData {
 	public static final int REGENERATION_MAX = 5;
 	public static final String REGENERATION = "regen";
 
-	// TODO defense up 5
+	public static final int DEFENSE_UP_MAX = 5;
+	public static final String DEFENSE_UP = "DR";
 
 	public static final int SPECIAL_COOLDOWN_REDUCTION_MAX = 5;
 	public static final String SPECIAL_COOLDOWN_REDUCTION = "specCDR";
@@ -96,7 +99,8 @@ public final class SaveData {
 	public static final int ENHANCEMENT_RATE_UP_MAX = 5;
 	public static final String ENHANCEMENT_RATE_UP = "enhanceUp";
 
-	// TODO marketing 5
+	public static final int MARKETING_MAX = 5;
+	public static final String MARKETING = "mobUp";
 
 	public static final int WEAPON_LIMIT_MAX = 5;
 	public static final String WEAPON_LIMIT = "weaponLimit";
@@ -151,6 +155,18 @@ public final class SaveData {
 		setBoolean(element, TIME_MODE_UNLOCKED, value);
 	}
 
+	public static Double getSpecialAttack(JsonElement element) {
+		return getDouble(element, SPECIAL_ATTACK);
+	}
+
+	public static void setSpecialAttack(JsonElement element, Double value) {
+		if ((value != null) && (value > SPECIAL_ATTACK_MAX)) {
+			value = (double) SPECIAL_ATTACK_MAX;
+		}
+
+		setDouble(element, SPECIAL_ATTACK, value);
+	}
+
 	public static Double getGrowth(JsonElement element) {
 		return getDouble(element, GROWTH);
 	}
@@ -197,6 +213,18 @@ public final class SaveData {
 		}
 
 		setDouble(element, HOLD_FIND, value);
+	}
+
+	public static Double getCustomize(JsonElement element) {
+		return getDouble(element, CUSTOMIZE);
+	}
+
+	public static void setCustomize(JsonElement element, Double value) {
+		if ((value != null) && (value > CUSTOMIZE_MAX)) {
+			value = (double) CUSTOMIZE_MAX;
+		}
+
+		setDouble(element, CUSTOMIZE, value);
 	}
 
 	public static Double getSupports(JsonElement element) {
@@ -355,6 +383,18 @@ public final class SaveData {
 		setDouble(element, REGENERATION, value);
 	}
 
+	public static Double getDefenseUp(JsonElement element) {
+		return getDouble(element, DEFENSE_UP);
+	}
+
+	public static void setDefenseUp(JsonElement element, Double value) {
+		if ((value != null) && (value > DEFENSE_UP_MAX)) {
+			value = (double) DEFENSE_UP_MAX;
+		}
+
+		setDouble(element, DEFENSE_UP, value);
+	}
+
 	public static Double getSpecialCooldownReduction(JsonElement element) {
 		return getDouble(element, SPECIAL_COOLDOWN_REDUCTION);
 	}
@@ -425,6 +465,18 @@ public final class SaveData {
 		}
 
 		setDouble(element, ENHANCEMENT_RATE_UP, value);
+	}
+
+	public static Double getMarketing(JsonElement element) {
+		return getDouble(element, MARKETING);
+	}
+
+	public static void setMarketing(JsonElement element, Double value) {
+		if ((value != null) && (value > MARKETING_MAX)) {
+			value = (double) MARKETING_MAX;
+		}
+
+		setDouble(element, MARKETING, value);
 	}
 
 	public static Double getWeaponLimit(JsonElement element) {
@@ -540,10 +592,12 @@ public final class SaveData {
 		results.remove(HOLO_COINS);
 		results.remove(RANDOM_MONEY_KEY);
 		results.remove(TIME_MODE_UNLOCKED);
+		results.remove(SPECIAL_ATTACK);
 		results.remove(GROWTH);
 		results.remove(REROLL);
 		results.remove(ELIMINATE);
 		results.remove(HOLD_FIND);
+		results.remove(CUSTOMIZE);
 		results.remove(SUPPORTS);
 		results.remove(MATERIAL_FIND);
 		results.remove(STAMPS);
@@ -557,12 +611,14 @@ public final class SaveData {
 		results.remove(PICK_UP_RANGE);
 		results.remove(HASTE_UP);
 		results.remove(REGENERATION);
+		results.remove(DEFENSE_UP);
 		results.remove(SPECIAL_COOLDOWN_REDUCTION);
 		results.remove(SKILL_UP);
 		results.remove(EXP_GAIN_UP);
 		results.remove(FOOD_DROPS_UP);
 		results.remove(MONEY_GAIN_UP);
 		results.remove(ENHANCEMENT_RATE_UP);
+		results.remove(MARKETING);
 		results.remove(WEAPON_LIMIT);
 		results.remove(ITEM_LIMIT);
 		results.remove(COLLAB_BAN);
@@ -574,6 +630,27 @@ public final class SaveData {
 		results.remove(USA_CHIPS);
 
 		return results;
+	}
+
+	public static void setRaw(JsonElement element, String namedIndex, String value, String type) {
+		switch (type) {
+		case "boolean":
+			if (value.isEmpty()) {
+				setBoolean(element, namedIndex, null);
+			} else {
+				setBoolean(element, namedIndex, Boolean.parseBoolean(value));
+			}
+			break;
+		case "double":
+			if (value.isEmpty()) {
+				setDouble(element, namedIndex, null);
+			} else {
+				setDouble(element, namedIndex, Double.parseDouble(value));
+			}
+			break;
+		default:
+			throw new IllegalStateException("Unknown type: " + type);
+		}
 	}
 
 	private static Boolean getBoolean(JsonElement element, String namedIndex) {

@@ -21,9 +21,13 @@ public final class ListCommand implements Callable<Integer> {
 	@Option(names = { "-h", "--help" }, usageHelp = true)
 	private boolean help;
 
+	private void validateOptions() {
+		this.parent.validateOptions();
+	}
+
 	@Override
 	public Integer call() throws Exception {
-		this.parent.validateOptions();
+		validateOptions();
 
 		final JsonElement root = this.parent.getInputFileJson();
 
@@ -42,10 +46,12 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println();
 		System.out.println("\tUpgrades:");
 		System.out.println("\t\tAbilities:");
+		System.out.println(String.format("\t\t\tSpecial Attack: %.1f", SaveData.getSpecialAttack(root)));
 		System.out.println(String.format("\t\t\tGrowth: %.1f", SaveData.getGrowth(root)));
 		System.out.println(String.format("\t\t\tReroll: %.1f", SaveData.getReroll(root)));
 		System.out.println(String.format("\t\t\tEliminate: %.1f", SaveData.getEliminate(root)));
 		System.out.println(String.format("\t\t\tHold Find: %.1f", SaveData.getHoldFind(root)));
+		System.out.println(String.format("\t\t\tCustomize: %.1f", SaveData.getCustomize(root)));
 		System.out.println(String.format("\t\t\tSupports: %.1f", SaveData.getSupports(root)));
 		System.out.println(String.format("\t\t\tMaterial Find: %.1f", SaveData.getMaterialFind(root)));
 		System.out.println(String.format("\t\t\tStamps: %.1f", SaveData.getStamps(root)));
@@ -62,6 +68,7 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\t\t\tPick Up Range: %.1f", SaveData.getPickUpRange(root)));
 		System.out.println(String.format("\t\t\tHaste Up: %.1f", SaveData.getHasteUp(root)));
 		System.out.println(String.format("\t\t\tRegeneration: %.1f", SaveData.getRegeneration(root)));
+		System.out.println(String.format("\t\t\tDefense Up: %.1f", SaveData.getDefenseUp(root)));
 		System.out.println(
 				String.format("\t\t\tSpecial Cooldown Reduction: %.1f", SaveData.getSpecialCooldownReduction(root)));
 		System.out.println(String.format("\t\t\tSkill Up: %.1f", SaveData.getSkillUp(root)));
@@ -72,6 +79,7 @@ public final class ListCommand implements Callable<Integer> {
 
 		System.out.println();
 		System.out.println("\t\tOther:");
+		System.out.println(String.format("\t\t\tMarketing: %.1f", SaveData.getMarketing(root)));
 		System.out.println(String.format("\t\t\tWeapon Limit: %.1f", SaveData.getWeaponLimit(root)));
 		System.out.println(String.format("\t\t\tItem Limit: %.1f", SaveData.getItemLimit(root)));
 		System.out.println(String.format("\t\t\tCollab Ban: %.1f", SaveData.getCollabBan(root)));

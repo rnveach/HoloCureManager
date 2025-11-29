@@ -61,6 +61,8 @@ Usage: HoloCureManagerCli list
 ```
 Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--atkUp=<atkUp>]
                                  [--collabBan=<collabBan>] [--critUp=<critUp>]
+                                 [--customize=<customize>]
+                                 [--defenseUp=<defenseUp>]
                                  [--eliminate=<eliminate>]
                                  [--enchantments=<enchantments>]
                                  [--enhancementRateUp=<enhancementRateUp>]
@@ -72,6 +74,7 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--atkUp=<atkUp>]
                                  [--holdFind=<holdFind>]
                                  [--holoCoins=<holoCoins>]
                                  [--itemLimit=<itemLimit>]
+                                 [--marketing=<marketing>]
                                  [--materialFind=<materialFind>]
                                  [--maxHpUp=<maxHpUp>]
                                  [--moneyGainUp=<moneyGainUp>]
@@ -80,17 +83,22 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked] [--atkUp=<atkUp>]
                                  [--regeneration=<regeneration>]
                                  [--reroll=<reroll>] [--sand=<sand>]
                                  [--skillUp=<skillUp>] [--spdUp=<spdUp>]
+                                 [--specialAttack=<specialAttack>]
                                  [--specialCooldownReduction=<specialCooldownRed
                                  uction>] [--stamps=<stamps>]
                                  [--supersBan=<supersBan>]
                                  [--supports=<supports>]
                                  [--usaChips=<usaChips>]
-                                 [--weaponLimit=<weaponLimit>]
+                                 [--weaponLimit=<weaponLimit>] [COMMAND]
 Update only portions of a save file.
       --atkUp=<atkUp>       Update ATK Up.
       --collabBan=<collabBan>
                             Update Collab Ban.
       --critUp=<critUp>     Update Crit Up.
+      --customize=<customize>
+                            Update Customize.
+      --defenseUp=<defenseUp>
+                            Update Defense Up.
       --eliminate=<eliminate>
                             Update Eliminate.
       --enchantments=<enchantments>
@@ -114,6 +122,8 @@ Update only portions of a save file.
                             Update HoloCoins.
       --itemLimit=<itemLimit>
                             Update Item Limit.
+      --marketing=<marketing>
+                            Update Marketing.
       --materialFind=<materialFind>
                             Update Material Find.
       --maxHpUp=<maxHpUp>   Update Max HP Up.
@@ -129,6 +139,8 @@ Update only portions of a save file.
       --sand=<sand>         Update Sand.
       --skillUp=<skillUp>   Update Skill Up.
       --spdUp=<spdUp>       Update SPD Up.
+      --specialAttack=<specialAttack>
+                            Update Special Attack.
       --specialCooldownReduction=<specialCooldownReduction>
                             Update Special Cooldown Reduction.
       --stamps=<stamps>     Update Stamps.
@@ -139,9 +151,26 @@ Update only portions of a save file.
       --usaChips=<usaChips> Update UsaChips.
       --weaponLimit=<weaponLimit>
                             Update Weapon Limit.
+Commands:
+  raw, --raw, -r  Update raw portions of a save file directly.
 ```
 
 Note: At least one item is required to update the file with. Multiple updates can be done at a time.
+
+### Update Raw Command
+
+```
+Usage: HoloCureManagerCli update raw [-h] -k=<key> -t=<type> -v=<value>
+Update raw portions of a save file directly.
+  -h, --help
+  -k, --key=<key>
+  -t, --type=<type>     Supported types are boolean and double.
+  -v, --value=<value>
+```
+
+Note: This replaces the update command and only 1 update can be made at a time with this method.
+
+Note 2: This command accepts what you provide it at face value. Be careful in using this command. It should only be used if you know what you are doing.
 
 ## Future
 
