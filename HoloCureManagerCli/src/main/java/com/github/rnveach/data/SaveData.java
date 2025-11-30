@@ -170,6 +170,22 @@ public final class SaveData {
 
 	public static final String ACTIVE_SCAMS = "activeScams";
 
+	public static final String TOWER_SAVE_ACTIVE = "towerSave";
+
+	public static final String TOWER_SAVE_FLAGS = "towerFlags";
+
+	public static final String TOWER_SAVE_TIME = "towerTime";
+
+	public static final String TOWER_SAVE_POSITION = "towerlastPos";
+
+	public static final String TOWER_SAVE_CHECKPOINT_POSITION = "towerCheckPoint";
+
+	public static final String TOWER_SAVE_NUMBER_OF_JUMPS = "towerJumps";
+
+	public static final String TOWER_SAVE_NUMBER_OF_FALLS = "towerFalls";
+
+	public static final String TOWER_SAVE_COINS = "towerCoins";
+
 	public static Double getMajorGameVersion(JsonElement element) {
 		return getDouble(element, MAJOR_GAME_VERSION);
 	}
@@ -782,6 +798,70 @@ public final class SaveData {
 		setArrayString(element, ACTIVE_SCAMS, Scam.convert(values));
 	}
 
+	public static Boolean getTowerSaveActive(JsonElement element) {
+		return getBoolean(element, TOWER_SAVE_ACTIVE);
+	}
+
+	public static void setTowerSaveActive(JsonElement element, Boolean value) {
+		setBoolean(element, TOWER_SAVE_ACTIVE, value);
+	}
+
+	public static Double getTowerSaveFlags(JsonElement element) {
+		return getDouble(element, TOWER_SAVE_FLAGS);
+	}
+
+	public static void setTowerSaveFlags(JsonElement element, Double value) {
+		setDouble(element, TOWER_SAVE_FLAGS, value);
+	}
+
+	public static Double[] getTowerSaveTime(JsonElement element) {
+		return getArrayDouble(element, TOWER_SAVE_TIME);
+	}
+
+	public static void setTowerSaveTime(JsonElement element, Double[] values) {
+		setArrayDouble(element, TOWER_SAVE_TIME, values);
+	}
+
+	public static Double[] getTowerSavePosition(JsonElement element) {
+		return getArrayDouble(element, TOWER_SAVE_POSITION);
+	}
+
+	public static void setTowerSavePosition(JsonElement element, Double[] values) {
+		setArrayDouble(element, TOWER_SAVE_POSITION, values);
+	}
+
+	public static Double[] getTowerSaveCheckpointPosition(JsonElement element) {
+		return getArrayDouble(element, TOWER_SAVE_CHECKPOINT_POSITION);
+	}
+
+	public static void setTowerSaveCheckpointPosition(JsonElement element, Double[] values) {
+		setArrayDouble(element, TOWER_SAVE_CHECKPOINT_POSITION, values);
+	}
+
+	public static Double getTowerSaveNumberOfJumps(JsonElement element) {
+		return getDouble(element, TOWER_SAVE_NUMBER_OF_JUMPS);
+	}
+
+	public static void setTowerSaveNumberOfJumps(JsonElement element, Double value) {
+		setDouble(element, TOWER_SAVE_NUMBER_OF_JUMPS, value);
+	}
+
+	public static Double getTowerSaveNumberOfFalls(JsonElement element) {
+		return getDouble(element, TOWER_SAVE_NUMBER_OF_FALLS);
+	}
+
+	public static void setTowerSaveNumberOfFalls(JsonElement element, Double value) {
+		setDouble(element, TOWER_SAVE_NUMBER_OF_FALLS, value);
+	}
+
+	public static Double[] getTowerSaveCoins(JsonElement element) {
+		return getArrayDouble(element, TOWER_SAVE_COINS);
+	}
+
+	public static void setTowerSaveCoins(JsonElement element, Double[] values) {
+		setArrayDouble(element, TOWER_SAVE_COINS, values);
+	}
+
 	public static Map<String, JsonElement> getUnknownFields(JsonElement element) {
 		final Map<String, JsonElement> results = new TreeMap<>();
 
@@ -851,6 +931,14 @@ public final class SaveData {
 		results.remove(ACTIVE_TRAIL);
 		results.remove(USADA_DRINKS);
 		results.remove(ACTIVE_SCAMS);
+		results.remove(TOWER_SAVE_ACTIVE);
+		results.remove(TOWER_SAVE_FLAGS);
+		results.remove(TOWER_SAVE_TIME);
+		results.remove(TOWER_SAVE_POSITION);
+		results.remove(TOWER_SAVE_CHECKPOINT_POSITION);
+		results.remove(TOWER_SAVE_NUMBER_OF_JUMPS);
+		results.remove(TOWER_SAVE_NUMBER_OF_FALLS);
+		results.remove(TOWER_SAVE_COINS);
 
 		return results;
 	}
@@ -920,6 +1008,25 @@ public final class SaveData {
 		return t.getAsString();
 	}
 
+	private static Double[] getArrayDouble(JsonElement element, String namedIndex) {
+		final JsonElement t = get(element, namedIndex);
+
+		if (t == null) {
+			return null;
+		}
+
+		final JsonArray a = t.getAsJsonArray();
+		final Double[] results = new Double[a.size()];
+
+		for (int i = 0; i < results.length; i++) {
+			final JsonElement item = a.get(i);
+
+			results[i] = item.getAsDouble();
+		}
+
+		return results;
+	}
+
 	private static String[] getArrayString(JsonElement element, String namedIndex) {
 		final JsonElement t = get(element, namedIndex);
 
@@ -966,6 +1073,22 @@ public final class SaveData {
 			t.remove(namedIndex);
 		} else {
 			t.addProperty(namedIndex, value);
+		}
+	}
+
+	private static void setArrayDouble(JsonElement element, String namedIndex, Double[] values) {
+		final JsonObject t = element.getAsJsonObject();
+
+		if ((values == null) || (values.length == 0)) {
+			t.remove(namedIndex);
+		} else {
+			final JsonArray array = new JsonArray();
+
+			for (final Double value : values) {
+				array.add(new JsonPrimitive(value));
+			}
+
+			t.add(namedIndex, array);
 		}
 	}
 
