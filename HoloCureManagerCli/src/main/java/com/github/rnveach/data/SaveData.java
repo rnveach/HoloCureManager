@@ -32,6 +32,10 @@ public final class SaveData {
 
 	public static final String UNLOCKED_ITEMS = "unlockedItems";
 
+	public static final String SEEN_COLLABORATIONS = "seenCollabs";
+
+	public static final String FAN_LETTERS = "fanletters";
+
 	public static final int SPECIAL_ATTACK_MAX = 1;
 	public static final String SPECIAL_ATTACK = "specUnlock";
 
@@ -65,8 +69,8 @@ public final class SaveData {
 	public static final int FANDOM_MAX = 1;
 	public static final String FANDOM = "fandom";
 
-	public static final int FAN_LETTERS_MAX = 1;
-	public static final String FAN_LETTERS = "fanLetterUnlock";
+	public static final int FAN_LETTERS_UNLOCKED_MAX = 1;
+	public static final String FAN_LETTERS_UNLOCKED = "fanLetterUnlock";
 
 	public static final int MAX_HP_UP_MAX = 10;
 	public static final String MAX_HP_UP = "HP";
@@ -222,6 +226,22 @@ public final class SaveData {
 		setArrayString(element, UNLOCKED_ITEMS, Item.convert(values));
 	}
 
+	public static Collaboration[] getSeenCollaborations(JsonElement element) {
+		return Collaboration.get(getArrayString(element, SEEN_COLLABORATIONS));
+	}
+
+	public static void setSeenCollaborations(JsonElement element, Collaboration[] values) {
+		setArrayString(element, SEEN_COLLABORATIONS, Collaboration.convert(values));
+	}
+
+	public static FanLetter[] getFanLetters(JsonElement element) {
+		return FanLetter.get(getArrayString(element, FAN_LETTERS));
+	}
+
+	public static void setFanLetters(JsonElement element, FanLetter[] values) {
+		setArrayString(element, FAN_LETTERS, FanLetter.convert(values));
+	}
+
 	public static Double getSpecialAttack(JsonElement element) {
 		return getDouble(element, SPECIAL_ATTACK);
 	}
@@ -354,16 +374,16 @@ public final class SaveData {
 		setDouble(element, FANDOM, value);
 	}
 
-	public static Double getFanLetters(JsonElement element) {
-		return getDouble(element, FAN_LETTERS);
+	public static Double getFanLettersUnlocked(JsonElement element) {
+		return getDouble(element, FAN_LETTERS_UNLOCKED);
 	}
 
-	public static void setFanLetters(JsonElement element, Double value) {
-		if ((value != null) && (value > FAN_LETTERS_MAX)) {
-			value = (double) FAN_LETTERS_MAX;
+	public static void setFanLettersUnlocked(JsonElement element, Double value) {
+		if ((value != null) && (value > FAN_LETTERS_UNLOCKED_MAX)) {
+			value = (double) FAN_LETTERS_UNLOCKED_MAX;
 		}
 
-		setDouble(element, FAN_LETTERS, value);
+		setDouble(element, FAN_LETTERS_UNLOCKED, value);
 	}
 
 	public static Double getMaxHpUp(JsonElement element) {
@@ -759,6 +779,8 @@ public final class SaveData {
 		results.remove(UNLOCKED_OUTFITS);
 		results.remove(UNLOCKED_WEAPONS);
 		results.remove(UNLOCKED_ITEMS);
+		results.remove(SEEN_COLLABORATIONS);
+		results.remove(FAN_LETTERS);
 		results.remove(SPECIAL_ATTACK);
 		results.remove(GROWTH);
 		results.remove(REROLL);
@@ -770,7 +792,7 @@ public final class SaveData {
 		results.remove(STAMPS);
 		results.remove(ENCHANTMENTS);
 		results.remove(FANDOM);
-		results.remove(FAN_LETTERS);
+		results.remove(FAN_LETTERS_UNLOCKED);
 		results.remove(MAX_HP_UP);
 		results.remove(ATK_UP);
 		results.remove(SPD_UP);

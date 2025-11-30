@@ -8,6 +8,8 @@ import java.util.concurrent.Callable;
 
 import com.github.rnveach.HoloCureManagerCli;
 import com.github.rnveach.data.Axe;
+import com.github.rnveach.data.Collaboration;
+import com.github.rnveach.data.FanLetter;
 import com.github.rnveach.data.FishRod;
 import com.github.rnveach.data.Furniture;
 import com.github.rnveach.data.Item;
@@ -85,6 +87,28 @@ public class UpdateCommand implements Callable<Integer> {
 			"--removeUnlockedItem" }, description = "Unlocked Item(s) to remove. Does nothing if item isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Item[] unlockItemsToRemove;
 
+	@Option(names = { "--unlockAllSeenCollaborations" }, description = "Unlock all known Seen Collaborations.")
+	private Boolean unlockAllSeenCollaborations;
+
+	@Option(names = {
+			"--addSeenCollaboration" }, description = "Seen Collaboration(s) to add. Does nothing if collaboration is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Collaboration[] seenCollaborationToAdd;
+
+	@Option(names = {
+			"--removeSeenCollaboration" }, description = "Seen Collaboration(s) to remove. Does nothing if collaboration isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Collaboration[] seenCollaborationToRemove;
+
+	@Option(names = { "--unlockAllFanLetters" }, description = "Unlock all known Fan Letters.")
+	private Boolean unlockAllFanLetters;
+
+	@Option(names = {
+			"--addUnlockedFanLetter" }, description = "Fan Letter(s) to add. Does nothing if fan letter is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private FanLetter[] fanLettersToAdd;
+
+	@Option(names = {
+			"--removeUnlockedFanLetter" }, description = "Fan Letter(s) to remove. Does nothing if fan letter isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private FanLetter[] fanLettersToRemove;
+
 	@Option(names = { "--specialAttack" }, description = "Update Special Attack.")
 	private Double specialAttack;
 
@@ -118,8 +142,8 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--fandom" }, description = "Update Fandom.")
 	private Double fandom;
 
-	@Option(names = { "--fanLetters" }, description = "Update Fan Letters.")
-	private Double fanLetters;
+	@Option(names = { "--fanLettersUnlocked" }, description = "Update Fan Letters Unlocked.")
+	private Double fanLettersUnlocked;
 
 	@Option(names = { "--maxHpUp" }, description = "Update Max HP Up.")
 	private Double maxHpUp;
@@ -246,13 +270,16 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.unlockAllOutfits == null) && (this.unlockOutfitsToAdd == null)
 				&& (this.unlockOutfitsToRemove == null) && (this.unlockAllItems == null)
 				&& (this.unlockItemsToAdd == null) && (this.unlockItemsToRemove == null)
-				&& (this.unlockAllWeapons == null) && (this.unlockWeaponsToAdd == null)
-				&& (this.unlockWeaponsToRemove == null) && (this.specialAttack == null) && (this.growth == null)
+				&& (this.unlockAllSeenCollaborations == null) && (this.seenCollaborationToAdd == null)
+				&& (this.seenCollaborationToRemove == null) && (this.unlockAllWeapons == null)
+				&& (this.unlockWeaponsToAdd == null) && (this.unlockWeaponsToRemove == null)
+				&& (this.unlockAllFanLetters == null) && (this.fanLettersToAdd == null)
+				&& (this.fanLettersToRemove == null) && (this.specialAttack == null) && (this.growth == null)
 				&& (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
 				&& (this.customize == null) && (this.supports == null) && (this.materialFind == null)
 				&& (this.stamps == null) && (this.enchantments == null) && (this.fandom == null)
-				&& (this.fanLetters == null) && (this.maxHpUp == null) && (this.atkUp == null) && (this.spdUp == null)
-				&& (this.critUp == null) && (this.pickUpRange == null) && (this.hasteUp == null)
+				&& (this.fanLettersUnlocked == null) && (this.maxHpUp == null) && (this.atkUp == null)
+				&& (this.spdUp == null) && (this.critUp == null) && (this.pickUpRange == null) && (this.hasteUp == null)
 				&& (this.regeneration == null) && (this.defenseUp == null) && (this.specialCooldownReduction == null)
 				&& (this.skillUp == null) && (this.expGainUp == null) && (this.foodDropsUp == null)
 				&& (this.moneyGainUp == null) && (this.enhancementRateUp == null) && (this.marketing == null)
@@ -312,6 +339,20 @@ public class UpdateCommand implements Callable<Integer> {
 			SaveData.setUnlockedItems(root,
 					doAddRemove(SaveData.getUnlockedItems(root), this.unlockItemsToAdd, this.unlockItemsToRemove));
 		}
+		if ((this.unlockAllSeenCollaborations != null) && this.unlockAllSeenCollaborations) {
+			SaveData.setSeenCollaborations(root, Collaboration.values());
+		}
+		if ((this.seenCollaborationToAdd != null) && (this.seenCollaborationToRemove != null)) {
+			SaveData.setSeenCollaborations(root, doAddRemove(SaveData.getSeenCollaborations(root),
+					this.seenCollaborationToAdd, this.seenCollaborationToRemove));
+		}
+		if ((this.unlockAllFanLetters != null) && this.unlockAllFanLetters) {
+			SaveData.setFanLetters(root, FanLetter.values());
+		}
+		if ((this.fanLettersToAdd != null) && (this.fanLettersToRemove != null)) {
+			SaveData.setFanLetters(root,
+					doAddRemove(SaveData.getFanLetters(root), this.fanLettersToAdd, this.fanLettersToRemove));
+		}
 		if (this.specialAttack != null) {
 			SaveData.setSpecialAttack(root, this.specialAttack);
 		}
@@ -345,8 +386,8 @@ public class UpdateCommand implements Callable<Integer> {
 		if (this.fandom != null) {
 			SaveData.setFandom(root, this.fandom);
 		}
-		if (this.fanLetters != null) {
-			SaveData.setFanLetters(root, this.fanLetters);
+		if (this.fanLettersUnlocked != null) {
+			SaveData.setFanLettersUnlocked(root, this.fanLettersUnlocked);
 		}
 		if (this.maxHpUp != null) {
 			SaveData.setMaxHpUp(root, this.maxHpUp);

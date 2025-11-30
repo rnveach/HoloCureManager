@@ -51,6 +51,10 @@ public final class ListCommand implements Callable<Integer> {
 		printDisplay("\t", "Unlocked Weapons:", SaveData.getUnlockedWeapons(root));
 		System.out.println();
 		printDisplay("\t", "Unlocked Items:", SaveData.getUnlockedItems(root));
+		System.out.println();
+		printDisplay("\t", "Seen Collaborations:", SaveData.getSeenCollaborations(root));
+		System.out.println();
+		printDisplay("\t", "Fan Letters:", SaveData.getFanLetters(root));
 
 		System.out.println();
 		System.out.println("\tUpgrades:");
@@ -66,7 +70,7 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\t\t\tStamps: %.1f", SaveData.getStamps(root)));
 		System.out.println(String.format("\t\t\tEnchantments: %.1f", SaveData.getEnchantments(root)));
 		System.out.println(String.format("\t\t\tFandom: %.1f", SaveData.getFandom(root)));
-		System.out.println(String.format("\t\t\tFan Letters: %.1f", SaveData.getFanLetters(root)));
+		System.out.println(String.format("\t\t\tFan Letters Unlocked: %.1f", SaveData.getFanLettersUnlocked(root)));
 
 		System.out.println();
 		System.out.println("\t\tStats:");

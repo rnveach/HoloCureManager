@@ -60,9 +60,12 @@ Usage: HoloCureManagerCli list
 
 ```
 Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
+                                 [--unlockAllFanLetters]
                                  [--unlockAllFurnitures] [--unlockAllItems]
-                                 [--unlockAllOutfits] [--unlockAllStages]
-                                 [--unlockAllWeapons] [--activeAxe=<activeAxe>]
+                                 [--unlockAllOutfits]
+                                 [--unlockAllSeenCollaborations]
+                                 [--unlockAllStages] [--unlockAllWeapons]
+                                 [--activeAxe=<activeAxe>]
                                  [--activeFishRod=<activeFishRod>]
                                  [--activePet=<activePet>]
                                  [--activePickaxe=<activePickaxe>]
@@ -74,7 +77,7 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [--enchantments=<enchantments>]
                                  [--enhancementRateUp=<enhancementRateUp>]
                                  [--expGainUp=<expGainUp>] [--fandom=<fandom>]
-                                 [--fanLetters=<fanLetters>]
+                                 [--fanLettersUnlocked=<fanLettersUnlocked>]
                                  [--foodDropsUp=<foodDropsUp>]
                                  [--gRankOff=<gRankOff>] [--growth=<growth>]
                                  [--hardcore=<hardcore>] [--hasteUp=<hasteUp>]
@@ -102,6 +105,10 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [--weaponLimit=<weaponLimit>]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
+                                 [--addSeenCollaboration
+                                 [=<seenCollaborationToAdd>...]]...
+                                 [--addUnlockedFanLetter
+                                 [=<fanLettersToAdd>...]]...
                                  [--addUnlockedFurniture
                                  [=<unlockFurnituresToAdd>...]]...
                                  [--addUnlockedItem[=<unlockItemsToAdd>...]]...
@@ -111,6 +118,10 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [=<unlockStagesToAdd>...]]...
                                  [--addUnlockedWeapon
                                  [=<unlockWeaponsToAdd>...]]...
+                                 [--removeSeenCollaboration
+                                 [=<seenCollaborationToRemove>...]]...
+                                 [--removeUnlockedFanLetter
+                                 [=<fanLettersToRemove>...]]...
                                  [--removeUnlockedFurniture
                                  [=<unlockFurnituresToRemove>...]]...
                                  [--removeUnlockedItem
@@ -140,6 +151,41 @@ Update only portions of a save file.
                             Update Active Trail. Valid values are: HEARTS,
                               SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
                               SKULLS.
+      --addSeenCollaboration[=<seenCollaborationToAdd>...]
+                            Seen Collaboration(s) to add. Does nothing if
+                              collaboration is already unlocked. Valid values
+                              are: BL_LOVER, BREATHE_IN_ASACOCO, BROKEN_DREAMS,
+                              ELITE_COOKING, SNOW_SAKE, SNOW_QUEEN,
+                              DRAGON_BEAM, KANA_COCO, LIGHT_BEAM, MI_COMET,
+                              RING_OF_FITNESS, BONE_BROS, ABSOLUTE_WALL,
+                              BL_FUJOSHI, CURSE_BALL, DRAGON_FIRE,
+                              ELDRITCH_HORROR, IDOL_CONCERT, LEGENDARY_SAUSAGE,
+                              MI_KORONE, RAP_DOG, SNOW_FLOWER_SAKE,
+                              STREAM_OF_TEARS, IM_DIE, JINGISUKAN, HOLY_FIRE,
+                              IDOL_LIVE, FLAT_BOARD, LIGHTNING_WEINER,
+                              STAR_HALBERD, MARI_LAMY, BLACK_PLAGUE,
+                              INFINITE_BL, BLOOD_LUST.
+      --addUnlockedFanLetter[=<fanLettersToAdd>...]
+                            Fan Letter(s) to add. Does nothing if fan letter is
+                              already unlocked. Valid values are: KOBOKERZ,
+                              ZECRETARY, UDIN, ZOMRADE, MOONAFIC, SHIOKKO,
+                              NAKIRIGUMI, FUBUCHUN, ORUYANKE, MITEIRU, KINTOKI,
+                              ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU, KENZOKU,
+                              TATSUNOKO, GUY_RYS, HOOMANS, BRATS, SMOLL_AME,
+                              CURSED_BUBBA, SSRB, SANALITES, KRONIES, KFP,
+                              NODOKA, AREA_15, HEIMIN, PEMALOE, BAZO, CILUS,
+                              MERAKYAT, MELFREND, RISUNER, AQUACREW, CHOCOMATE,
+                              SUBATOMO, ROSETAI, KAPUMIN, ACHAN, SUKONBU,
+                              DEADBEAT_Q, TAKODACHI, SAPLINGS, HAATON,
+                              MATSURISU, PIONEER, SORATOMO, BLOOM_GLOOM,
+                              DEADBEAT, MOONABITO, SPIDERCHAMA, SHRIMP,
+                              IOFORIA, RISCOT, WATAMATE, NOUSAGI, ICHIMI,
+                              SHIROGANE_KNIGHT, ELFRIEND, OTAKU, NANORAAA,
+                              FUBUZILLA, HALLOWEEN_BAE, MIKODANYE,
+                              SHUBANGELION, TEAMATE, SHRIMP_Q, HALLOWEEN_MYTH,
+                              OBAKE_CHAN, MIKOPI, STAFF, GORI_ELA, PEKODAM,
+                              ONIGIRIYA, KORONESUKI, UPAO, LUKNIGHT, CHOCOLAT,
+                              IRYSTOCRATS, PAYOYO.
       --addUnlockedFurniture[=<unlockFurnituresToAdd>...]
                             Unlocked Furniture(s) to add. Does nothing if
                               furniture is already unlocked. Valid values are:
@@ -254,8 +300,8 @@ Update only portions of a save file.
       --expGainUp=<expGainUp>
                             Update EXP Gain Up.
       --fandom=<fandom>     Update Fandom.
-      --fanLetters=<fanLetters>
-                            Update Fan Letters.
+      --fanLettersUnlocked=<fanLettersUnlocked>
+                            Update Fan Letters Unlocked.
       --foodDropsUp=<foodDropsUp>
                             Update Food Drops Up.
       --gRankOff=<gRankOff> Update G Rank Off.
@@ -288,6 +334,41 @@ Update only portions of a save file.
                             Update Refund All.
       --regeneration=<regeneration>
                             Update Regeneration.
+      --removeSeenCollaboration[=<seenCollaborationToRemove>...]
+                            Seen Collaboration(s) to remove. Does nothing if
+                              collaboration isn't unlocked. Valid values are:
+                              BL_LOVER, BREATHE_IN_ASACOCO, BROKEN_DREAMS,
+                              ELITE_COOKING, SNOW_SAKE, SNOW_QUEEN,
+                              DRAGON_BEAM, KANA_COCO, LIGHT_BEAM, MI_COMET,
+                              RING_OF_FITNESS, BONE_BROS, ABSOLUTE_WALL,
+                              BL_FUJOSHI, CURSE_BALL, DRAGON_FIRE,
+                              ELDRITCH_HORROR, IDOL_CONCERT, LEGENDARY_SAUSAGE,
+                              MI_KORONE, RAP_DOG, SNOW_FLOWER_SAKE,
+                              STREAM_OF_TEARS, IM_DIE, JINGISUKAN, HOLY_FIRE,
+                              IDOL_LIVE, FLAT_BOARD, LIGHTNING_WEINER,
+                              STAR_HALBERD, MARI_LAMY, BLACK_PLAGUE,
+                              INFINITE_BL, BLOOD_LUST.
+      --removeUnlockedFanLetter[=<fanLettersToRemove>...]
+                            Fan Letter(s) to remove. Does nothing if fan letter
+                              isn't unlocked. Valid values are: KOBOKERZ,
+                              ZECRETARY, UDIN, ZOMRADE, MOONAFIC, SHIOKKO,
+                              NAKIRIGUMI, FUBUCHUN, ORUYANKE, MITEIRU, KINTOKI,
+                              ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU, KENZOKU,
+                              TATSUNOKO, GUY_RYS, HOOMANS, BRATS, SMOLL_AME,
+                              CURSED_BUBBA, SSRB, SANALITES, KRONIES, KFP,
+                              NODOKA, AREA_15, HEIMIN, PEMALOE, BAZO, CILUS,
+                              MERAKYAT, MELFREND, RISUNER, AQUACREW, CHOCOMATE,
+                              SUBATOMO, ROSETAI, KAPUMIN, ACHAN, SUKONBU,
+                              DEADBEAT_Q, TAKODACHI, SAPLINGS, HAATON,
+                              MATSURISU, PIONEER, SORATOMO, BLOOM_GLOOM,
+                              DEADBEAT, MOONABITO, SPIDERCHAMA, SHRIMP,
+                              IOFORIA, RISCOT, WATAMATE, NOUSAGI, ICHIMI,
+                              SHIROGANE_KNIGHT, ELFRIEND, OTAKU, NANORAAA,
+                              FUBUZILLA, HALLOWEEN_BAE, MIKODANYE,
+                              SHUBANGELION, TEAMATE, SHRIMP_Q, HALLOWEEN_MYTH,
+                              OBAKE_CHAN, MIKOPI, STAFF, GORI_ELA, PEKODAM,
+                              ONIGIRIYA, KORONESUKI, UPAO, LUKNIGHT, CHOCOLAT,
+                              IRYSTOCRATS, PAYOYO.
       --removeUnlockedFurniture[=<unlockFurnituresToRemove>...]
                             Unlocked Furniture(s) to remove. Does nothing if
                               furniture isn't unlocked. Valid values are:
@@ -398,9 +479,12 @@ Update only portions of a save file.
                             Update Supers Ban.
       --supports=<supports> Update Supports.
       --timeModeUnlocked    Update if Time Mode is Unlocked.
+      --unlockAllFanLetters Unlock all known Fan Letters.
       --unlockAllFurnitures Unlock all known Furnitures.
       --unlockAllItems      Unlock all known Items.
       --unlockAllOutfits    Unlock all known Outfits.
+      --unlockAllSeenCollaborations
+                            Unlock all known Seen Collaborations.
       --unlockAllStages     Unlock all known Stages.
       --unlockAllWeapons    Unlock all known Weapons.
       --usaChips=<usaChips> Update UsaChips.
