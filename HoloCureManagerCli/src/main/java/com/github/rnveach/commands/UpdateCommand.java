@@ -17,6 +17,7 @@ import com.github.rnveach.data.Outfit;
 import com.github.rnveach.data.Pet;
 import com.github.rnveach.data.Pickaxe;
 import com.github.rnveach.data.SaveData;
+import com.github.rnveach.data.Scam;
 import com.github.rnveach.data.Stage;
 import com.github.rnveach.data.Trail;
 import com.github.rnveach.data.Weapon;
@@ -264,6 +265,20 @@ public class UpdateCommand implements Callable<Integer> {
 			"--activeTrail" }, description = "Update Active Trail. Valid values are: ${COMPLETION-CANDIDATES}.")
 	private Trail activeTrail;
 
+	@Option(names = { "--usadaDrinks" }, description = "Update Usada Drinks.")
+	private Double usadaDrinks;
+
+	@Option(names = { "--unlockAllScams" }, description = "Unlock all known Scams.")
+	private Boolean unlockAllScams;
+
+	@Option(names = {
+			"--addActiveScam" }, description = "Active Scam(s) to add. Does nothing if scam is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Scam[] activeScamToAdd;
+
+	@Option(names = {
+			"--removeActiveScam" }, description = "Active Scam(s) to remove. Does nothing if scam isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private Scam[] activeScamToRemove;
+
 	public void validateOptions() {
 		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.unlockAllStages == null)
 				&& (this.unlockStagesToAdd == null) && (this.unlockStagesToRemove == null)
@@ -291,7 +306,8 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.managementExp == null) && (this.mineLevel == null) && (this.mineExp == null)
 				&& (this.woodcuttingLevel == null) && (this.woodcuttingExp == null) && (this.activePickaxe == null)
 				&& (this.activeAxe == null) && (this.usaChips == null) && (this.activePet == null)
-				&& (this.activeTrail == null)) {
+				&& (this.activeTrail == null) && (this.usadaDrinks == null) && (this.unlockAllScams == null)
+				&& (this.activeScamToAdd == null) && (this.activeScamToRemove == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
 		}
@@ -500,6 +516,16 @@ public class UpdateCommand implements Callable<Integer> {
 		}
 		if (this.activeTrail != null) {
 			SaveData.setActiveTrail(root, this.activeTrail);
+		}
+		if (this.usadaDrinks != null) {
+			SaveData.setUsadaDrinks(root, this.usadaDrinks);
+		}
+		if ((this.unlockAllScams != null) && this.unlockAllScams) {
+			SaveData.setActiveScams(root, Scam.values());
+		}
+		if ((this.activeScamToAdd != null) && (this.activeScamToRemove != null)) {
+			SaveData.setActiveScams(root,
+					doAddRemove(SaveData.getActiveScams(root), this.activeScamToAdd, this.activeScamToRemove));
 		}
 
 		this.parent.writeToInputFile(root.toString());

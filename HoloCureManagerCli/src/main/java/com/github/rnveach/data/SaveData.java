@@ -166,6 +166,10 @@ public final class SaveData {
 
 	public static final String ACTIVE_TRAIL = "activeTrail";
 
+	public static final String USADA_DRINKS = "usadaDrinks";
+
+	public static final String ACTIVE_SCAMS = "activeScams";
+
 	public static Double getMajorGameVersion(JsonElement element) {
 		return getDouble(element, MAJOR_GAME_VERSION);
 	}
@@ -762,6 +766,22 @@ public final class SaveData {
 		setString(element, ACTIVE_TRAIL, value == null ? null : value.getCode());
 	}
 
+	public static Double getUsadaDrinks(JsonElement element) {
+		return getDouble(element, USADA_DRINKS);
+	}
+
+	public static void setUsadaDrinks(JsonElement element, Double value) {
+		setDouble(element, USADA_DRINKS, value);
+	}
+
+	public static Scam[] getActiveScams(JsonElement element) {
+		return Scam.get(getArrayString(element, ACTIVE_SCAMS));
+	}
+
+	public static void setActiveScams(JsonElement element, Scam[] values) {
+		setArrayString(element, ACTIVE_SCAMS, Scam.convert(values));
+	}
+
 	public static Map<String, JsonElement> getUnknownFields(JsonElement element) {
 		final Map<String, JsonElement> results = new TreeMap<>();
 
@@ -829,6 +849,8 @@ public final class SaveData {
 		results.remove(USA_CHIPS);
 		results.remove(ACTIVE_PET);
 		results.remove(ACTIVE_TRAIL);
+		results.remove(USADA_DRINKS);
+		results.remove(ACTIVE_SCAMS);
 
 		return results;
 	}

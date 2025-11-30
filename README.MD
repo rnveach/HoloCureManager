@@ -62,7 +62,7 @@ Usage: HoloCureManagerCli list
 Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [--unlockAllFanLetters]
                                  [--unlockAllFurnitures] [--unlockAllItems]
-                                 [--unlockAllOutfits]
+                                 [--unlockAllOutfits] [--unlockAllScams]
                                  [--unlockAllSeenCollaborations]
                                  [--unlockAllStages] [--unlockAllWeapons]
                                  [--activeAxe=<activeAxe>]
@@ -102,9 +102,11 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [--supersBan=<supersBan>]
                                  [--supports=<supports>]
                                  [--usaChips=<usaChips>]
+                                 [--usadaDrins=<usadaDrinks>]
                                  [--weaponLimit=<weaponLimit>]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
+                                 [--addActiveScam[=<activeScamToAdd>...]]...
                                  [--addSeenCollaboration
                                  [=<seenCollaborationToAdd>...]]...
                                  [--addUnlockedFanLetter
@@ -118,6 +120,8 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [=<unlockStagesToAdd>...]]...
                                  [--addUnlockedWeapon
                                  [=<unlockWeaponsToAdd>...]]...
+                                 [--removeActiveScam
+                                 [=<activeScamToRemove>...]]...
                                  [--removeSeenCollaboration
                                  [=<seenCollaborationToRemove>...]]...
                                  [--removeUnlockedFanLetter
@@ -151,6 +155,12 @@ Update only portions of a save file.
                             Update Active Trail. Valid values are: HEARTS,
                               SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
                               SKULLS.
+      --addActiveScam[=<activeScamToAdd>...]
+                            Active Scam(s) to add. Does nothing if scam is
+                              already unlocked. Valid values are:
+                              ARTIFACT_WEAPON, ARTIFACT_BOOTS, ARTIFACT_GLOVES,
+                              ARTIFACT_DRINK, ARTIFACT_LENS, WORKER_TOOLS,
+                              WORKER_BREAKS, RABBIT_FOOT.
       --addSeenCollaboration[=<seenCollaborationToAdd>...]
                             Seen Collaboration(s) to add. Does nothing if
                               collaboration is already unlocked. Valid values
@@ -334,6 +344,12 @@ Update only portions of a save file.
                             Update Refund All.
       --regeneration=<regeneration>
                             Update Regeneration.
+      --removeActiveScam[=<activeScamToRemove>...]
+                            Active Scam(s) to remove. Does nothing if scam
+                              isn't unlocked. Valid values are:
+                              ARTIFACT_WEAPON, ARTIFACT_BOOTS, ARTIFACT_GLOVES,
+                              ARTIFACT_DRINK, ARTIFACT_LENS, WORKER_TOOLS,
+                              WORKER_BREAKS, RABBIT_FOOT.
       --removeSeenCollaboration[=<seenCollaborationToRemove>...]
                             Seen Collaboration(s) to remove. Does nothing if
                               collaboration isn't unlocked. Valid values are:
@@ -483,11 +499,14 @@ Update only portions of a save file.
       --unlockAllFurnitures Unlock all known Furnitures.
       --unlockAllItems      Unlock all known Items.
       --unlockAllOutfits    Unlock all known Outfits.
+      --unlockAllScams      Unlock all known Scams.
       --unlockAllSeenCollaborations
                             Unlock all known Seen Collaborations.
       --unlockAllStages     Unlock all known Stages.
       --unlockAllWeapons    Unlock all known Weapons.
       --usaChips=<usaChips> Update UsaChips.
+      --usadaDrinks=<usadaDrinks>
+                            Update Usada Drinks.
       --weaponLimit=<weaponLimit>
                             Update Weapon Limit.
       --woodcuttingExp=<woodcuttingExp>

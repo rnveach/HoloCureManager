@@ -125,6 +125,9 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\t\tUsaChips: %.1f", SaveData.getUsaChips(root)));
 		System.out.println(String.format("\t\tActive Pet: %s", getDisplay(SaveData.getActivePet(root))));
 		System.out.println(String.format("\t\tActive Trail: %s", getDisplay(SaveData.getActiveTrail(root))));
+		System.out.println(String.format("\t\tUsada Drinks: %.1f", SaveData.getUsadaDrinks(root)));
+		System.out.println();
+		printDisplay("\t\t", "Active Scams:", SaveData.getActiveScams(root));
 
 		final Map<String, JsonElement> unknowns = SaveData.getUnknownFields(root);
 
