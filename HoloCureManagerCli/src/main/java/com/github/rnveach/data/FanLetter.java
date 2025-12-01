@@ -3,7 +3,6 @@ package com.github.rnveach.data;
 import java.util.Arrays;
 
 public enum FanLetter implements Displayable {
-	// TODO: better names
 	KOBOKERZ("Kobokerz"), //
 	ZECRETARY("Zecretary"), //
 	UDIN("Udin"), //
@@ -11,7 +10,7 @@ public enum FanLetter implements Displayable {
 	MOONAFIC("Moonafic"), //
 	SHIOKKO("Shiokko"), //
 	NAKIRIGUMI("Nakirigumi"), //
-	FUBUCHUN("FubuChun"), //
+	FUBU_CHUN("FubuChun"), //
 	ORUYANKE("Oruyanke"), //
 	MITEIRU("Miteiru"), //
 	KINTOKI("Kintoki"), //
@@ -19,18 +18,18 @@ public enum FanLetter implements Displayable {
 	HOSHIYOMI("Hoshiyomi"), //
 	MIOFA("Miofa"), //
 	YATAGARASU("Yatagarasu"), //
-	KENZOKU("Kenzoku"), //
+	TOKOYAMI_KENZOKU("Kenzoku"), //
 	TATSUNOKO("Tatsunoko"), //
 	GUY_RYS("GuyRys"), //
-	HOOMANS("Hoomans"), //
-	BRATS("Brats"), //
-	SMOLL_AME("SmollAme"), //
+	HOOMAN("Hoomans"), //
+	BRAT("Brats"), //
+	SMOL_AME("SmollAme"), //
 	CURSED_BUBBA("CursedBubba"), //
 	SSRB("SSRB"), //
-	SANALITES("Sanalites"), //
-	KRONIES("Kronies"), //
+	SANALITE("Sanalites"), //
+	KRONIE("Kronies"), //
 	KFP("KFP"), //
-	NODOKA("Nodoka"), //
+	HARUSAKI_NODOKA("Nodoka"), //
 	AREA_15("Area15"), //
 	HEIMIN("Heimin"), //
 	PEMALOE("Pemaloe"), //
@@ -44,11 +43,11 @@ public enum FanLetter implements Displayable {
 	SUBATOMO("Subatomo"), //
 	ROSETAI("Rosetai"), //
 	KAPUMIN("Kapumin"), //
-	ACHAN("Achan"), //
+	A_CHAN("Achan"), //
 	SUKONBU("Sukonbu"), //
 	DEADBEAT_Q("DeadbeatQ"), //
 	TAKODACHI("Takodachi"), //
-	SAPLINGS("Saplings"), //
+	SAPLING("Saplings"), //
 	HAATON("Haaton"), //
 	MATSURISU("Matsurisu"), //
 	PIONEER("Pioneer"), //
@@ -57,35 +56,35 @@ public enum FanLetter implements Displayable {
 	DEADBEAT("Deadbeat"), //
 	MOONABITO("Moonabito"), //
 	SPIDERCHAMA("Spiderchama"), //
-	SHRIMP("Shrimp"), //
+	CHUMBUD("Shrimp"), //
 	IOFORIA("Ioforia"), //
 	RISCOT("Riscot"), //
 	WATAMATE("Watamate"), //
 	NOUSAGI("Nousagi"), //
-	ICHIMI("Ichimi"), //
-	SHIROGANE_KNIGHT("ShiroganeKnight"), //
+	HOUSHOU_NO_ICHIMIN("Ichimi"), //
+	KNIGHTS_ORDER_OF_SHIROGANE("ShiroganeKnight"), //
 	ELFRIEND("Elfriend"), //
 	OTAKU("Otaku"), //
 	NANORAAA("Nanoraaa"), //
-	FUBUZILLA("Fubuzilla"), //
-	HALLOWEEN_BAE("HalloweenBae"), //
+	FUBURA("Fubuzilla"), //
+	BAE_HALLOWEEN("HalloweenBae"), //
 	MIKODANYE("Mikodanye"), //
 	SHUBANGELION("Shubangelion"), //
-	TEAMATE("Teamate"), //
-	SHRIMP_Q("ShrimpQ"), //
+	TEA_MATE("Teamate"), //
+	CHUMBUD_Q("ShrimpQ"), //
 	HALLOWEEN_MYTH("HalloweenMyth"), //
 	OBAKE_CHAN("ObakeChan"), //
-	MIKOPI("Mikopi"), //
+	P35("Mikopi"), // reversed due to Java not allowing numbers first
 	STAFF("Staff"), //
-	GORI_ELA("GoriEla"), //
+	GORIELA("GoriEla"), //
 	PEKODAM("Pekodam"), //
 	ONIGIRIYA("Onigiriya"), //
 	KORONESUKI("Koronesuki"), //
 	UPAO("Upao"), //
-	LUKNIGHT("Luknight"), //
+	LU_KNIGHT("Luknight"), //
 	CHOCOLAT("Chocolat"), //
-	IRYSTOCRATS("Irystocrats"), //
-	PAYOYO("Payoyo"), //
+	IRYSTOCRAT_LEGACY("Irystocrats"), //
+	POYOYO("Poyoyo"), //
 	;
 
 	private final String code;
@@ -105,6 +104,10 @@ public enum FanLetter implements Displayable {
 	}
 
 	public static FanLetter[] get(String[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
 		final FanLetter[] results = new FanLetter[codes.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -117,6 +120,10 @@ public enum FanLetter implements Displayable {
 	}
 
 	public static String[] convert(FanLetter[] values) {
+		if (values == null) {
+			return null;
+		}
+
 		final String[] results = new String[values.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -128,7 +135,174 @@ public enum FanLetter implements Displayable {
 
 	@Override
 	public String getDisplay() {
-		return name();
+		switch (this) {
+		case A_CHAN:
+			return "A-chan";
+		case AQUACREW:
+			return "Aquacrew";
+		case AREA_15:
+			return "Area 15";
+		case BAZO:
+			return "Bazo";
+		case BAE_HALLOWEEN:
+			return "Bae (Halloween)";
+		case BLOOM_GLOOM:
+			return "Bloom & Gloom";
+		case BRAT:
+			return "Brat";
+		case CHOCOLAT:
+			return "Chocolat";
+		case CHOCOMATE:
+			return "Chocomate";
+		case CHUMBUD:
+			return "Chumbud";
+		case CHUMBUD_Q:
+			return "Chumbud (Q)";
+		case CILUS:
+			return "Cilus";
+		case CURSED_BUBBA:
+			return "Cursed Bubba";
+		case DEADBEAT:
+			return "Deadbeat";
+		case DEADBEAT_Q:
+			return "Deadbeat (Q)";
+		case ELFRIEND:
+			return "Elfriend";
+		case FUBU_CHUN:
+			return "Fubu-chun";
+		case FUBURA:
+			return "Fubura";
+		case GORIELA:
+			return "GoriEla";
+		case GUY_RYS:
+			return "GuyRys";
+		case HAATON:
+			return "Haaton";
+		case HALLOWEEN_MYTH:
+			return "Halloween Myth";
+		case HARUSAKI_NODOKA:
+			return "Harusaki Nodoka";
+		case HEIMIN:
+			return "Heimin";
+		case HOOMAN:
+			return "Hooman";
+		case HOSHIYOMI:
+			return "Hoshiyomi";
+		case HOUSHOU_NO_ICHIMIN:
+			return "Houshou no Ichimin";
+		case IOFORIA:
+			return "IOFORIA";
+		case IRYSTOCRAT_LEGACY:
+			return "Irystocrat (Legacy)";
+		case KAPUMIN:
+			return "Kapumin";
+		case KFP:
+			return "KFP";
+		case KINTOKI:
+			return "Kintoki";
+		case KNIGHTS_ORDER_OF_SHIROGANE:
+			return "Knight's Order of Shirogane";
+		case KOBOKERZ:
+			return "Kobokerz";
+		case KORONESUKI:
+			return "Koronesuki";
+		case KRONIE:
+			return "Kronie";
+		case LU_KNIGHT:
+			return "LuKnight";
+		case MATSURISU:
+			return "Matsurisu";
+		case MELFREND:
+			return "Melfriend";
+		case MERAKYAT:
+			return "Merakyat";
+		case MIKODANYE:
+			return "Mikodanye";
+		case P35:
+			return "35P";
+		case MIOFA:
+			return "Miofa";
+		case MITEIRU:
+			return "Miteiru";
+		case MOONABITO:
+			return "Moonabito";
+		case MOONAFIC:
+			return "Moonafic";
+		case NAKIRIGUMI:
+			return "Nakirigumi";
+		case NANORAAA:
+			return "Nanoraaa";
+		case NOUSAGI:
+			return "Nousagi";
+		case OBAKE_CHAN:
+			return "Obake-Chan";
+		case ONIGIRIYA:
+			return "Onigiriya";
+		case ORUYANKE:
+			return "Oruyanke";
+		case OTAKU:
+			return "Otaku";
+		case PEKODAM:
+			return "Pekodam";
+		case PEMALOE:
+			return "Pemaloe";
+		case PIONEER:
+			return "Pioneer";
+		case POYOYO:
+			return "Poyoyo";
+		case RISUNER:
+			return "Risuner";
+		case RISCOT:
+			return "Riscot";
+		case ROBOSA:
+			return "Robosa";
+		case ROSETAI:
+			return "Rosetai";
+		case SANALITE:
+			return "Sanalite";
+		case SAPLING:
+			return "Sapling";
+		case SHIOKKO:
+			return "Shiokko";
+		case SHUBANGELION:
+			return "Shubangelion";
+		case SMOL_AME:
+			return "Smol Ame";
+		case SORATOMO:
+			return "Soratomo";
+		case SPIDERCHAMA:
+			return "Spiderchama";
+		case SSRB:
+			return "SSRB";
+		case STAFF:
+			return "Staff";
+		case SUBATOMO:
+			return "Subatomo";
+		case SUKONBU:
+			return "Sukonbu";
+		case TAKODACHI:
+			return "Takodachi";
+		case TATSUNOKO:
+			return "Tatsunoko";
+		case TEA_MATE:
+			return "Tea-mate";
+		case TOKOYAMI_KENZOKU:
+			return "Tokoyami Kenzoku";
+		case UDIN:
+			return "Udin";
+		case UPAO:
+			return "Upao";
+		case WATAMATE:
+			return "Watamate";
+		case YATAGARASU:
+			return "Yatagarasu";
+		case ZECRETARY:
+			return "Zecretary";
+		case ZOMRADE:
+			return "Zomrade";
+		}
+
+		return null;
 	}
 
 	public String getCode() {

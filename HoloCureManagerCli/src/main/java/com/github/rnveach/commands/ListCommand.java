@@ -165,9 +165,9 @@ public final class ListCommand implements Callable<Integer> {
 	}
 
 	private static void printDisplay(String tab, String header, Displayable[] values) {
-		System.out.println(tab + header + " (" + values.length + ")");
+		System.out.println(tab + header + " (" + (values == null ? 0 : values.length) + ")");
 
-		if (values.length == 0) {
+		if ((values == null) || (values.length == 0)) {
 			System.out.println(tab + "\t<None>");
 		} else {
 			for (final Displayable value : values) {

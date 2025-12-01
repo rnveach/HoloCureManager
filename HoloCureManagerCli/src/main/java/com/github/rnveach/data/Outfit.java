@@ -126,6 +126,10 @@ public enum Outfit implements Displayable {
 	}
 
 	public static Outfit[] get(String[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
 		final Outfit[] results = new Outfit[codes.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -138,6 +142,10 @@ public enum Outfit implements Displayable {
 	}
 
 	public static String[] convert(Outfit[] values) {
+		if (values == null) {
+			return null;
+		}
+
 		final String[] results = new String[values.length];
 
 		for (int i = 0; i < results.length; i++) {

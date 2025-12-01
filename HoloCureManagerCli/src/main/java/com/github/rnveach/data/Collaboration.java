@@ -3,41 +3,36 @@ package com.github.rnveach.data;
 import java.util.Arrays;
 
 public enum Collaboration implements Displayable {
-	// TODO: better names
-	BL_LOVER("BLLover"), //
-	BREATHE_IN_ASACOCO("BreatheInAsacoco"), //
+	BL_FUJOSHI("BLLover"), //
+	BREATHE_IN_TYPE_ASACOCO("BreatheInAsacoco"), //
 	BROKEN_DREAMS("BrokenDreams"), //
 	ELITE_COOKING("EliteCooking"), //
-	SNOW_SAKE("SnowSake"), //
+	SNOW_FLOWER_SAKE("SnowSake"), //
 	SNOW_QUEEN("SnowQueen"), //
-	DRAGON_BEAM("DragonBeam"), //
-	KANA_COCO("KanaCoco"), //
+	DRAGON_FIRE("DragonBeam"), //
 	LIGHT_BEAM("LightBeam"), //
-	MI_COMET("MiComet"), //
+	MICOMET("MiComet"), //
 	RING_OF_FITNESS("RingOfFitness"), //
 	BONE_BROS("BoneBros"), //
 	ABSOLUTE_WALL("AbsoluteWall"), //
-	BL_FUJOSHI("BLFujoshi"), //
 	CURSE_BALL("CurseBall"), //
-	DRAGON_FIRE("DragonFire"), //
 	ELDRITCH_HORROR("EldritchHorror"), //
 	IDOL_CONCERT("IdolConcert"), //
 	LEGENDARY_SAUSAGE("LegendarySausage"), //
-	MI_KORONE("MiKorone"), //
+	MIKORONE("MiKorone"), //
 	RAP_DOG("RapDog"), //
-	SNOW_FLOWER_SAKE("SnowFlowerSake"), //
 	STREAM_OF_TEARS("StreamOfTears"), //
-	IM_DIE("ImDie"), //
+	IM_DIE_THANK_YOU_FOREVER("ImDie"), //
 	JINGISUKAN("Jingisukan"), //
-	HOLY_FIRE("HolyFire"), //
+	HOLY_FIRE("KanaCoco"), //
 	IDOL_LIVE("IdolLive"), //
-	FLAT_BOARD("FlatBoard"), //
-	LIGHTNING_WEINER("LightningWeiner"), //
-	STAR_HALBERD("StarHalberd"), //
-	MARI_LAMY("MariLamy"), //
+	FLATTENING_BOARD("FlatBoard"), //
+	LIGHTNING_WIENER("LightningWeiner"), //
+	CRESCENT_BARDICHE("StarHalberd"), //
 	BLACK_PLAGUE("BlackPlague"), //
-	INFINITE_BL("InfiniteBL"), //
+	TRUE_INFINITE_BL_WORKS("InfiniteBL"), //
 	BLOOD_LUST("BloodLust"), //
+	FROZEN_SEA("MariLamy"), //
 	;
 
 	private final String code;
@@ -57,6 +52,10 @@ public enum Collaboration implements Displayable {
 	}
 
 	public static Collaboration[] get(String[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
 		final Collaboration[] results = new Collaboration[codes.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -69,6 +68,10 @@ public enum Collaboration implements Displayable {
 	}
 
 	public static String[] convert(Collaboration[] values) {
+		if (values == null) {
+			return null;
+		}
+
 		final String[] results = new String[values.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -80,7 +83,70 @@ public enum Collaboration implements Displayable {
 
 	@Override
 	public String getDisplay() {
-		return name();
+		switch (this) {
+		case ABSOLUTE_WALL:
+			return "Absolute Wall";
+		case BLACK_PLAGUE:
+			return "Black Plague";
+		case BL_FUJOSHI:
+			return "BL Fujoshi";
+		case BLOOD_LUST:
+			return "Blood Lust";
+		case BONE_BROS:
+			return "Bone Bros.";
+		case BREATHE_IN_TYPE_ASACOCO:
+			return "Breathe-In Type Asacoco";
+		case BROKEN_DREAMS:
+			return "Broken Dreams";
+		case CRESCENT_BARDICHE:
+			return "Crescent Bardiche";
+		case CURSE_BALL:
+			return "Curse Ball";
+		case DRAGON_FIRE:
+			return "Dragon Fire";
+		case ELDRITCH_HORROR:
+			return "Eldritch Horror";
+		case ELITE_COOKING:
+			return "Elite Cooking";
+		case FLATTENING_BOARD:
+			return "Flattening Board";
+		case FROZEN_SEA:
+			return "Frozen Sea";
+		case HOLY_FIRE:
+			return "Holy Fire";
+		case IDOL_CONCERT:
+			return "Idol Concert";
+		case IDOL_LIVE:
+			return "Idol Live";
+		case IM_DIE_THANK_YOU_FOREVER:
+			return "I'm Die, Thank You Forever";
+		case JINGISUKAN:
+			return "Jingisukan";
+		case LEGENDARY_SAUSAGE:
+			return "Legendary Sausage";
+		case LIGHT_BEAM:
+			return "Light Beam";
+		case LIGHTNING_WIENER:
+			return "Lightning Wiener";
+		case MICOMET:
+			return "MiComet";
+		case MIKORONE:
+			return "MiKorone";
+		case RAP_DOG:
+			return "Rap Dog";
+		case RING_OF_FITNESS:
+			return "Ring Of Fitness";
+		case SNOW_FLOWER_SAKE:
+			return "Snow Flower Sake";
+		case SNOW_QUEEN:
+			return "Snow Queen";
+		case STREAM_OF_TEARS:
+			return "Stream Of Tears";
+		case TRUE_INFINITE_BL_WORKS:
+			return "True Infinite BL Works";
+		}
+
+		return null;
 	}
 
 	public String getCode() {

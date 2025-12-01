@@ -59,8 +59,15 @@ Usage: HoloCureManagerCli list
 ### Update Command
 
 ```
-Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
-                                 [--unlockAllFanLetters]
+Usage: HoloCureManagerCli update [-h] [--removeAllActiveScams]
+                                 [--removeAllFanLetters]
+                                 [--removeAllSeenCollaborations]
+                                 [--removeAllUnlockFurnitures]
+                                 [--removeAllUnlockItems]
+                                 [--removeAllUnlockOutfits]
+                                 [--removeAllUnlockStages]
+                                 [--removeAllUnlockWeapons]
+                                 [--timeModeUnlocked] [--unlockAllFanLetters]
                                  [--unlockAllFurnitures] [--unlockAllItems]
                                  [--unlockAllOutfits] [--unlockAllScams]
                                  [--unlockAllSeenCollaborations]
@@ -102,7 +109,7 @@ Usage: HoloCureManagerCli update [-h] [--timeModeUnlocked]
                                  [--supersBan=<supersBan>]
                                  [--supports=<supports>]
                                  [--usaChips=<usaChips>]
-                                 [--usadaDrins=<usadaDrinks>]
+                                 [--usadaDrinks=<usadaDrinks>]
                                  [--weaponLimit=<weaponLimit>]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
@@ -158,44 +165,45 @@ Update only portions of a save file.
       --addActiveScam[=<activeScamToAdd>...]
                             Active Scam(s) to add. Does nothing if scam is
                               already unlocked. Valid values are:
-                              ARTIFACT_WEAPON, ARTIFACT_BOOTS, ARTIFACT_GLOVES,
-                              ARTIFACT_DRINK, ARTIFACT_LENS, WORKER_TOOLS,
-                              WORKER_BREAKS, RABBIT_FOOT.
+                              LEGENDARY_WEAPON, LEGENDARY_BOOTS,
+                              LEGENDARY_GLOVES, LEGENDARY_DRINK,
+                              LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
+                              GOLD_RABBITS_FOOT.
       --addSeenCollaboration[=<seenCollaborationToAdd>...]
                             Seen Collaboration(s) to add. Does nothing if
                               collaboration is already unlocked. Valid values
-                              are: BL_LOVER, BREATHE_IN_ASACOCO, BROKEN_DREAMS,
-                              ELITE_COOKING, SNOW_SAKE, SNOW_QUEEN,
-                              DRAGON_BEAM, KANA_COCO, LIGHT_BEAM, MI_COMET,
+                              are: BL_FUJOSHI, BREATHE_IN_TYPE_ASACOCO,
+                              BROKEN_DREAMS, ELITE_COOKING, SNOW_FLOWER_SAKE,
+                              SNOW_QUEEN, DRAGON_FIRE, LIGHT_BEAM, MICOMET,
                               RING_OF_FITNESS, BONE_BROS, ABSOLUTE_WALL,
-                              BL_FUJOSHI, CURSE_BALL, DRAGON_FIRE,
-                              ELDRITCH_HORROR, IDOL_CONCERT, LEGENDARY_SAUSAGE,
-                              MI_KORONE, RAP_DOG, SNOW_FLOWER_SAKE,
-                              STREAM_OF_TEARS, IM_DIE, JINGISUKAN, HOLY_FIRE,
-                              IDOL_LIVE, FLAT_BOARD, LIGHTNING_WEINER,
-                              STAR_HALBERD, MARI_LAMY, BLACK_PLAGUE,
-                              INFINITE_BL, BLOOD_LUST.
+                              CURSE_BALL, ELDRITCH_HORROR, IDOL_CONCERT,
+                              LEGENDARY_SAUSAGE, MIKORONE, RAP_DOG,
+                              STREAM_OF_TEARS, IM_DIE_THANK_YOU_FOREVER,
+                              JINGISUKAN, HOLY_FIRE, IDOL_LIVE,
+                              FLATTENING_BOARD, LIGHTNING_WIENER,
+                              CRESCENT_BARDICHE, BLACK_PLAGUE,
+                              TRUE_INFINITE_BL_WORKS, BLOOD_LUST, FROZEN_SEA.
       --addUnlockedFanLetter[=<fanLettersToAdd>...]
                             Fan Letter(s) to add. Does nothing if fan letter is
                               already unlocked. Valid values are: KOBOKERZ,
                               ZECRETARY, UDIN, ZOMRADE, MOONAFIC, SHIOKKO,
-                              NAKIRIGUMI, FUBUCHUN, ORUYANKE, MITEIRU, KINTOKI,
-                              ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU, KENZOKU,
-                              TATSUNOKO, GUY_RYS, HOOMANS, BRATS, SMOLL_AME,
-                              CURSED_BUBBA, SSRB, SANALITES, KRONIES, KFP,
-                              NODOKA, AREA_15, HEIMIN, PEMALOE, BAZO, CILUS,
-                              MERAKYAT, MELFREND, RISUNER, AQUACREW, CHOCOMATE,
-                              SUBATOMO, ROSETAI, KAPUMIN, ACHAN, SUKONBU,
-                              DEADBEAT_Q, TAKODACHI, SAPLINGS, HAATON,
-                              MATSURISU, PIONEER, SORATOMO, BLOOM_GLOOM,
-                              DEADBEAT, MOONABITO, SPIDERCHAMA, SHRIMP,
-                              IOFORIA, RISCOT, WATAMATE, NOUSAGI, ICHIMI,
-                              SHIROGANE_KNIGHT, ELFRIEND, OTAKU, NANORAAA,
-                              FUBUZILLA, HALLOWEEN_BAE, MIKODANYE,
-                              SHUBANGELION, TEAMATE, SHRIMP_Q, HALLOWEEN_MYTH,
-                              OBAKE_CHAN, MIKOPI, STAFF, GORI_ELA, PEKODAM,
-                              ONIGIRIYA, KORONESUKI, UPAO, LUKNIGHT, CHOCOLAT,
-                              IRYSTOCRATS, PAYOYO.
+                              NAKIRIGUMI, FUBU_CHUN, ORUYANKE, MITEIRU,
+                              KINTOKI, ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU,
+                              TOKOYAMI_KENZOKU, TATSUNOKO, GUY_RYS, HOOMAN,
+                              BRAT, SMOL_AME, CURSED_BUBBA, SSRB, SANALITE,
+                              KRONIE, KFP, HARUSAKI_NODOKA, AREA_15, HEIMIN,
+                              PEMALOE, BAZO, CILUS, MERAKYAT, MELFREND,
+                              RISUNER, AQUACREW, CHOCOMATE, SUBATOMO, ROSETAI,
+                              KAPUMIN, A_CHAN, SUKONBU, DEADBEAT_Q, TAKODACHI,
+                              SAPLING, HAATON, MATSURISU, PIONEER, SORATOMO,
+                              BLOOM_GLOOM, DEADBEAT, MOONABITO, SPIDERCHAMA,
+                              CHUMBUD, IOFORIA, RISCOT, WATAMATE, NOUSAGI,
+                              HOUSHOU_NO_ICHIMIN, KNIGHTS_ORDER_OF_SHIROGANE,
+                              ELFRIEND, OTAKU, NANORAAA, FUBURA, BAE_HALLOWEEN,
+                              MIKODANYE, SHUBANGELION, TEA_MATE, CHUMBUD_Q,
+                              HALLOWEEN_MYTH, OBAKE_CHAN, P35, STAFF, GORIELA,
+                              PEKODAM, ONIGIRIYA, KORONESUKI, UPAO, LU_KNIGHT,
+                              CHOCOLAT, IRYSTOCRAT_LEGACY, POYOYO.
       --addUnlockedFurniture[=<unlockFurnituresToAdd>...]
                             Unlocked Furniture(s) to add. Does nothing if
                               furniture is already unlocked. Valid values are:
@@ -239,17 +247,18 @@ Update only portions of a save file.
       --addUnlockedItem[=<unlockItemsToAdd>...]
                             Unlocked Item(s) to add. Does nothing if item is
                               already unlocked. Valid values are: BODY_PILLOW,
-                              FULL_MEAL, PIKI_PIKI_PIMAN, SUCCUBUS_HORN,
-                              HEADPHONES, UBER_SHEEP, HOLY_MILK, SAKE,
+                              FULL_MEAL, PIKI_PIKI_PIMAN, NURSES_HORN,
+                              HEADPHONES, UBER_SHEEP, KNIGHTLY_MILK, SAKE,
                               FACE_MASK, CREDIT_CARD, SUPER_CHATTO_TIME,
                               IDOL_COSTUME, BLACKSMITHS_GEAR, BREASTPLATE,
                               STUDY_GLASSES, GORILLAS_PAW, HALU,
-                              INJECTION_ASACOCO, MEMBERSHIP, PIGGY_BANK,
-                              BANDAID, CHICKENS_FEATHER, ENERGY_DRINK,
-                              GWS_PILL, PLUSHIE, DEVIL_HAT, LIMITER,
-                              NINJA_HEADBAND, FOCUS_SHADES, CANDY, BEETLE,
-                              SHACKLESS, HOPE_SODA, LAB_COAT, PROMISE_TIARA,
-                              RAVEN_FEATHER, CORPORATION_PIN.
+                              INJECTION_TYPE_ASACOCO, MEMBERSHIP,
+                              STOLEN_PIGGY_BANK, JUST_BANDAGE,
+                              CHICKENS_FEATHER, ENERGY_DRINK, GWS_PILL,
+                              PLUSHIE, DEVIL_HAT, LIMITER, NINJA_HEADBAND,
+                              FOCUS_SHADES, CANDY_KINGDOM_SWEETS, BEETLE,
+                              KUSOGAKI_SHACKLES, HOPE_SODA, RESEARCHERS_COAT,
+                              PROMISE_TIARA, RAVEN_FEATHER, CORPORATION_PIN.
       --addUnlockedOutfit[=<unlockOutfitsToAdd>...]
                             Unlocked Outfit(s) to add. Does nothing if outfit
                               is already unlocked. Valid values are: DEFAULT,
@@ -288,11 +297,11 @@ Update only portions of a save file.
       --addUnlockedWeapon[=<unlockWeaponsToAdd>...]
                             Unlocked Weapon(s) to add. Does nothing if weapon
                               is already unlocked. Valid values are:
-                              PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING, TAILPLUG,
-                              BL_BOOK, ELITE_LAVA, HOLO_BOMB, HOLO_LASER,
-                              WAMY_WATER, CEO_TEARS, CUTTING_BOARD,
-                              BOUNCE_BALL, EN_CURSE, IDOL_SONG, X_POTATO,
-                              SAUSAGE, OWL_DAGGER.
+                              PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING,
+                              PLUG_TYPE_ASACOCO, BL_BOOK, ELITE_LAVA_BUCKET,
+                              HOLO_BOMB, FAN_BEAM, WAMY_WATER, CEOS_TEARS,
+                              CUTTING_BOARD, BOUNCE_BALL, ENS_CURSE, IDOL_SONG,
+                              X_POTATO, SAUSAGE, OWL_DAGGER.
       --atkUp=<atkUp>       Update ATK Up.
       --collabBan=<collabBan>
                             Update Collab Ban.
@@ -347,44 +356,60 @@ Update only portions of a save file.
       --removeActiveScam[=<activeScamToRemove>...]
                             Active Scam(s) to remove. Does nothing if scam
                               isn't unlocked. Valid values are:
-                              ARTIFACT_WEAPON, ARTIFACT_BOOTS, ARTIFACT_GLOVES,
-                              ARTIFACT_DRINK, ARTIFACT_LENS, WORKER_TOOLS,
-                              WORKER_BREAKS, RABBIT_FOOT.
+                              LEGENDARY_WEAPON, LEGENDARY_BOOTS,
+                              LEGENDARY_GLOVES, LEGENDARY_DRINK,
+                              LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
+                              GOLD_RABBITS_FOOT.
+      --removeAllActiveScams
+                            Remove all Active Scams.
+      --removeAllFanLetters Remove all Fan Letters.
+      --removeAllSeenCollaborations
+                            Remove all Seen Collaborations.
+      --removeAllUnlockFurnitures
+                            Remove all Unlock Furnitures.
+      --removeAllUnlockItems
+                            Remove all Unlock Items.
+      --removeAllUnlockOutfits
+                            Remove all Unlock Outfits.
+      --removeAllUnlockStages
+                            Remove all Unlock Stages.
+      --removeAllUnlockWeapons
+                            Remove all Unlock Weapons.
       --removeSeenCollaboration[=<seenCollaborationToRemove>...]
                             Seen Collaboration(s) to remove. Does nothing if
                               collaboration isn't unlocked. Valid values are:
-                              BL_LOVER, BREATHE_IN_ASACOCO, BROKEN_DREAMS,
-                              ELITE_COOKING, SNOW_SAKE, SNOW_QUEEN,
-                              DRAGON_BEAM, KANA_COCO, LIGHT_BEAM, MI_COMET,
+                              BL_FUJOSHI, BREATHE_IN_TYPE_ASACOCO,
+                              BROKEN_DREAMS, ELITE_COOKING, SNOW_FLOWER_SAKE,
+                              SNOW_QUEEN, DRAGON_FIRE, LIGHT_BEAM, MICOMET,
                               RING_OF_FITNESS, BONE_BROS, ABSOLUTE_WALL,
-                              BL_FUJOSHI, CURSE_BALL, DRAGON_FIRE,
-                              ELDRITCH_HORROR, IDOL_CONCERT, LEGENDARY_SAUSAGE,
-                              MI_KORONE, RAP_DOG, SNOW_FLOWER_SAKE,
-                              STREAM_OF_TEARS, IM_DIE, JINGISUKAN, HOLY_FIRE,
-                              IDOL_LIVE, FLAT_BOARD, LIGHTNING_WEINER,
-                              STAR_HALBERD, MARI_LAMY, BLACK_PLAGUE,
-                              INFINITE_BL, BLOOD_LUST.
+                              CURSE_BALL, ELDRITCH_HORROR, IDOL_CONCERT,
+                              LEGENDARY_SAUSAGE, MIKORONE, RAP_DOG,
+                              STREAM_OF_TEARS, IM_DIE_THANK_YOU_FOREVER,
+                              JINGISUKAN, HOLY_FIRE, IDOL_LIVE,
+                              FLATTENING_BOARD, LIGHTNING_WIENER,
+                              CRESCENT_BARDICHE, BLACK_PLAGUE,
+                              TRUE_INFINITE_BL_WORKS, BLOOD_LUST, FROZEN_SEA.
       --removeUnlockedFanLetter[=<fanLettersToRemove>...]
                             Fan Letter(s) to remove. Does nothing if fan letter
                               isn't unlocked. Valid values are: KOBOKERZ,
                               ZECRETARY, UDIN, ZOMRADE, MOONAFIC, SHIOKKO,
-                              NAKIRIGUMI, FUBUCHUN, ORUYANKE, MITEIRU, KINTOKI,
-                              ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU, KENZOKU,
-                              TATSUNOKO, GUY_RYS, HOOMANS, BRATS, SMOLL_AME,
-                              CURSED_BUBBA, SSRB, SANALITES, KRONIES, KFP,
-                              NODOKA, AREA_15, HEIMIN, PEMALOE, BAZO, CILUS,
-                              MERAKYAT, MELFREND, RISUNER, AQUACREW, CHOCOMATE,
-                              SUBATOMO, ROSETAI, KAPUMIN, ACHAN, SUKONBU,
-                              DEADBEAT_Q, TAKODACHI, SAPLINGS, HAATON,
-                              MATSURISU, PIONEER, SORATOMO, BLOOM_GLOOM,
-                              DEADBEAT, MOONABITO, SPIDERCHAMA, SHRIMP,
-                              IOFORIA, RISCOT, WATAMATE, NOUSAGI, ICHIMI,
-                              SHIROGANE_KNIGHT, ELFRIEND, OTAKU, NANORAAA,
-                              FUBUZILLA, HALLOWEEN_BAE, MIKODANYE,
-                              SHUBANGELION, TEAMATE, SHRIMP_Q, HALLOWEEN_MYTH,
-                              OBAKE_CHAN, MIKOPI, STAFF, GORI_ELA, PEKODAM,
-                              ONIGIRIYA, KORONESUKI, UPAO, LUKNIGHT, CHOCOLAT,
-                              IRYSTOCRATS, PAYOYO.
+                              NAKIRIGUMI, FUBU_CHUN, ORUYANKE, MITEIRU,
+                              KINTOKI, ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU,
+                              TOKOYAMI_KENZOKU, TATSUNOKO, GUY_RYS, HOOMAN,
+                              BRAT, SMOL_AME, CURSED_BUBBA, SSRB, SANALITE,
+                              KRONIE, KFP, HARUSAKI_NODOKA, AREA_15, HEIMIN,
+                              PEMALOE, BAZO, CILUS, MERAKYAT, MELFREND,
+                              RISUNER, AQUACREW, CHOCOMATE, SUBATOMO, ROSETAI,
+                              KAPUMIN, A_CHAN, SUKONBU, DEADBEAT_Q, TAKODACHI,
+                              SAPLING, HAATON, MATSURISU, PIONEER, SORATOMO,
+                              BLOOM_GLOOM, DEADBEAT, MOONABITO, SPIDERCHAMA,
+                              CHUMBUD, IOFORIA, RISCOT, WATAMATE, NOUSAGI,
+                              HOUSHOU_NO_ICHIMIN, KNIGHTS_ORDER_OF_SHIROGANE,
+                              ELFRIEND, OTAKU, NANORAAA, FUBURA, BAE_HALLOWEEN,
+                              MIKODANYE, SHUBANGELION, TEA_MATE, CHUMBUD_Q,
+                              HALLOWEEN_MYTH, OBAKE_CHAN, P35, STAFF, GORIELA,
+                              PEKODAM, ONIGIRIYA, KORONESUKI, UPAO, LU_KNIGHT,
+                              CHOCOLAT, IRYSTOCRAT_LEGACY, POYOYO.
       --removeUnlockedFurniture[=<unlockFurnituresToRemove>...]
                             Unlocked Furniture(s) to remove. Does nothing if
                               furniture isn't unlocked. Valid values are:
@@ -428,17 +453,18 @@ Update only portions of a save file.
       --removeUnlockedItem[=<unlockItemsToRemove>...]
                             Unlocked Item(s) to remove. Does nothing if item
                               isn't unlocked. Valid values are: BODY_PILLOW,
-                              FULL_MEAL, PIKI_PIKI_PIMAN, SUCCUBUS_HORN,
-                              HEADPHONES, UBER_SHEEP, HOLY_MILK, SAKE,
+                              FULL_MEAL, PIKI_PIKI_PIMAN, NURSES_HORN,
+                              HEADPHONES, UBER_SHEEP, KNIGHTLY_MILK, SAKE,
                               FACE_MASK, CREDIT_CARD, SUPER_CHATTO_TIME,
                               IDOL_COSTUME, BLACKSMITHS_GEAR, BREASTPLATE,
                               STUDY_GLASSES, GORILLAS_PAW, HALU,
-                              INJECTION_ASACOCO, MEMBERSHIP, PIGGY_BANK,
-                              BANDAID, CHICKENS_FEATHER, ENERGY_DRINK,
-                              GWS_PILL, PLUSHIE, DEVIL_HAT, LIMITER,
-                              NINJA_HEADBAND, FOCUS_SHADES, CANDY, BEETLE,
-                              SHACKLESS, HOPE_SODA, LAB_COAT, PROMISE_TIARA,
-                              RAVEN_FEATHER, CORPORATION_PIN.
+                              INJECTION_TYPE_ASACOCO, MEMBERSHIP,
+                              STOLEN_PIGGY_BANK, JUST_BANDAGE,
+                              CHICKENS_FEATHER, ENERGY_DRINK, GWS_PILL,
+                              PLUSHIE, DEVIL_HAT, LIMITER, NINJA_HEADBAND,
+                              FOCUS_SHADES, CANDY_KINGDOM_SWEETS, BEETLE,
+                              KUSOGAKI_SHACKLES, HOPE_SODA, RESEARCHERS_COAT,
+                              PROMISE_TIARA, RAVEN_FEATHER, CORPORATION_PIN.
       --removeUnlockedOutfit[=<unlockOutfitsToRemove>...]
                             Unlocked Outfit(s) to remove. Does nothing if
                               outfit isn't unlocked. Valid values are: DEFAULT,
@@ -477,11 +503,11 @@ Update only portions of a save file.
       --removeUnlockedWeapon[=<unlockWeaponsToRemove>...]
                             Unlocked Weapon(s) to remove. Does nothing if
                               weapon isn't unlocked. Valid values are:
-                              PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING, TAILPLUG,
-                              BL_BOOK, ELITE_LAVA, HOLO_BOMB, HOLO_LASER,
-                              WAMY_WATER, CEO_TEARS, CUTTING_BOARD,
-                              BOUNCE_BALL, EN_CURSE, IDOL_SONG, X_POTATO,
-                              SAUSAGE, OWL_DAGGER.
+                              PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING,
+                              PLUG_TYPE_ASACOCO, BL_BOOK, ELITE_LAVA_BUCKET,
+                              HOLO_BOMB, FAN_BEAM, WAMY_WATER, CEOS_TEARS,
+                              CUTTING_BOARD, BOUNCE_BALL, ENS_CURSE, IDOL_SONG,
+                              X_POTATO, SAUSAGE, OWL_DAGGER.
       --reroll=<reroll>     Update Reroll.
       --sand=<sand>         Update Sand.
       --skillUp=<skillUp>   Update Skill Up.

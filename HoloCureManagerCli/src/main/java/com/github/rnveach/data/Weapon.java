@@ -3,20 +3,19 @@ package com.github.rnveach.data;
 import java.util.Arrays;
 
 public enum Weapon implements Displayable {
-	// TODO: better names
 	PSYCHO_AXE("PsychoAxe"), //
 	GLOWSTICK("Glowstick"), //
 	SPIDER_COOKING("SpiderCooking"), //
-	TAILPLUG("Tailplug"), //
+	PLUG_TYPE_ASACOCO("Tailplug"), //
 	BL_BOOK("BLBook"), //
-	ELITE_LAVA("EliteLava"), //
+	ELITE_LAVA_BUCKET("EliteLava"), //
 	HOLO_BOMB("HoloBomb"), //
-	HOLO_LASER("HoloLaser"), //
+	FAN_BEAM("HoloLaser"), //
 	WAMY_WATER("WamyWater"), //
-	CEO_TEARS("CEOTears"), //
+	CEOS_TEARS("CEOTears"), //
 	CUTTING_BOARD("CuttingBoard"), //
 	BOUNCE_BALL("BounceBall"), //
-	EN_CURSE("ENCurse"), //
+	ENS_CURSE("ENCurse"), //
 	IDOL_SONG("IdolSong"), //
 	X_POTATO("XPotato"), //
 	SAUSAGE("Sausage"), //
@@ -40,6 +39,10 @@ public enum Weapon implements Displayable {
 	}
 
 	public static Weapon[] get(String[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
 		final Weapon[] results = new Weapon[codes.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -52,6 +55,10 @@ public enum Weapon implements Displayable {
 	}
 
 	public static String[] convert(Weapon[] values) {
+		if (values == null) {
+			return null;
+		}
+
 		final String[] results = new String[values.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -63,7 +70,44 @@ public enum Weapon implements Displayable {
 
 	@Override
 	public String getDisplay() {
-		return name();
+		switch (this) {
+		case BL_BOOK:
+			return "BL Book";
+		case BOUNCE_BALL:
+			return "Bounce Ball";
+		case CEOS_TEARS:
+			return "CEO's Tears";
+		case CUTTING_BOARD:
+			return "Cutting Board";
+		case ELITE_LAVA_BUCKET:
+			return "Elite Lava Bucket";
+		case ENS_CURSE:
+			return "EN's Curse";
+		case FAN_BEAM:
+			return "Fan Beam";
+		case GLOWSTICK:
+			return "Glowstick";
+		case HOLO_BOMB:
+			return "Holo Bomb";
+		case IDOL_SONG:
+			return "Idol Song";
+		case OWL_DAGGER:
+			return "Owl Dagger";
+		case PLUG_TYPE_ASACOCO:
+			return "Plug Type Asacoco";
+		case PSYCHO_AXE:
+			return "Psycho Axe";
+		case SAUSAGE:
+			return "Sausage";
+		case SPIDER_COOKING:
+			return "Spider Cooking";
+		case WAMY_WATER:
+			return "Wamy Water";
+		case X_POTATO:
+			return "X-Potato";
+		}
+
+		return null;
 	}
 
 	public String getCode() {

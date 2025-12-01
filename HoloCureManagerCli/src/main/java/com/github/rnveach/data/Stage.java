@@ -34,6 +34,10 @@ public enum Stage implements Displayable {
 	}
 
 	public static Stage[] get(String[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
 		final Stage[] results = new Stage[codes.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -46,6 +50,10 @@ public enum Stage implements Displayable {
 	}
 
 	public static String[] convert(Stage[] values) {
+		if (values == null) {
+			return null;
+		}
+
 		final String[] results = new String[values.length];
 
 		for (int i = 0; i < results.length; i++) {

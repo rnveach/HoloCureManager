@@ -1,8 +1,10 @@
 package com.github.rnveach.commands;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -44,6 +46,9 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--timeModeUnlocked" }, description = "Update if Time Mode is Unlocked.")
 	private Boolean timeModeUnlocked;
 
+	@Option(names = { "--removeAllUnlockStages" }, description = "Remove all Unlock Stages.")
+	private Boolean removeAllUnlockStages;
+
 	@Option(names = { "--unlockAllStages" }, description = "Unlock all known Stages.")
 	private Boolean unlockAllStages;
 
@@ -54,6 +59,9 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = {
 			"--removeUnlockedStage" }, description = "Unlocked Stage(s) to remove. Does nothing if stage isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Stage[] unlockStagesToRemove;
+
+	@Option(names = { "--removeAllUnlockOutfits" }, description = "Remove all Unlock Outfits.")
+	private Boolean removeAllUnlockOutfits;
 
 	@Option(names = { "--unlockAllOutfits" }, description = "Unlock all known Outfits.")
 	private Boolean unlockAllOutfits;
@@ -66,6 +74,9 @@ public class UpdateCommand implements Callable<Integer> {
 			"--removeUnlockedOutfit" }, description = "Unlocked Outfit(s) to remove. Does nothing if outfit isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Outfit[] unlockOutfitsToRemove;
 
+	@Option(names = { "--removeAllUnlockWeapons" }, description = "Remove all Unlock Weapons.")
+	private Boolean removeAllUnlockWeapons;
+
 	@Option(names = { "--unlockAllWeapons" }, description = "Unlock all known Weapons.")
 	private Boolean unlockAllWeapons;
 
@@ -76,6 +87,9 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = {
 			"--removeUnlockedWeapon" }, description = "Unlocked Weapon(s) to remove. Does nothing if weapon isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Weapon[] unlockWeaponsToRemove;
+
+	@Option(names = { "--removeAllUnlockItems" }, description = "Remove all Unlock Items.")
+	private Boolean removeAllUnlockItems;
 
 	@Option(names = { "--unlockAllItems" }, description = "Unlock all known Items.")
 	private Boolean unlockAllItems;
@@ -88,6 +102,9 @@ public class UpdateCommand implements Callable<Integer> {
 			"--removeUnlockedItem" }, description = "Unlocked Item(s) to remove. Does nothing if item isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Item[] unlockItemsToRemove;
 
+	@Option(names = { "--removeAllSeenCollaborations" }, description = "Remove all Seen Collaborations.")
+	private Boolean removeAllSeenCollaborations;
+
 	@Option(names = { "--unlockAllSeenCollaborations" }, description = "Unlock all known Seen Collaborations.")
 	private Boolean unlockAllSeenCollaborations;
 
@@ -98,6 +115,9 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = {
 			"--removeSeenCollaboration" }, description = "Seen Collaboration(s) to remove. Does nothing if collaboration isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Collaboration[] seenCollaborationToRemove;
+
+	@Option(names = { "--removeAllFanLetters" }, description = "Remove all Fan Letters.")
+	private Boolean removeAllFanLetters;
 
 	@Option(names = { "--unlockAllFanLetters" }, description = "Unlock all known Fan Letters.")
 	private Boolean unlockAllFanLetters;
@@ -212,6 +232,9 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--refundAll" }, description = "Update Refund All.")
 	private Double refundAll;
 
+	@Option(names = { "--removeAllUnlockFurnitures" }, description = "Remove all Unlock Furnitures.")
+	private Boolean removeAllUnlockFurnitures;
+
 	@Option(names = { "--unlockAllFurnitures" }, description = "Unlock all known Furnitures.")
 	private Boolean unlockAllFurnitures;
 
@@ -268,6 +291,9 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--usadaDrinks" }, description = "Update Usada Drinks.")
 	private Double usadaDrinks;
 
+	@Option(names = { "--removeAllActiveScams" }, description = "Remove all Active Scams.")
+	private Boolean removeAllActiveScams;
+
 	@Option(names = { "--unlockAllScams" }, description = "Unlock all known Scams.")
 	private Boolean unlockAllScams;
 
@@ -280,14 +306,17 @@ public class UpdateCommand implements Callable<Integer> {
 	private Scam[] activeScamToRemove;
 
 	public void validateOptions() {
-		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.unlockAllStages == null)
-				&& (this.unlockStagesToAdd == null) && (this.unlockStagesToRemove == null)
+		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.removeAllUnlockStages == null)
+				&& (this.unlockAllStages == null) && (this.unlockStagesToAdd == null)
+				&& (this.unlockStagesToRemove == null) && (this.removeAllUnlockOutfits == null)
 				&& (this.unlockAllOutfits == null) && (this.unlockOutfitsToAdd == null)
-				&& (this.unlockOutfitsToRemove == null) && (this.unlockAllItems == null)
-				&& (this.unlockItemsToAdd == null) && (this.unlockItemsToRemove == null)
+				&& (this.unlockOutfitsToRemove == null) && (this.removeAllUnlockItems == null)
+				&& (this.unlockAllItems == null) && (this.unlockItemsToAdd == null)
+				&& (this.unlockItemsToRemove == null) && (this.removeAllSeenCollaborations == null)
 				&& (this.unlockAllSeenCollaborations == null) && (this.seenCollaborationToAdd == null)
-				&& (this.seenCollaborationToRemove == null) && (this.unlockAllWeapons == null)
-				&& (this.unlockWeaponsToAdd == null) && (this.unlockWeaponsToRemove == null)
+				&& (this.seenCollaborationToRemove == null) && (this.removeAllUnlockWeapons == null)
+				&& (this.unlockAllWeapons == null) && (this.unlockWeaponsToAdd == null)
+				&& (this.unlockWeaponsToRemove == null) && (this.removeAllFanLetters == null)
 				&& (this.unlockAllFanLetters == null) && (this.fanLettersToAdd == null)
 				&& (this.fanLettersToRemove == null) && (this.specialAttack == null) && (this.growth == null)
 				&& (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
@@ -300,13 +329,14 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.moneyGainUp == null) && (this.enhancementRateUp == null) && (this.marketing == null)
 				&& (this.weaponLimit == null) && (this.itemLimit == null) && (this.collabBan == null)
 				&& (this.supersBan == null) && (this.gRankOff == null) && (this.hardcore == null)
-				&& (this.refundAll == null) && (this.unlockAllFurnitures == null)
-				&& (this.unlockFurnituresToAdd == null) && (this.unlockFurnituresToRemove == null)
-				&& (this.sand == null) && (this.activeFishRod == null) && (this.managementLevel == null)
-				&& (this.managementExp == null) && (this.mineLevel == null) && (this.mineExp == null)
-				&& (this.woodcuttingLevel == null) && (this.woodcuttingExp == null) && (this.activePickaxe == null)
-				&& (this.activeAxe == null) && (this.usaChips == null) && (this.activePet == null)
-				&& (this.activeTrail == null) && (this.usadaDrinks == null) && (this.unlockAllScams == null)
+				&& (this.refundAll == null) && (this.removeAllUnlockFurnitures == null)
+				&& (this.unlockAllFurnitures == null) && (this.unlockFurnituresToAdd == null)
+				&& (this.unlockFurnituresToRemove == null) && (this.sand == null) && (this.activeFishRod == null)
+				&& (this.managementLevel == null) && (this.managementExp == null) && (this.mineLevel == null)
+				&& (this.mineExp == null) && (this.woodcuttingLevel == null) && (this.woodcuttingExp == null)
+				&& (this.activePickaxe == null) && (this.activeAxe == null) && (this.usaChips == null)
+				&& (this.activePet == null) && (this.activeTrail == null) && (this.usadaDrinks == null)
+				&& (this.removeAllActiveScams == null) && (this.unlockAllScams == null)
 				&& (this.activeScamToAdd == null) && (this.activeScamToRemove == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
@@ -327,45 +357,63 @@ public class UpdateCommand implements Callable<Integer> {
 		if (this.timeModeUnlocked != null) {
 			SaveData.setTimeModeUnlocked(root, this.timeModeUnlocked);
 		}
+		if ((this.removeAllUnlockStages != null) && this.removeAllUnlockStages) {
+			SaveData.setUnlockedStages(root, null);
+		}
 		if ((this.unlockAllStages != null) && this.unlockAllStages) {
 			SaveData.setUnlockedStages(root, Stage.values());
 		}
-		if ((this.unlockStagesToAdd != null) && (this.unlockStagesToRemove != null)) {
+		if ((this.unlockStagesToAdd != null) || (this.unlockStagesToRemove != null)) {
 			SaveData.setUnlockedStages(root,
 					doAddRemove(SaveData.getUnlockedStages(root), this.unlockStagesToAdd, this.unlockStagesToRemove));
+		}
+		if ((this.removeAllUnlockOutfits != null) && this.removeAllUnlockOutfits) {
+			SaveData.setUnlockedOutfits(root, null);
 		}
 		if ((this.unlockAllOutfits != null) && this.unlockAllOutfits) {
 			SaveData.setUnlockedOutfits(root, Outfit.values());
 		}
-		if ((this.unlockOutfitsToAdd != null) && (this.unlockOutfitsToRemove != null)) {
+		if ((this.unlockOutfitsToAdd != null) || (this.unlockOutfitsToRemove != null)) {
 			SaveData.setUnlockedOutfits(root, doAddRemove(SaveData.getUnlockedOutfits(root), this.unlockOutfitsToAdd,
 					this.unlockOutfitsToRemove));
+		}
+		if ((this.removeAllUnlockWeapons != null) && this.removeAllUnlockWeapons) {
+			SaveData.setUnlockedWeapons(root, null);
 		}
 		if ((this.unlockAllWeapons != null) && this.unlockAllWeapons) {
 			SaveData.setUnlockedWeapons(root, Weapon.values());
 		}
-		if ((this.unlockWeaponsToAdd != null) && (this.unlockWeaponsToRemove != null)) {
+		if ((this.unlockWeaponsToAdd != null) || (this.unlockWeaponsToRemove != null)) {
 			SaveData.setUnlockedWeapons(root, doAddRemove(SaveData.getUnlockedWeapons(root), this.unlockWeaponsToAdd,
 					this.unlockWeaponsToRemove));
+		}
+		if ((this.removeAllUnlockItems != null) && this.removeAllUnlockItems) {
+			SaveData.setUnlockedItems(root, null);
 		}
 		if ((this.unlockAllItems != null) && this.unlockAllItems) {
 			SaveData.setUnlockedItems(root, Item.values());
 		}
-		if ((this.unlockItemsToAdd != null) && (this.unlockItemsToRemove != null)) {
+		if ((this.unlockItemsToAdd != null) || (this.unlockItemsToRemove != null)) {
 			SaveData.setUnlockedItems(root,
 					doAddRemove(SaveData.getUnlockedItems(root), this.unlockItemsToAdd, this.unlockItemsToRemove));
+		}
+		if ((this.removeAllSeenCollaborations != null) && this.removeAllSeenCollaborations) {
+			SaveData.setSeenCollaborations(root, null);
 		}
 		if ((this.unlockAllSeenCollaborations != null) && this.unlockAllSeenCollaborations) {
 			SaveData.setSeenCollaborations(root, Collaboration.values());
 		}
-		if ((this.seenCollaborationToAdd != null) && (this.seenCollaborationToRemove != null)) {
+		if ((this.seenCollaborationToAdd != null) || (this.seenCollaborationToRemove != null)) {
 			SaveData.setSeenCollaborations(root, doAddRemove(SaveData.getSeenCollaborations(root),
 					this.seenCollaborationToAdd, this.seenCollaborationToRemove));
+		}
+		if ((this.removeAllFanLetters != null) && this.removeAllFanLetters) {
+			SaveData.setFanLetters(root, null);
 		}
 		if ((this.unlockAllFanLetters != null) && this.unlockAllFanLetters) {
 			SaveData.setFanLetters(root, FanLetter.values());
 		}
-		if ((this.fanLettersToAdd != null) && (this.fanLettersToRemove != null)) {
+		if ((this.fanLettersToAdd != null) || (this.fanLettersToRemove != null)) {
 			SaveData.setFanLetters(root,
 					doAddRemove(SaveData.getFanLetters(root), this.fanLettersToAdd, this.fanLettersToRemove));
 		}
@@ -471,6 +519,9 @@ public class UpdateCommand implements Callable<Integer> {
 		if (this.refundAll != null) {
 			SaveData.setRefundAll(root, this.refundAll);
 		}
+		if ((this.removeAllUnlockFurnitures != null) && this.removeAllUnlockFurnitures) {
+			SaveData.setUnlockedFurnitures(root, null);
+		}
 		if ((this.unlockAllFurnitures != null) && this.unlockAllFurnitures) {
 			SaveData.setUnlockedFurnitures(root, Furniture.values());
 		}
@@ -520,6 +571,9 @@ public class UpdateCommand implements Callable<Integer> {
 		if (this.usadaDrinks != null) {
 			SaveData.setUsadaDrinks(root, this.usadaDrinks);
 		}
+		if ((this.removeAllActiveScams != null) && this.removeAllActiveScams) {
+			SaveData.setActiveScams(root, null);
+		}
 		if ((this.unlockAllScams != null) && this.unlockAllScams) {
 			SaveData.setActiveScams(root, Scam.values());
 		}
@@ -534,7 +588,7 @@ public class UpdateCommand implements Callable<Integer> {
 	}
 
 	private static <T> T[] doAddRemove(T[] original, T[] adds, T[] removes) {
-		final Set<T> newList = new HashSet<>(Arrays.asList(original));
+		final Set<T> newList = new HashSet<>(asList(original));
 
 		if (adds != null) {
 			for (final T add : adds) {
@@ -548,9 +602,19 @@ public class UpdateCommand implements Callable<Integer> {
 		}
 
 		@SuppressWarnings("unchecked")
-		final T[] result = (T[]) Array.newInstance(original.getClass().getComponentType(), newList.size());
+		final T[] result = (T[]) Array.newInstance(
+				original == null ? newList.iterator().next().getClass() : original.getClass().getComponentType(),
+				newList.size());
 
 		return newList.toArray(result);
+	}
+
+	private static <T> List<T> asList(T[] array) {
+		if (array == null) {
+			return new ArrayList<>();
+		}
+
+		return Arrays.asList(array);
 	}
 
 	public HoloCureManagerCli getParent() {

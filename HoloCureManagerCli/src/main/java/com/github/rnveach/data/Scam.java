@@ -3,15 +3,14 @@ package com.github.rnveach.data;
 import java.util.Arrays;
 
 public enum Scam implements Displayable {
-	// TODO: better names
-	ARTIFACT_WEAPON("artifactWeapon"), //
-	ARTIFACT_BOOTS("artifactBoots"), //
-	ARTIFACT_GLOVES("artifactGloves"), //
-	ARTIFACT_DRINK("artifactDrink"), //
-	ARTIFACT_LENS("artifactLens"), //
+	LEGENDARY_WEAPON("artifactWeapon"), //
+	LEGENDARY_BOOTS("artifactBoots"), //
+	LEGENDARY_GLOVES("artifactGloves"), //
+	LEGENDARY_DRINK("artifactDrink"), //
+	LEGENDARY_LENS("artifactLens"), //
 	WORKER_TOOLS("workerTools"), //
 	WORKER_BREAKS("workerBreaks"), //
-	RABBIT_FOOT("rabbitFoot"), //
+	GOLD_RABBITS_FOOT("rabbitFoot"), //
 	;
 
 	private final String code;
@@ -31,6 +30,10 @@ public enum Scam implements Displayable {
 	}
 
 	public static Scam[] get(String[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
 		final Scam[] results = new Scam[codes.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -43,6 +46,10 @@ public enum Scam implements Displayable {
 	}
 
 	public static String[] convert(Scam[] values) {
+		if (values == null) {
+			return null;
+		}
+
 		final String[] results = new String[values.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -54,7 +61,26 @@ public enum Scam implements Displayable {
 
 	@Override
 	public String getDisplay() {
-		return name();
+		switch (this) {
+		case GOLD_RABBITS_FOOT:
+			return "Gold Rabbit's Foot";
+		case LEGENDARY_BOOTS:
+			return "Legendary Boots";
+		case LEGENDARY_DRINK:
+			return "Legendary Drink";
+		case LEGENDARY_GLOVES:
+			return "Legendary Gloves";
+		case LEGENDARY_LENS:
+			return "Legendary Lens";
+		case LEGENDARY_WEAPON:
+			return "Legendary Weapon";
+		case WORKER_BREAKS:
+			return "Worker Breaks";
+		case WORKER_TOOLS:
+			return "Worker Tools";
+		}
+
+		return null;
 	}
 
 	public String getCode() {

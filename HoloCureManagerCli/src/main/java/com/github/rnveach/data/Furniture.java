@@ -144,6 +144,10 @@ public enum Furniture implements Displayable {
 	}
 
 	public static Furniture[] get(String[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
 		final Furniture[] results = new Furniture[codes.length];
 
 		for (int i = 0; i < results.length; i++) {
@@ -156,6 +160,10 @@ public enum Furniture implements Displayable {
 	}
 
 	public static String[] convert(Furniture[] values) {
+		if (values == null) {
+			return null;
+		}
+
 		final String[] results = new String[values.length];
 
 		for (int i = 0; i < results.length; i++) {
