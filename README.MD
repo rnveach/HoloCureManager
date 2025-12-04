@@ -59,7 +59,8 @@ Usage: HoloCureManagerCli list
 ### Update Command
 
 ```
-Usage: HoloCureManagerCli update [-h] [--removeAllActiveScams]
+Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
+                                 [--removeAllActiveScams]
                                  [--removeAllFanLetters]
                                  [--removeAllSeenCollaborations]
                                  [--removeAllUnlockFurnitures]
@@ -69,7 +70,8 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveScams]
                                  [--removeAllUnlockWeapons]
                                  [--timeModeUnlocked] [--unlockAllFanLetters]
                                  [--unlockAllFurnitures] [--unlockAllItems]
-                                 [--unlockAllOutfits] [--unlockAllScams]
+                                 [--unlockAllMiscUnlocks] [--unlockAllOutfits]
+                                 [--unlockAllScams]
                                  [--unlockAllSeenCollaborations]
                                  [--unlockAllStages] [--unlockAllWeapons]
                                  [--activeAxe=<activeAxe>]
@@ -114,6 +116,7 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveScams]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
                                  [--addActiveScam[=<activeScamToAdd>...]]...
+                                 [--addMiscUnlock[=<miscUnlockToAdd>...]]...
                                  [--addSeenCollaboration
                                  [=<seenCollaborationToAdd>...]]...
                                  [--addUnlockedFanLetter
@@ -129,6 +132,8 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveScams]
                                  [=<unlockWeaponsToAdd>...]]...
                                  [--removeActiveScam
                                  [=<activeScamToRemove>...]]...
+                                 [--removeMiscUnlock
+                                 [=<miscUnlockToRemove>...]]...
                                  [--removeSeenCollaboration
                                  [=<seenCollaborationToRemove>...]]...
                                  [--removeUnlockedFanLetter
@@ -169,6 +174,16 @@ Update only portions of a save file.
                               LEGENDARY_GLOVES, LEGENDARY_DRINK,
                               LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
                               GOLD_RABBITS_FOOT.
+      --addMiscUnlock[=<miscUnlockToAdd>...]
+                            Misc. Unlock(s) to add. Does nothing if item is
+                              already unlocked. Valid values are:
+                              LEGENDARY_WEAPON, LEGENDARY_BOOTS,
+                              LEGENDARY_GLOVES, LEGENDARY_DRINK,
+                              LEGENDARY_LENS, TRAIL_HEARTS, TRAIL_SAKURA,
+                              TRAIL_SPARKLES, TRAIL_LEAVES, TRAIL_HOLOLIVE,
+                              TRAIL_BUBBLES, TRAIL_SKULLS, PET_CAT, PET_DOG,
+                              PET_RABBIT, PET_BEETLE, PET_PENGUIN, PET_MONKEY,
+                              WORKER_TOOLS, WORKER_BREAKS, GOLD_RABBITS_FOOT.
       --addSeenCollaboration[=<seenCollaborationToAdd>...]
                             Seen Collaboration(s) to add. Does nothing if
                               collaboration is already unlocked. Valid values
@@ -360,6 +375,8 @@ Update only portions of a save file.
                               LEGENDARY_GLOVES, LEGENDARY_DRINK,
                               LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
                               GOLD_RABBITS_FOOT.
+      --removeAllActiveMiscUnlocks
+                            Remove all Active Misc. Unlocks.
       --removeAllActiveScams
                             Remove all Active Scams.
       --removeAllFanLetters Remove all Fan Letters.
@@ -375,6 +392,16 @@ Update only portions of a save file.
                             Remove all Unlock Stages.
       --removeAllUnlockWeapons
                             Remove all Unlock Weapons.
+      --removeMiscUnlock[=<miscUnlockToRemove>...]
+                            Misc. Unlock(s) to remove. Does nothing if item
+                              isn't unlocked. Valid values are:
+                              LEGENDARY_WEAPON, LEGENDARY_BOOTS,
+                              LEGENDARY_GLOVES, LEGENDARY_DRINK,
+                              LEGENDARY_LENS, TRAIL_HEARTS, TRAIL_SAKURA,
+                              TRAIL_SPARKLES, TRAIL_LEAVES, TRAIL_HOLOLIVE,
+                              TRAIL_BUBBLES, TRAIL_SKULLS, PET_CAT, PET_DOG,
+                              PET_RABBIT, PET_BEETLE, PET_PENGUIN, PET_MONKEY,
+                              WORKER_TOOLS, WORKER_BREAKS, GOLD_RABBITS_FOOT.
       --removeSeenCollaboration[=<seenCollaborationToRemove>...]
                             Seen Collaboration(s) to remove. Does nothing if
                               collaboration isn't unlocked. Valid values are:
@@ -524,6 +551,8 @@ Update only portions of a save file.
       --unlockAllFanLetters Unlock all known Fan Letters.
       --unlockAllFurnitures Unlock all known Furnitures.
       --unlockAllItems      Unlock all known Items.
+      --unlockAllMiscUnlocks
+                            Unlock all known Misc. Unlocks.
       --unlockAllOutfits    Unlock all known Outfits.
       --unlockAllScams      Unlock all known Scams.
       --unlockAllSeenCollaborations

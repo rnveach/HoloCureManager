@@ -1,5 +1,9 @@
 package com.github.rnveach.data;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public enum FishRod implements Displayable {
 	BEGINNERS(0.0), //
 	DADS(1.0), //
@@ -8,6 +12,19 @@ public enum FishRod implements Displayable {
 	TURKEY(4.0), //
 	GOLDEN(5.0), //
 	;
+
+	public static Comparator<FishRod> COMPARATOR = new Comparator<>() {
+
+		@Override
+		public int compare(FishRod left, FishRod right) {
+			return left.ordinal() - right.ordinal();
+		}
+
+	};
+
+	public static int SIZE = values().length;
+
+	private static FishRod[] EMPTY_ARRAY = new FishRod[0];
 
 	private final double code;
 
@@ -23,6 +40,38 @@ public enum FishRod implements Displayable {
 		}
 
 		throw new IllegalStateException("Unknown Fish Rod code: " + code);
+	}
+
+	public static FishRod[] get(Double[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
+		final List<FishRod> results = new ArrayList<>();
+
+		for (int i = 0; i < codes.length; i++) {
+			if (codes[i] == 1.0) {
+				results.add(get((double) i));
+			}
+		}
+
+		results.sort(COMPARATOR);
+
+		return results.toArray(EMPTY_ARRAY);
+	}
+
+	public static Double[] convert(FishRod[] values) {
+		if (values == null) {
+			return null;
+		}
+
+		final Double[] results = new Double[SIZE];
+
+		for (final FishRod value : values) {
+			results[(int) value.code] = 1.0d;
+		}
+
+		return results;
 	}
 
 	@Override

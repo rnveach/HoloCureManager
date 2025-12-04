@@ -109,6 +109,7 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println();
 		System.out.println("\tFishing Pond:");
 		System.out.println(String.format("\t\tSand: %,.1f", SaveData.getSand(root)));
+		printDisplay("\t\t", "Unlocked Fish Rods:", SaveData.getUnlockedFishRods(root));
 		System.out.println(String.format("\t\tActive Fish Rod: %s", getDisplay(SaveData.getActiveFishRod(root))));
 		System.out.println();
 		System.out.println("\tManagement:");
@@ -120,7 +121,9 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\t\tMine Exp: %,.1f", SaveData.getMineExp(root)));
 		System.out.println(String.format("\t\tWoodcutting Level: %,.1f", SaveData.getWoodcuttingLevel(root)));
 		System.out.println(String.format("\t\tWoodcutting Exp: %,.1f", SaveData.getWoodcuttingExp(root)));
+		printDisplay("\t\t", "Unlocked Pickaxes:", SaveData.getUnlockedPickaxes(root));
 		System.out.println(String.format("\t\tActive Pickaxe: %s", getDisplay(SaveData.getActivePickaxe(root))));
+		printDisplay("\t\t", "Unlocked Axes:", SaveData.getUnlockedAxes(root));
 		System.out.println(String.format("\t\tActive Axe: %s", getDisplay(SaveData.getActiveAxe(root))));
 		System.out.println();
 		System.out.println("\tUsada Casino:");
@@ -147,6 +150,9 @@ public final class ListCommand implements Callable<Integer> {
 			System.out.println();
 			System.out.println("\tTower of Suffering Save is NOT active.");
 		}
+
+		System.out.println();
+		printDisplay("\t", "Misc. Unlocks:", SaveData.getMiscUnlocks(root));
 
 		final Map<String, JsonElement> unknowns = SaveData.getUnknownFields(root);
 

@@ -15,6 +15,7 @@ import com.github.rnveach.data.FanLetter;
 import com.github.rnveach.data.FishRod;
 import com.github.rnveach.data.Furniture;
 import com.github.rnveach.data.Item;
+import com.github.rnveach.data.MiscUnlock;
 import com.github.rnveach.data.Outfit;
 import com.github.rnveach.data.Pet;
 import com.github.rnveach.data.Pickaxe;
@@ -305,6 +306,23 @@ public class UpdateCommand implements Callable<Integer> {
 			"--removeActiveScam" }, description = "Active Scam(s) to remove. Does nothing if scam isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Scam[] activeScamToRemove;
 
+	@Option(names = { "--removeAllActiveMiscUnlocks" }, description = "Remove all Active Misc. Unlocks.")
+	private Boolean removeAllActiveMiscUnlocks;
+
+	@Option(names = { "--unlockAllMiscUnlocks" }, description = "Unlock all known Misc. Unlocks.")
+	private Boolean unlockAllMiscUnlocks;
+
+	@Option(names = {
+			"--addMiscUnlock" }, description = "Misc. Unlock(s) to add. Does nothing if item is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private MiscUnlock[] miscUnlockToAdd;
+
+	@Option(names = {
+			"--removeMiscUnlock" }, description = "Misc. Unlock(s) to remove. Does nothing if item isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private MiscUnlock[] miscUnlockToRemove;
+
+	// TODO: unlocked pickaxes, axes, rods
+	// TODO: tower of suffering
+
 	public void validateOptions() {
 		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.removeAllUnlockStages == null)
 				&& (this.unlockAllStages == null) && (this.unlockStagesToAdd == null)
@@ -337,7 +355,9 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.activePickaxe == null) && (this.activeAxe == null) && (this.usaChips == null)
 				&& (this.activePet == null) && (this.activeTrail == null) && (this.usadaDrinks == null)
 				&& (this.removeAllActiveScams == null) && (this.unlockAllScams == null)
-				&& (this.activeScamToAdd == null) && (this.activeScamToRemove == null)) {
+				&& (this.activeScamToAdd == null) && (this.activeScamToRemove == null)
+				&& (this.removeAllActiveMiscUnlocks == null) && (this.unlockAllMiscUnlocks == null)
+				&& (this.miscUnlockToAdd == null) && (this.miscUnlockToRemove == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
 		}
@@ -580,6 +600,16 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.activeScamToAdd != null) && (this.activeScamToRemove != null)) {
 			SaveData.setActiveScams(root,
 					doAddRemove(SaveData.getActiveScams(root), this.activeScamToAdd, this.activeScamToRemove));
+		}
+		if ((this.removeAllActiveMiscUnlocks != null) && this.removeAllActiveMiscUnlocks) {
+			SaveData.setMiscUnlocks(root, null);
+		}
+		if ((this.unlockAllMiscUnlocks != null) && this.unlockAllMiscUnlocks) {
+			SaveData.setMiscUnlocks(root, MiscUnlock.values());
+		}
+		if ((this.miscUnlockToAdd != null) && (this.miscUnlockToRemove != null)) {
+			SaveData.setMiscUnlocks(root,
+					doAddRemove(SaveData.getMiscUnlocks(root), this.miscUnlockToAdd, this.miscUnlockToRemove));
 		}
 
 		this.parent.writeToInputFile(root.toString());

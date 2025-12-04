@@ -1,5 +1,9 @@
 package com.github.rnveach.data;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public enum Axe implements Displayable {
 	OLD(0.0), //
 	STONE(1.0), //
@@ -10,6 +14,19 @@ public enum Axe implements Displayable {
 	JUSTICE(6.0), //
 	HOLOLITE(7.0), //
 	;
+
+	public static Comparator<Axe> COMPARATOR = new Comparator<>() {
+
+		@Override
+		public int compare(Axe left, Axe right) {
+			return left.ordinal() - right.ordinal();
+		}
+
+	};
+
+	public static int SIZE = values().length;
+
+	private static Axe[] EMPTY_ARRAY = new Axe[0];
 
 	private final double code;
 
@@ -25,6 +42,38 @@ public enum Axe implements Displayable {
 		}
 
 		throw new IllegalStateException("Unknown Axe code: " + code);
+	}
+
+	public static Axe[] get(Double[] codes) {
+		if (codes == null) {
+			return null;
+		}
+
+		final List<Axe> results = new ArrayList<>();
+
+		for (int i = 0; i < codes.length; i++) {
+			if (codes[i] == 1.0) {
+				results.add(get((double) i));
+			}
+		}
+
+		results.sort(COMPARATOR);
+
+		return results.toArray(EMPTY_ARRAY);
+	}
+
+	public static Double[] convert(Axe[] values) {
+		if (values == null) {
+			return null;
+		}
+
+		final Double[] results = new Double[SIZE];
+
+		for (final Axe value : values) {
+			results[(int) value.code] = 1.0d;
+		}
+
+		return results;
 	}
 
 	@Override

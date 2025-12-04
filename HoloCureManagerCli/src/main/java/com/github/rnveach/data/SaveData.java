@@ -142,6 +142,8 @@ public final class SaveData {
 
 	public static final String SAND = "fishSand";
 
+	public static final String UNLOCKED_FISH_RODS = "rodUnlock";
+
 	public static final String ACTIVE_FISH_ROD = "fishRod";
 
 	public static final String MANAGEMENT_LEVEL = "manageLevel";
@@ -156,7 +158,11 @@ public final class SaveData {
 
 	public static final String WOODCUTTING_EXP = "woodEXP";
 
+	public static final String UNLOCKED_PICKAXES = "pickUnlock";
+
 	public static final String ACTIVE_PICKAXE = "usingPick";
+
+	public static final String UNLOCKED_AXES = "axeUnlock";
 
 	public static final String ACTIVE_AXE = "usingAxe";
 
@@ -185,6 +191,8 @@ public final class SaveData {
 	public static final String TOWER_SAVE_NUMBER_OF_FALLS = "towerFalls";
 
 	public static final String TOWER_SAVE_COINS = "towerCoins";
+
+	public static final String MISC_UNLOCKS = "miscUnlocks";
 
 	public static Double getMajorGameVersion(JsonElement element) {
 		return getDouble(element, MAJOR_GAME_VERSION);
@@ -686,6 +694,14 @@ public final class SaveData {
 		setDouble(element, SAND, value);
 	}
 
+	public static FishRod[] getUnlockedFishRods(JsonElement element) {
+		return FishRod.get(getArrayDouble(element, UNLOCKED_FISH_RODS));
+	}
+
+	public static void setUnlockedFishRods(JsonElement element, FishRod[] values) {
+		setArrayDouble(element, UNLOCKED_FISH_RODS, FishRod.convert(values));
+	}
+
 	public static FishRod getActiveFishRod(JsonElement element) {
 		return FishRod.get(getDouble(element, ACTIVE_FISH_ROD));
 	}
@@ -742,12 +758,28 @@ public final class SaveData {
 		setDouble(element, WOODCUTTING_EXP, value);
 	}
 
+	public static Pickaxe[] getUnlockedPickaxes(JsonElement element) {
+		return Pickaxe.get(getArrayDouble(element, UNLOCKED_PICKAXES));
+	}
+
+	public static void setUnlockedPickaxes(JsonElement element, Pickaxe[] values) {
+		setArrayDouble(element, UNLOCKED_PICKAXES, Pickaxe.convert(values));
+	}
+
 	public static Pickaxe getActivePickaxe(JsonElement element) {
 		return Pickaxe.get(getDouble(element, ACTIVE_PICKAXE));
 	}
 
 	public static void setActivePickaxe(JsonElement element, Pickaxe value) {
 		setDouble(element, ACTIVE_PICKAXE, value == null ? null : value.getCode());
+	}
+
+	public static Axe[] getUnlockedAxes(JsonElement element) {
+		return Axe.get(getArrayDouble(element, UNLOCKED_AXES));
+	}
+
+	public static void setUnlockedAxes(JsonElement element, Axe[] values) {
+		setArrayDouble(element, UNLOCKED_AXES, Axe.convert(values));
 	}
 
 	public static Axe getActiveAxe(JsonElement element) {
@@ -862,6 +894,14 @@ public final class SaveData {
 		setArrayDouble(element, TOWER_SAVE_COINS, values);
 	}
 
+	public static MiscUnlock[] getMiscUnlocks(JsonElement element) {
+		return MiscUnlock.get(getArrayString(element, MISC_UNLOCKS));
+	}
+
+	public static void setMiscUnlocks(JsonElement element, MiscUnlock[] values) {
+		setArrayString(element, MISC_UNLOCKS, MiscUnlock.convert(values));
+	}
+
 	public static Map<String, JsonElement> getUnknownFields(JsonElement element) {
 		final Map<String, JsonElement> results = new TreeMap<>();
 
@@ -917,6 +957,7 @@ public final class SaveData {
 		results.remove(REFUND_ALL);
 		results.remove(UNLOCKED_FURNITURES);
 		results.remove(SAND);
+		results.remove(UNLOCKED_FISH_RODS);
 		results.remove(ACTIVE_FISH_ROD);
 		results.remove(MANAGEMENT_LEVEL);
 		results.remove(MANAGEMENT_EXP);
@@ -924,7 +965,9 @@ public final class SaveData {
 		results.remove(MINE_EXP);
 		results.remove(WOODCUTTING_LEVEL);
 		results.remove(WOODCUTTING_EXP);
+		results.remove(UNLOCKED_PICKAXES);
 		results.remove(ACTIVE_PICKAXE);
+		results.remove(UNLOCKED_AXES);
 		results.remove(ACTIVE_AXE);
 		results.remove(USA_CHIPS);
 		results.remove(ACTIVE_PET);
@@ -939,6 +982,7 @@ public final class SaveData {
 		results.remove(TOWER_SAVE_NUMBER_OF_JUMPS);
 		results.remove(TOWER_SAVE_NUMBER_OF_FALLS);
 		results.remove(TOWER_SAVE_COINS);
+		results.remove(MISC_UNLOCKS);
 
 		return results;
 	}
