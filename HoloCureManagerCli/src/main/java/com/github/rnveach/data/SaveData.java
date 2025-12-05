@@ -192,6 +192,8 @@ public final class SaveData {
 
 	public static final String TOWER_SAVE_COINS = "towerCoins";
 
+	public static final String INVENTORY = "inventory";
+
 	public static final String MISC_UNLOCKS = "miscUnlocks";
 
 	public static Double getMajorGameVersion(JsonElement element) {
@@ -894,6 +896,12 @@ public final class SaveData {
 		setArrayDouble(element, TOWER_SAVE_COINS, values);
 	}
 
+	public static Inventory[] getInventory(JsonElement element) {
+		return Inventory.get(getJsonArray(element, INVENTORY));
+	}
+
+	// TODO: save inventory
+
 	public static MiscUnlock[] getMiscUnlocks(JsonElement element) {
 		return MiscUnlock.get(getArrayString(element, MISC_UNLOCKS));
 	}
@@ -982,6 +990,7 @@ public final class SaveData {
 		results.remove(TOWER_SAVE_NUMBER_OF_JUMPS);
 		results.remove(TOWER_SAVE_NUMBER_OF_FALLS);
 		results.remove(TOWER_SAVE_COINS);
+		results.remove(INVENTORY);
 		results.remove(MISC_UNLOCKS);
 
 		return results;
@@ -1053,13 +1062,12 @@ public final class SaveData {
 	}
 
 	private static Double[] getArrayDouble(JsonElement element, String namedIndex) {
-		final JsonElement t = get(element, namedIndex);
+		final JsonArray a = getJsonArray(element, namedIndex);
 
-		if (t == null) {
+		if (a == null) {
 			return null;
 		}
 
-		final JsonArray a = t.getAsJsonArray();
 		final Double[] results = new Double[a.size()];
 
 		for (int i = 0; i < results.length; i++) {
@@ -1072,13 +1080,12 @@ public final class SaveData {
 	}
 
 	private static String[] getArrayString(JsonElement element, String namedIndex) {
-		final JsonElement t = get(element, namedIndex);
+		final JsonArray a = getJsonArray(element, namedIndex);
 
-		if (t == null) {
+		if (a == null) {
 			return null;
 		}
 
-		final JsonArray a = t.getAsJsonArray();
 		final String[] results = new String[a.size()];
 
 		for (int i = 0; i < results.length; i++) {
@@ -1170,6 +1177,16 @@ public final class SaveData {
 		} else {
 			t.add(namedIndex, value);
 		}
+	}
+
+	private static JsonArray getJsonArray(JsonElement element, String namedIndex) {
+		final JsonElement t = get(element, namedIndex);
+
+		if (t == null) {
+			return null;
+		}
+
+		return t.getAsJsonArray();
 	}
 
 	private static boolean checkFields(JsonObject object, String... fields) {

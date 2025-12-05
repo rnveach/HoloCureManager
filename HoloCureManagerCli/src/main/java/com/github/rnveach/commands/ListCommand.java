@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.github.rnveach.HoloCureManagerCli;
 import com.github.rnveach.data.Displayable;
+import com.github.rnveach.data.Inventory;
 import com.github.rnveach.data.SaveData;
 import com.google.gson.JsonElement;
 
@@ -152,6 +153,9 @@ public final class ListCommand implements Callable<Integer> {
 		}
 
 		System.out.println();
+		printDisplay("\t", "Inventory:", SaveData.getInventory(root));
+
+		System.out.println();
 		printDisplay("\t", "Misc. Unlocks:", SaveData.getMiscUnlocks(root));
 
 		final Map<String, JsonElement> unknowns = SaveData.getUnknownFields(root);
@@ -178,6 +182,19 @@ public final class ListCommand implements Callable<Integer> {
 		} else {
 			for (final Displayable value : values) {
 				System.out.println(tab + String.format("\t%s", value.getDisplay()));
+			}
+		}
+	}
+
+	private static void printDisplay(String tab, String header, Inventory[] values) {
+		System.out.println(tab + header + " (" + (values == null ? 0 : values.length) + ")");
+
+		if ((values == null) || (values.length == 0)) {
+			System.out.println(tab + "\t<None>");
+		} else {
+			for (final Inventory value : values) {
+				System.out.println(tab + String.format("\t%s - %,.1f (Total: %,.1f)", value.getItem().getDisplay(),
+						value.getCount(), value.getTotal()));
 			}
 		}
 	}
