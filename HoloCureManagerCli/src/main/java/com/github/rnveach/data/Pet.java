@@ -16,6 +16,10 @@ public enum Pet implements Displayable {
 	}
 
 	public static Pet get(String code) {
+		if (code == null) {
+			return null;
+		}
+
 		for (final Pet v : Pet.values()) {
 			if (v.code.equals(code)) {
 				return v;

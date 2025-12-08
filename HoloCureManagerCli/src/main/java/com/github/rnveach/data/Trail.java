@@ -17,6 +17,10 @@ public enum Trail implements Displayable {
 	}
 
 	public static Trail get(String code) {
+		if (code == null) {
+			return null;
+		}
+
 		for (final Trail v : Trail.values()) {
 			if (v.code.equals(code)) {
 				return v;

@@ -545,7 +545,7 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.unlockAllFurnitures != null) && this.unlockAllFurnitures) {
 			SaveData.setUnlockedFurnitures(root, Furniture.values());
 		}
-		if ((this.unlockFurnituresToAdd != null) && (this.unlockFurnituresToRemove != null)) {
+		if ((this.unlockFurnituresToAdd != null) || (this.unlockFurnituresToRemove != null)) {
 			SaveData.setUnlockedFurnitures(root, doAddRemove(SaveData.getUnlockedFurnitures(root),
 					this.unlockFurnituresToAdd, this.unlockFurnituresToRemove));
 		}
@@ -597,7 +597,7 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.unlockAllScams != null) && this.unlockAllScams) {
 			SaveData.setActiveScams(root, Scam.values());
 		}
-		if ((this.activeScamToAdd != null) && (this.activeScamToRemove != null)) {
+		if ((this.activeScamToAdd != null) || (this.activeScamToRemove != null)) {
 			SaveData.setActiveScams(root,
 					doAddRemove(SaveData.getActiveScams(root), this.activeScamToAdd, this.activeScamToRemove));
 		}
@@ -607,7 +607,7 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.unlockAllMiscUnlocks != null) && this.unlockAllMiscUnlocks) {
 			SaveData.setMiscUnlocks(root, MiscUnlock.values());
 		}
-		if ((this.miscUnlockToAdd != null) && (this.miscUnlockToRemove != null)) {
+		if ((this.miscUnlockToAdd != null) || (this.miscUnlockToRemove != null)) {
 			SaveData.setMiscUnlocks(root,
 					doAddRemove(SaveData.getMiscUnlocks(root), this.miscUnlockToAdd, this.miscUnlockToRemove));
 		}
