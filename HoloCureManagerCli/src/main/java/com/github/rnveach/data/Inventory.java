@@ -1,6 +1,9 @@
 package com.github.rnveach.data;
 
+import java.util.Objects;
+
 import com.google.gson.JsonArray;
+import com.google.gson.JsonPrimitive;
 
 public final class Inventory {
 
@@ -32,6 +35,54 @@ public final class Inventory {
 		result.setTotal(array.get(2).getAsDouble());
 
 		return result;
+	}
+
+	public static JsonArray convert(Inventory[] values) {
+		if (values == null) {
+			return null;
+		}
+
+		final JsonArray results = new JsonArray();
+
+		for (int i = 0; i < values.length; i++) {
+			results.set(i, convert(values[i]));
+		}
+
+		return results;
+	}
+
+	private static JsonArray convert(Inventory value) {
+		final JsonArray result = new JsonArray();
+
+		result.set(0, new JsonPrimitive(value.getItem().getCode()));
+		result.set(1, new JsonPrimitive(value.getCount()));
+		result.set(2, new JsonPrimitive(value.getTotal()));
+
+		return result;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.item, this.count, this.total);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		final Inventory other = (Inventory) obj;
+
+		return (this.item == other.item)
+				&& (Double.doubleToLongBits(this.count) == Double.doubleToLongBits(other.count))
+				&& (Double.doubleToLongBits(this.total) == Double.doubleToLongBits(other.total));
 	}
 
 	public InventoryItem getItem() {

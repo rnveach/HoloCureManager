@@ -26,6 +26,10 @@ public final class SaveData {
 
 	public static final String UNLOCKED_STAGES = "unlockedStages";
 
+	public static final String GATCHA_RANKS = "characters";
+
+	public static final String TEARS = "tears";
+
 	public static final String UNLOCKED_OUTFITS = "unlockedOutfits";
 
 	public static final String UNLOCKED_WEAPONS = "unlockedWeapons";
@@ -230,6 +234,22 @@ public final class SaveData {
 
 	public static void setUnlockedStages(JsonElement element, Stage[] values) {
 		setArrayString(element, UNLOCKED_STAGES, Stage.convert(values));
+	}
+
+	public static GatchaRank[] getGatchaRanks(JsonElement element) {
+		return GatchaRank.get(getJsonArray(element, GATCHA_RANKS));
+	}
+
+	public static void setGatchaRanks(JsonElement element, GatchaRank[] values) {
+		setJsonArray(element, GATCHA_RANKS, GatchaRank.convert(values));
+	}
+
+	public static Tears[] getTears(JsonElement element) {
+		return Tears.get(getJsonArray(element, TEARS));
+	}
+
+	public static void setTears(JsonElement element, Tears[] values) {
+		setJsonArray(element, TEARS, Tears.convert(values));
 	}
 
 	public static Outfit[] getUnlockedOutfits(JsonElement element) {
@@ -900,7 +920,9 @@ public final class SaveData {
 		return Inventory.get(getJsonArray(element, INVENTORY));
 	}
 
-	// TODO: save inventory
+	public static void setInventory(JsonElement element, Inventory[] values) {
+		setJsonArray(element, INVENTORY, Inventory.convert(values));
+	}
 
 	public static MiscUnlock[] getMiscUnlocks(JsonElement element) {
 		return MiscUnlock.get(getArrayString(element, MISC_UNLOCKS));
@@ -924,6 +946,8 @@ public final class SaveData {
 		results.remove(RANDOM_MONEY_KEY);
 		results.remove(TIME_MODE_UNLOCKED);
 		results.remove(UNLOCKED_STAGES);
+		results.remove(GATCHA_RANKS);
+		results.remove(TEARS);
 		results.remove(UNLOCKED_OUTFITS);
 		results.remove(UNLOCKED_WEAPONS);
 		results.remove(UNLOCKED_ITEMS);
@@ -1058,7 +1082,13 @@ public final class SaveData {
 			return null;
 		}
 
-		return t.getAsString();
+		final String result = t.getAsString();
+
+		if (result.isEmpty()) {
+			return null;
+		}
+
+		return result;
 	}
 
 	private static Double[] getArrayDouble(JsonElement element, String namedIndex) {
@@ -1120,7 +1150,7 @@ public final class SaveData {
 	private static void setString(JsonElement element, String namedIndex, String value) {
 		final JsonObject t = element.getAsJsonObject();
 
-		if (value == null) {
+		if ((value == null) || value.isEmpty()) {
 			t.remove(namedIndex);
 		} else {
 			t.addProperty(namedIndex, value);
@@ -1187,6 +1217,16 @@ public final class SaveData {
 		}
 
 		return t.getAsJsonArray();
+	}
+
+	private static void setJsonArray(JsonElement element, String namedIndex, JsonArray value) {
+		final JsonObject t = element.getAsJsonObject();
+
+		if (value == null) {
+			t.remove(namedIndex);
+		} else {
+			t.add(namedIndex, value);
+		}
 	}
 
 	private static boolean checkFields(JsonObject object, String... fields) {

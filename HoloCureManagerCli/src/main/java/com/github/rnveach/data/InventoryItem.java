@@ -66,4 +66,5 @@ public enum InventoryItem implements Displayable {
 	public String getCode() {
 		return this.code;
 	}
+
 }

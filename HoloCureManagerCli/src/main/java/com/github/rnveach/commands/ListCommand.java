@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 
 import com.github.rnveach.HoloCureManagerCli;
 import com.github.rnveach.data.Displayable;
+import com.github.rnveach.data.GatchaRank;
 import com.github.rnveach.data.Inventory;
 import com.github.rnveach.data.SaveData;
+import com.github.rnveach.data.Tears;
 import com.google.gson.JsonElement;
 
 import picocli.CommandLine.Command;
@@ -48,6 +50,10 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\tTime Mode Unlocked: %b", SaveData.getTimeModeUnlocked(root)));
 		System.out.println();
 		printDisplay("\t", "Unlocked Stages:", SaveData.getUnlockedStages(root));
+		System.out.println();
+		printDisplay("\t", "Gatcha Ranks:", SaveData.getGatchaRanks(root));
+		System.out.println();
+		printDisplay("\t", "Tears:", SaveData.getTears(root));
 		System.out.println();
 		printDisplay("\t", "Unlocked Outfits:", SaveData.getUnlockedOutfits(root));
 		System.out.println();
@@ -182,6 +188,31 @@ public final class ListCommand implements Callable<Integer> {
 		} else {
 			for (final Displayable value : values) {
 				System.out.println(tab + String.format("\t%s", value.getDisplay()));
+			}
+		}
+	}
+
+	private static void printDisplay(String tab, String header, GatchaRank[] values) {
+		System.out.println(tab + header + " (" + (values == null ? 0 : values.length) + ")");
+
+		if ((values == null) || (values.length == 0)) {
+			System.out.println(tab + "\t<None>");
+		} else {
+			for (final GatchaRank value : values) {
+				System.out.println(tab + String.format("\t%s - %,.1f", value.getIdol().getDisplay(), value.getRank()));
+			}
+		}
+	}
+
+	private static void printDisplay(String tab, String header, Tears[] values) {
+		System.out.println(tab + header + " (" + (values == null ? 0 : values.length) + ")");
+
+		if ((values == null) || (values.length == 0)) {
+			System.out.println(tab + "\t<None>");
+		} else {
+			for (final Tears value : values) {
+				System.out.println(
+						tab + String.format("\t%s - %,.1f", value.getGeneration().getDisplay(), value.getCount()));
 			}
 		}
 	}

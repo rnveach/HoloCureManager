@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -14,6 +15,11 @@ import com.github.rnveach.data.Collaboration;
 import com.github.rnveach.data.FanLetter;
 import com.github.rnveach.data.FishRod;
 import com.github.rnveach.data.Furniture;
+import com.github.rnveach.data.GatchaRank;
+import com.github.rnveach.data.Generation;
+import com.github.rnveach.data.Idol;
+import com.github.rnveach.data.Inventory;
+import com.github.rnveach.data.InventoryItem;
 import com.github.rnveach.data.Item;
 import com.github.rnveach.data.MiscUnlock;
 import com.github.rnveach.data.Outfit;
@@ -22,10 +28,12 @@ import com.github.rnveach.data.Pickaxe;
 import com.github.rnveach.data.SaveData;
 import com.github.rnveach.data.Scam;
 import com.github.rnveach.data.Stage;
+import com.github.rnveach.data.Tears;
 import com.github.rnveach.data.Trail;
 import com.github.rnveach.data.Weapon;
 import com.google.gson.JsonElement;
 
+import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.ParameterException;
@@ -34,6 +42,94 @@ import picocli.CommandLine.ParentCommand;
 @Command(name = "update", aliases = { "--update", "-u" }, description = "Update only portions of a save file.", //
 		subcommands = { UpdateRawCommand.class })
 public class UpdateCommand implements Callable<Integer> {
+
+	private static final class GatchaRankCandidates implements Iterable<String> {
+
+		@Override
+		public Iterator<String> iterator() {
+			return Arrays.stream(Generation.values()).map(Enum::name).iterator();
+		}
+
+	}
+
+	private static final class GatchaRankConverter implements CommandLine.ITypeConverter<GatchaRank> {
+
+		@Override
+		public GatchaRank convert(String value) throws Exception {
+			final String[] split = value.split(":");
+
+			if (split.length < 2) {
+				throw new Exception("Format must be name:rank");
+			}
+
+			final GatchaRank result = new GatchaRank();
+
+			result.setIdol(Idol.get(split[0]));
+			result.setRank(Double.parseDouble(split[1]));
+
+			return result;
+		}
+
+	}
+
+	private static final class TearsCandidates implements Iterable<String> {
+
+		@Override
+		public Iterator<String> iterator() {
+			return Arrays.stream(Generation.values()).map(Enum::name).iterator();
+		}
+
+	}
+
+	private static final class TearsConverter implements CommandLine.ITypeConverter<Tears> {
+
+		@Override
+		public Tears convert(String value) throws Exception {
+			final String[] split = value.split(":");
+
+			if (split.length < 2) {
+				throw new Exception("Format must be name:count");
+			}
+
+			final Tears result = new Tears();
+
+			result.setGeneration(Generation.get(split[0]));
+			result.setCount(Double.parseDouble(split[1]));
+
+			return result;
+		}
+
+	}
+
+	private static final class InventoryCandidates implements Iterable<String> {
+
+		@Override
+		public Iterator<String> iterator() {
+			return Arrays.stream(InventoryItem.values()).map(Enum::name).iterator();
+		}
+
+	}
+
+	private static final class InventoryConverter implements CommandLine.ITypeConverter<Inventory> {
+
+		@Override
+		public Inventory convert(String value) throws Exception {
+			final String[] split = value.split(":");
+
+			if (split.length < 3) {
+				throw new Exception("Format must be name:count:total");
+			}
+
+			final Inventory result = new Inventory();
+
+			result.setItem(InventoryItem.get(split[0]));
+			result.setCount(Double.parseDouble(split[1]));
+			result.setTotal(Double.parseDouble(split[2]));
+
+			return result;
+		}
+
+	}
 
 	@ParentCommand
 	private HoloCureManagerCli parent;
@@ -60,6 +156,32 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = {
 			"--removeUnlockedStage" }, description = "Unlocked Stage(s) to remove. Does nothing if stage isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Stage[] unlockStagesToRemove;
+
+	@Option(names = { "--removeAllGatchaRanks" }, description = "Remove all Gatcha Ranks.")
+	private Boolean removeAllGatchaRanks;
+
+	@Option(names = {
+			"--addGatchaRank" }, description = "Gatcha Rank(s) to add. This will replace your current gatcha rank, and not add them. Must be in format 'name:count'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = GatchaRankConverter.class, completionCandidates = GatchaRankCandidates.class)
+	private GatchaRank[] gatchaRanksToAdd;
+
+	@Option(names = {
+			"--removeGatchaRank" }, description = "Gatcha Rank(s) to remove. This will replace your current gatcha rank, and not add them. Does nothing if tear doesn't exist. Must be in format 'name:count:total'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = GatchaRankConverter.class)
+	private GatchaRank[] gatchaRanksToRemove;
+
+	@Option(names = { "--removeAllTears" }, description = "Remove all Tears.")
+	private Boolean removeAllTears;
+
+	@Option(names = {
+			"--addTear" }, description = "Tear(s) to add. This will replace your current tear, and not add them. Must be in format 'name:count'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = TearsConverter.class, completionCandidates = TearsCandidates.class)
+	private Tears[] tearsToAdd;
+
+	@Option(names = {
+			"--removeTear" }, description = "Tear(s) to remove. This will replace your current tear, and not add them. Does nothing if tear doesn't exist. Must be in format 'name:count:total'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = TearsConverter.class)
+	private Tears[] tearsToRemove;
 
 	@Option(names = { "--removeAllUnlockOutfits" }, description = "Remove all Unlock Outfits.")
 	private Boolean removeAllUnlockOutfits;
@@ -306,6 +428,19 @@ public class UpdateCommand implements Callable<Integer> {
 			"--removeActiveScam" }, description = "Active Scam(s) to remove. Does nothing if scam isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private Scam[] activeScamToRemove;
 
+	@Option(names = { "--removeAllInventory" }, description = "Remove all Inventory.")
+	private Boolean removeAllInventory;
+
+	@Option(names = {
+			"--addInventory" }, description = "Inventory(s) to add. This will replace your current inventory, and not add them. Must be in format 'name:count:total'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = InventoryConverter.class, completionCandidates = InventoryCandidates.class)
+	private Inventory[] inventoriesToAdd;
+
+	@Option(names = {
+			"--removeInventory" }, description = "Inventory(s) to remove. This will replace your current inventory, and not add them. Does nothing if inventory doesn't exist. Must be in format 'name:count:total'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = InventoryConverter.class)
+	private Inventory[] inventoriesToRemove;
+
 	@Option(names = { "--removeAllActiveMiscUnlocks" }, description = "Remove all Active Misc. Unlocks.")
 	private Boolean removeAllActiveMiscUnlocks;
 
@@ -326,18 +461,20 @@ public class UpdateCommand implements Callable<Integer> {
 	public void validateOptions() {
 		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.removeAllUnlockStages == null)
 				&& (this.unlockAllStages == null) && (this.unlockStagesToAdd == null)
-				&& (this.unlockStagesToRemove == null) && (this.removeAllUnlockOutfits == null)
-				&& (this.unlockAllOutfits == null) && (this.unlockOutfitsToAdd == null)
-				&& (this.unlockOutfitsToRemove == null) && (this.removeAllUnlockItems == null)
-				&& (this.unlockAllItems == null) && (this.unlockItemsToAdd == null)
-				&& (this.unlockItemsToRemove == null) && (this.removeAllSeenCollaborations == null)
-				&& (this.unlockAllSeenCollaborations == null) && (this.seenCollaborationToAdd == null)
-				&& (this.seenCollaborationToRemove == null) && (this.removeAllUnlockWeapons == null)
-				&& (this.unlockAllWeapons == null) && (this.unlockWeaponsToAdd == null)
-				&& (this.unlockWeaponsToRemove == null) && (this.removeAllFanLetters == null)
-				&& (this.unlockAllFanLetters == null) && (this.fanLettersToAdd == null)
-				&& (this.fanLettersToRemove == null) && (this.specialAttack == null) && (this.growth == null)
-				&& (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
+				&& (this.unlockStagesToRemove == null) && (this.removeAllGatchaRanks == null)
+				&& (this.gatchaRanksToAdd != null) && (this.gatchaRanksToRemove != null)
+				&& (this.removeAllTears == null) && (this.tearsToAdd != null) && (this.tearsToRemove != null)
+				&& (this.removeAllUnlockOutfits == null) && (this.unlockAllOutfits == null)
+				&& (this.unlockOutfitsToAdd == null) && (this.unlockOutfitsToRemove == null)
+				&& (this.removeAllUnlockItems == null) && (this.unlockAllItems == null)
+				&& (this.unlockItemsToAdd == null) && (this.unlockItemsToRemove == null)
+				&& (this.removeAllSeenCollaborations == null) && (this.unlockAllSeenCollaborations == null)
+				&& (this.seenCollaborationToAdd == null) && (this.seenCollaborationToRemove == null)
+				&& (this.removeAllUnlockWeapons == null) && (this.unlockAllWeapons == null)
+				&& (this.unlockWeaponsToAdd == null) && (this.unlockWeaponsToRemove == null)
+				&& (this.removeAllFanLetters == null) && (this.unlockAllFanLetters == null)
+				&& (this.fanLettersToAdd == null) && (this.fanLettersToRemove == null) && (this.specialAttack == null)
+				&& (this.growth == null) && (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
 				&& (this.customize == null) && (this.supports == null) && (this.materialFind == null)
 				&& (this.stamps == null) && (this.enchantments == null) && (this.fandom == null)
 				&& (this.fanLettersUnlocked == null) && (this.maxHpUp == null) && (this.atkUp == null)
@@ -356,8 +493,10 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.activePet == null) && (this.activeTrail == null) && (this.usadaDrinks == null)
 				&& (this.removeAllActiveScams == null) && (this.unlockAllScams == null)
 				&& (this.activeScamToAdd == null) && (this.activeScamToRemove == null)
-				&& (this.removeAllActiveMiscUnlocks == null) && (this.unlockAllMiscUnlocks == null)
-				&& (this.miscUnlockToAdd == null) && (this.miscUnlockToRemove == null)) {
+				&& (this.removeAllInventory == null) && (this.inventoriesToAdd == null)
+				&& (this.inventoriesToRemove == null) && (this.removeAllActiveMiscUnlocks == null)
+				&& (this.unlockAllMiscUnlocks == null) && (this.miscUnlockToAdd == null)
+				&& (this.miscUnlockToRemove == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
 		}
@@ -386,6 +525,21 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.unlockStagesToAdd != null) || (this.unlockStagesToRemove != null)) {
 			SaveData.setUnlockedStages(root,
 					doAddRemove(SaveData.getUnlockedStages(root), this.unlockStagesToAdd, this.unlockStagesToRemove));
+		}
+
+		if ((this.removeAllGatchaRanks != null) && this.removeAllGatchaRanks) {
+			SaveData.setTears(root, null);
+		}
+		if ((this.gatchaRanksToAdd != null) || (this.gatchaRanksToRemove != null)) {
+			SaveData.setGatchaRanks(root,
+					doAddRemove(SaveData.getGatchaRanks(root), this.gatchaRanksToAdd, this.gatchaRanksToRemove));
+		}
+
+		if ((this.removeAllTears != null) && this.removeAllTears) {
+			SaveData.setTears(root, null);
+		}
+		if ((this.tearsToAdd != null) || (this.tearsToRemove != null)) {
+			SaveData.setTears(root, doAddRemove(SaveData.getTears(root), this.tearsToAdd, this.tearsToRemove));
 		}
 		if ((this.removeAllUnlockOutfits != null) && this.removeAllUnlockOutfits) {
 			SaveData.setUnlockedOutfits(root, null);
@@ -600,6 +754,13 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.activeScamToAdd != null) || (this.activeScamToRemove != null)) {
 			SaveData.setActiveScams(root,
 					doAddRemove(SaveData.getActiveScams(root), this.activeScamToAdd, this.activeScamToRemove));
+		}
+		if ((this.removeAllInventory != null) && this.removeAllInventory) {
+			SaveData.setInventory(root, null);
+		}
+		if ((this.inventoriesToAdd != null) || (this.inventoriesToRemove != null)) {
+			SaveData.setInventory(root,
+					doAddRemove(SaveData.getInventory(root), this.inventoriesToAdd, this.inventoriesToRemove));
 		}
 		if ((this.removeAllActiveMiscUnlocks != null) && this.removeAllActiveMiscUnlocks) {
 			SaveData.setMiscUnlocks(root, null);

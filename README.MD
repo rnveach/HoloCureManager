@@ -62,7 +62,10 @@ Usage: HoloCureManagerCli list
 Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [--removeAllActiveScams]
                                  [--removeAllFanLetters]
+                                 [--removeAllGatchaRanks]
+                                 [--removeAllInventory]
                                  [--removeAllSeenCollaborations]
+                                 [--removeAllTears]
                                  [--removeAllUnlockFurnitures]
                                  [--removeAllUnlockItems]
                                  [--removeAllUnlockOutfits]
@@ -116,10 +119,12 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
                                  [--addActiveScam[=<activeScamToAdd>...]]...
+                                 [--addGatchaRank[=<gatchaRanksToAdd>...]]...
+                                 [--addInventory[=<inventoriesToAdd>...]]...
                                  [--addMiscUnlock[=<miscUnlockToAdd>...]]...
                                  [--addSeenCollaboration
-                                 [=<seenCollaborationToAdd>...]]...
-                                 [--addUnlockedFanLetter
+                                 [=<seenCollaborationToAdd>...]]... [--addTear
+                                 [=<tearsToAdd>...]]... [--addUnlockedFanLetter
                                  [=<fanLettersToAdd>...]]...
                                  [--addUnlockedFurniture
                                  [=<unlockFurnituresToAdd>...]]...
@@ -132,10 +137,15 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [=<unlockWeaponsToAdd>...]]...
                                  [--removeActiveScam
                                  [=<activeScamToRemove>...]]...
+                                 [--removeGatchaRank
+                                 [=<gatchaRanksToRemove>...]]...
+                                 [--removeInventory
+                                 [=<inventoriesToRemove>...]]...
                                  [--removeMiscUnlock
                                  [=<miscUnlockToRemove>...]]...
                                  [--removeSeenCollaboration
                                  [=<seenCollaborationToRemove>...]]...
+                                 [--removeTear[=<tearsToRemove>...]]...
                                  [--removeUnlockedFanLetter
                                  [=<fanLettersToRemove>...]]...
                                  [--removeUnlockedFurniture
@@ -150,424 +160,482 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [=<unlockWeaponsToRemove>...]]... [COMMAND]
 Update only portions of a save file.
       --activeAxe=<activeAxe>
-                            Update Active Axe. Valid values are: OLD, STONE,
-                              LEAD, MYTH, PROMISE, ADVENT, JUSTICE, HOLOLITE.
+                             Update Active Axe. Valid values are: OLD, STONE,
+                               LEAD, MYTH, PROMISE, ADVENT, JUSTICE, HOLOLITE.
       --activeFishRod=<activeFishRod>
-                            Update Active Fish Rod. Valid values are:
-                              BEGINNERS, DADS, BLACKSMITH_MADE, ATLANTEAN,
-                              TURKEY, GOLDEN.
+                             Update Active Fish Rod. Valid values are:
+                               BEGINNERS, DADS, BLACKSMITH_MADE, ATLANTEAN,
+                               TURKEY, GOLDEN.
       --activePet=<activePet>
-                            Update Active Pet. Valid values are: CAT, DOG,
-                              RABBIT, BEETLE, PENGUIN, MONKEY.
+                             Update Active Pet. Valid values are: CAT, DOG,
+                               RABBIT, BEETLE, PENGUIN, MONKEY.
       --activePickaxe=<activePickaxe>
-                            Update Active Pickaxe. Valid values are: OLD,
-                              STONE, LEAD, MYTH, PROMISE, ADVENT, JUSTICE,
-                              HOLOLITE.
+                             Update Active Pickaxe. Valid values are: OLD,
+                               STONE, LEAD, MYTH, PROMISE, ADVENT, JUSTICE,
+                               HOLOLITE.
       --activeTrail=<activeTrail>
-                            Update Active Trail. Valid values are: HEARTS,
-                              SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
-                              SKULLS.
+                             Update Active Trail. Valid values are: HEARTS,
+                               SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
+                               SKULLS.
       --addActiveScam[=<activeScamToAdd>...]
-                            Active Scam(s) to add. Does nothing if scam is
-                              already unlocked. Valid values are:
-                              LEGENDARY_WEAPON, LEGENDARY_BOOTS,
-                              LEGENDARY_GLOVES, LEGENDARY_DRINK,
-                              LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
-                              GOLD_RABBITS_FOOT.
+                             Active Scam(s) to add. Does nothing if scam is
+                               already unlocked. Valid values are:
+                               LEGENDARY_WEAPON, LEGENDARY_BOOTS,
+                               LEGENDARY_GLOVES, LEGENDARY_DRINK,
+                               LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
+                               GOLD_RABBITS_FOOT.
+      --addGatchaRank[=<gatchaRanksToAdd>...]
+                             Gatcha Rank(s) to add. This will replace your
+                               current gatcha rank, and not add them. Must be
+                               in format 'name:count'. Valid names are: MYTH,
+                               COUNCIL_PROMISE, GAMERS, JP_GENERATION_0,
+                               JP_GENERATION_1, JP_GENERATION_2,
+                               JP_GENERATION_3, JP_GENERATION_4,
+                               ID_GENERATION_1, ID_GENERATION_2,
+                               ID_GENERATION_3.
+      --addInventory[=<inventoriesToAdd>...]
+                             Inventory(s) to add. This will replace your
+                               current inventory, and not add them. Must be in
+                               format 'name:count:total'. Valid names are:
+                               TUNA, SHRIMP, CLOWNFISH, STANDARD_SOIL,
+                               EXPEDITED_SOIL, ENHANCED_SOIL, WHEAT_SEED,
+                               TOMATO_SEED, POTATO_SEED, RICE_SEED, ONION_SEED,
+                               CARROT_SEED, GREEN_BEANS_SEED, PEPPERS_SEED,
+                               STRAWBERRY_SEED, CORN_SEED, RADISH_SEED,
+                               GARLIC_SEED, TURTLE, MANTA_RAY, PUFFERFISH,
+                               LOBSTER, KOI_FISH, SQUID, EEL, SHARK, STICK,
+                               STONE, PLANK, LEAD_BAR, IRON_BAR, HARDWOOD,
+                               MYTHRIL_BAR, CEDAR_WOOD, CARROT, RICE, ONION.
       --addMiscUnlock[=<miscUnlockToAdd>...]
-                            Misc. Unlock(s) to add. Does nothing if item is
-                              already unlocked. Valid values are:
-                              LEGENDARY_WEAPON, LEGENDARY_BOOTS,
-                              LEGENDARY_GLOVES, LEGENDARY_DRINK,
-                              LEGENDARY_LENS, TRAIL_HEARTS, TRAIL_SAKURA,
-                              TRAIL_SPARKLES, TRAIL_LEAVES, TRAIL_HOLOLIVE,
-                              TRAIL_BUBBLES, TRAIL_SKULLS, PET_CAT, PET_DOG,
-                              PET_RABBIT, PET_BEETLE, PET_PENGUIN, PET_MONKEY,
-                              WORKER_TOOLS, WORKER_BREAKS, GOLD_RABBITS_FOOT.
+                             Misc. Unlock(s) to add. Does nothing if item is
+                               already unlocked. Valid values are:
+                               LEGENDARY_WEAPON, LEGENDARY_BOOTS,
+                               LEGENDARY_GLOVES, LEGENDARY_DRINK,
+                               LEGENDARY_LENS, TRAIL_HEARTS, TRAIL_SAKURA,
+                               TRAIL_SPARKLES, TRAIL_LEAVES, TRAIL_HOLOLIVE,
+                               TRAIL_BUBBLES, TRAIL_SKULLS, PET_CAT, PET_DOG,
+                               PET_RABBIT, PET_BEETLE, PET_PENGUIN, PET_MONKEY,
+                               WORKER_TOOLS, WORKER_BREAKS, GOLD_RABBITS_FOOT.
       --addSeenCollaboration[=<seenCollaborationToAdd>...]
-                            Seen Collaboration(s) to add. Does nothing if
-                              collaboration is already unlocked. Valid values
-                              are: BL_FUJOSHI, BREATHE_IN_TYPE_ASACOCO,
-                              BROKEN_DREAMS, ELITE_COOKING, SNOW_FLOWER_SAKE,
-                              SNOW_QUEEN, DRAGON_FIRE, LIGHT_BEAM, MICOMET,
-                              RING_OF_FITNESS, BONE_BROS, ABSOLUTE_WALL,
-                              CURSE_BALL, ELDRITCH_HORROR, IDOL_CONCERT,
-                              LEGENDARY_SAUSAGE, MIKORONE, RAP_DOG,
-                              STREAM_OF_TEARS, IM_DIE_THANK_YOU_FOREVER,
-                              JINGISUKAN, HOLY_FIRE, IDOL_LIVE,
-                              FLATTENING_BOARD, LIGHTNING_WIENER,
-                              CRESCENT_BARDICHE, BLACK_PLAGUE,
-                              TRUE_INFINITE_BL_WORKS, BLOOD_LUST, FROZEN_SEA.
+                             Seen Collaboration(s) to add. Does nothing if
+                               collaboration is already unlocked. Valid values
+                               are: BL_FUJOSHI, BREATHE_IN_TYPE_ASACOCO,
+                               BROKEN_DREAMS, ELITE_COOKING, SNOW_FLOWER_SAKE,
+                               SNOW_QUEEN, DRAGON_FIRE, LIGHT_BEAM, MICOMET,
+                               RING_OF_FITNESS, BONE_BROS, ABSOLUTE_WALL,
+                               CURSE_BALL, ELDRITCH_HORROR, IDOL_CONCERT,
+                               LEGENDARY_SAUSAGE, MIKORONE, RAP_DOG,
+                               STREAM_OF_TEARS, IM_DIE_THANK_YOU_FOREVER,
+                               JINGISUKAN, HOLY_FIRE, IDOL_LIVE,
+                               FLATTENING_BOARD, LIGHTNING_WIENER,
+                               CRESCENT_BARDICHE, BLACK_PLAGUE,
+                               TRUE_INFINITE_BL_WORKS, BLOOD_LUST, FROZEN_SEA.
+      --addTear[=<tearsToAdd>...]
+                             Tear(s) to add. This will replace your current
+                               tear, and not add them. Must be in format 'name:
+                               count'. Valid names are: MYTH, COUNCIL_PROMISE,
+                               GAMERS, JP_GENERATION_0, JP_GENERATION_1,
+                               JP_GENERATION_2, JP_GENERATION_3,
+                               JP_GENERATION_4, ID_GENERATION_1,
+                               ID_GENERATION_2, ID_GENERATION_3.
       --addUnlockedFanLetter[=<fanLettersToAdd>...]
-                            Fan Letter(s) to add. Does nothing if fan letter is
-                              already unlocked. Valid values are: KOBOKERZ,
-                              ZECRETARY, UDIN, ZOMRADE, MOONAFIC, SHIOKKO,
-                              NAKIRIGUMI, FUBU_CHUN, ORUYANKE, MITEIRU,
-                              KINTOKI, ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU,
-                              TOKOYAMI_KENZOKU, TATSUNOKO, GUY_RYS, HOOMAN,
-                              BRAT, SMOL_AME, CURSED_BUBBA, SSRB, SANALITE,
-                              KRONIE, KFP, HARUSAKI_NODOKA, AREA_15, HEIMIN,
-                              PEMALOE, BAZO, CILUS, MERAKYAT, MELFREND,
-                              RISUNER, AQUACREW, CHOCOMATE, SUBATOMO, ROSETAI,
-                              KAPUMIN, A_CHAN, SUKONBU, DEADBEAT_Q, TAKODACHI,
-                              SAPLING, HAATON, MATSURISU, PIONEER, SORATOMO,
-                              BLOOM_GLOOM, DEADBEAT, MOONABITO, SPIDERCHAMA,
-                              CHUMBUD, IOFORIA, RISCOT, WATAMATE, NOUSAGI,
-                              HOUSHOU_NO_ICHIMIN, KNIGHTS_ORDER_OF_SHIROGANE,
-                              ELFRIEND, OTAKU, NANORAAA, FUBURA, BAE_HALLOWEEN,
-                              MIKODANYE, SHUBANGELION, TEA_MATE, CHUMBUD_Q,
-                              HALLOWEEN_MYTH, OBAKE_CHAN, P35, STAFF, GORIELA,
-                              PEKODAM, ONIGIRIYA, KORONESUKI, UPAO, LU_KNIGHT,
-                              CHOCOLAT, IRYSTOCRAT_LEGACY, POYOYO.
+                             Fan Letter(s) to add. Does nothing if fan letter
+                               is already unlocked. Valid values are: KOBOKERZ,
+                               ZECRETARY, UDIN, ZOMRADE, MOONAFIC, SHIOKKO,
+                               NAKIRIGUMI, FUBU_CHUN, ORUYANKE, MITEIRU,
+                               KINTOKI, ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU,
+                               TOKOYAMI_KENZOKU, TATSUNOKO, GUY_RYS, HOOMAN,
+                               BRAT, SMOL_AME, CURSED_BUBBA, SSRB, SANALITE,
+                               KRONIE, KFP, HARUSAKI_NODOKA, AREA_15, HEIMIN,
+                               PEMALOE, BAZO, CILUS, MERAKYAT, MELFREND,
+                               RISUNER, AQUACREW, CHOCOMATE, SUBATOMO, ROSETAI,
+                               KAPUMIN, A_CHAN, SUKONBU, DEADBEAT_Q, TAKODACHI,
+                               SAPLING, HAATON, MATSURISU, PIONEER, SORATOMO,
+                               BLOOM_GLOOM, DEADBEAT, MOONABITO, SPIDERCHAMA,
+                               CHUMBUD, IOFORIA, RISCOT, WATAMATE, NOUSAGI,
+                               HOUSHOU_NO_ICHIMIN, KNIGHTS_ORDER_OF_SHIROGANE,
+                               ELFRIEND, OTAKU, NANORAAA, FUBURA,
+                               BAE_HALLOWEEN, MIKODANYE, SHUBANGELION,
+                               TEA_MATE, CHUMBUD_Q, HALLOWEEN_MYTH, OBAKE_CHAN,
+                               P35, STAFF, GORIELA, PEKODAM, ONIGIRIYA,
+                               KORONESUKI, UPAO, LU_KNIGHT, CHOCOLAT,
+                               IRYSTOCRAT_LEGACY, POYOYO.
       --addUnlockedFurniture[=<unlockFurnituresToAdd>...]
-                            Unlocked Furniture(s) to add. Does nothing if
-                              furniture is already unlocked. Valid values are:
-                              WOODEN_BED, WOODEN_BED_B, WOODEN_BED_C,
-                              WOODEN_BED_D, MARBLE_BED, FUTON, COUCH_A,
-                              FOXBURGER, NIGHTSTAND_A, NIGHTSTAND_B,
-                              WOODEN_DRESSER_A, WOODEN_DESK, WOODEN_PC_DESK,
-                              MARBLE_DESK, MARBLE_LAPTOP_DESK, BEANBAG,
-                              OFFICE_CHAIR, GAMER_CHAIR_A, GAMER_CHAIR_B,
-                              GAMER_CHAIR_C, GAMER_CHAIR_D, GAMER_CHAIR_E,
-                              GAMER_CHAIR_F, GAMER_CHAIR_G, GAMER_CHAIR_H,
-                              VANITY, BODY_PILLOW, WOODEN_DINING_TABLE,
-                              MARBLE_TABLE, WOODEN_DINING_CHAIR, MARBLE_CHAIR,
-                              STOOL_A1, WOODEN_TABLE, MARBLE_TABLE_2,
-                              GLASS_TABLE, EASTERN_TABLE, FLOOR_CUSHION,
-                              WOODEN_TALL_CABINET, STANDING_LAMP_A, FIREPLACE,
-                              TV_STAND, CRT_TV, RETRO_CONSOLE, VR_SET,
-                              WOODEN_BOOKSHELF, MARBLE_BOOKSHELF, DISPLAY_CASE,
-                              KITCHEN_COUNTER_A, MICROWAVE, MARBLE_COUNTER,
-                              SINK, MARBLE_SINK, FRIDGE, STOVE, WOODEN_CRATE,
-                              WOODEN_BARREL, BOX_A, BOX_B, TREASURE_CHEST_A,
-                              PLANT_POT_A, PLANT_POT_B, PLANT_POT_C,
-                              BERRY_PLANT, MARBLE_STUMP, DUMBELL,
-                              EXERCISE_BALL, BOXING_DUMMY, VAMPIRE_COFFIN,
-                              BAEGEMITE, TAIKO_DRUMS, SHRINE_BOX, KFP_BUCKET,
-                              SHARK_PLUSH, NEKO_PLUSH, ACHAN_DOLL,
-                              WOODEN_DIVIDER, MARBLE_PARTITION,
-                              EASTERN_DIVIDER, WOODEN_WALL, WOODEN_WALL_2,
-                              WOODEN_HALF_WALL, WOODEN_COLUMN, MARBLE_COLUMN,
-                              WOODEN_DOOR, BATH_STOOL, BATHTUB, TOILET,
-                              WASHING_MACHINE, LAUNDRY_BASKET, CLOCK,
-                              KRONIC_CLOCK, PAINTING_A, PAINTING_C, PAINTING_B,
-                              PAINTING_D, WALL_MIRROR, LANTERN, HANGING_VINE,
-                              MOUNTED_SWORD, DEMON_SWORD, WINDOW, WOODEN_FLOOR,
-                              WOODEN_FLOOR_2, STONE_FLOOR, RED_CARPET_FLOOR,
-                              BLUE_CARPET_FLOOR, PINK_CARPET_FLOOR,
-                              CONCRETE_FLOOR, MARBLE_FLOOR, TILED_FLOOR,
-                              TATAMI_FLOOR, FLAT_WALL, STRIPED_WALL, SKY_WALL,
-                              POLKA_WALL_A, POLKA_WALL_B, POLKA_WALL_C,
-                              OCEAN_WALL, MODERN_WALL, STONE_WALL, EASTERN_WALL.
+                             Unlocked Furniture(s) to add. Does nothing if
+                               furniture is already unlocked. Valid values are:
+                               WOODEN_BED, WOODEN_BED_B, WOODEN_BED_C,
+                               WOODEN_BED_D, MARBLE_BED, FUTON, COUCH_A,
+                               FOXBURGER, NIGHTSTAND_A, NIGHTSTAND_B,
+                               WOODEN_DRESSER_A, WOODEN_DESK, WOODEN_PC_DESK,
+                               MARBLE_DESK, MARBLE_LAPTOP_DESK, BEANBAG,
+                               OFFICE_CHAIR, GAMER_CHAIR_A, GAMER_CHAIR_B,
+                               GAMER_CHAIR_C, GAMER_CHAIR_D, GAMER_CHAIR_E,
+                               GAMER_CHAIR_F, GAMER_CHAIR_G, GAMER_CHAIR_H,
+                               VANITY, BODY_PILLOW, WOODEN_DINING_TABLE,
+                               MARBLE_TABLE, WOODEN_DINING_CHAIR, MARBLE_CHAIR,
+                               STOOL_A1, WOODEN_TABLE, MARBLE_TABLE_2,
+                               GLASS_TABLE, EASTERN_TABLE, FLOOR_CUSHION,
+                               WOODEN_TALL_CABINET, STANDING_LAMP_A, FIREPLACE,
+                               TV_STAND, CRT_TV, RETRO_CONSOLE, VR_SET,
+                               WOODEN_BOOKSHELF, MARBLE_BOOKSHELF,
+                               DISPLAY_CASE, KITCHEN_COUNTER_A, MICROWAVE,
+                               MARBLE_COUNTER, SINK, MARBLE_SINK, FRIDGE,
+                               STOVE, WOODEN_CRATE, WOODEN_BARREL, BOX_A,
+                               BOX_B, TREASURE_CHEST_A, PLANT_POT_A,
+                               PLANT_POT_B, PLANT_POT_C, BERRY_PLANT,
+                               MARBLE_STUMP, DUMBELL, EXERCISE_BALL,
+                               BOXING_DUMMY, VAMPIRE_COFFIN, BAEGEMITE,
+                               TAIKO_DRUMS, SHRINE_BOX, KFP_BUCKET,
+                               SHARK_PLUSH, NEKO_PLUSH, ACHAN_DOLL,
+                               WOODEN_DIVIDER, MARBLE_PARTITION,
+                               EASTERN_DIVIDER, WOODEN_WALL, WOODEN_WALL_2,
+                               WOODEN_HALF_WALL, WOODEN_COLUMN, MARBLE_COLUMN,
+                               WOODEN_DOOR, BATH_STOOL, BATHTUB, TOILET,
+                               WASHING_MACHINE, LAUNDRY_BASKET, CLOCK,
+                               KRONIC_CLOCK, PAINTING_A, PAINTING_C,
+                               PAINTING_B, PAINTING_D, WALL_MIRROR, LANTERN,
+                               HANGING_VINE, MOUNTED_SWORD, DEMON_SWORD,
+                               WINDOW, WOODEN_FLOOR, WOODEN_FLOOR_2,
+                               STONE_FLOOR, RED_CARPET_FLOOR,
+                               BLUE_CARPET_FLOOR, PINK_CARPET_FLOOR,
+                               CONCRETE_FLOOR, MARBLE_FLOOR, TILED_FLOOR,
+                               TATAMI_FLOOR, FLAT_WALL, STRIPED_WALL, SKY_WALL,
+                               POLKA_WALL_A, POLKA_WALL_B, POLKA_WALL_C,
+                               OCEAN_WALL, MODERN_WALL, STONE_WALL,
+                               EASTERN_WALL.
       --addUnlockedItem[=<unlockItemsToAdd>...]
-                            Unlocked Item(s) to add. Does nothing if item is
-                              already unlocked. Valid values are: BODY_PILLOW,
-                              FULL_MEAL, PIKI_PIKI_PIMAN, NURSES_HORN,
-                              HEADPHONES, UBER_SHEEP, KNIGHTLY_MILK, SAKE,
-                              FACE_MASK, CREDIT_CARD, SUPER_CHATTO_TIME,
-                              IDOL_COSTUME, BLACKSMITHS_GEAR, BREASTPLATE,
-                              STUDY_GLASSES, GORILLAS_PAW, HALU,
-                              INJECTION_TYPE_ASACOCO, MEMBERSHIP,
-                              STOLEN_PIGGY_BANK, JUST_BANDAGE,
-                              CHICKENS_FEATHER, ENERGY_DRINK, GWS_PILL,
-                              PLUSHIE, DEVIL_HAT, LIMITER, NINJA_HEADBAND,
-                              FOCUS_SHADES, CANDY_KINGDOM_SWEETS, BEETLE,
-                              KUSOGAKI_SHACKLES, HOPE_SODA, RESEARCHERS_COAT,
-                              PROMISE_TIARA, RAVEN_FEATHER, CORPORATION_PIN.
+                             Unlocked Item(s) to add. Does nothing if item is
+                               already unlocked. Valid values are: BODY_PILLOW,
+                               FULL_MEAL, PIKI_PIKI_PIMAN, NURSES_HORN,
+                               HEADPHONES, UBER_SHEEP, KNIGHTLY_MILK, SAKE,
+                               FACE_MASK, CREDIT_CARD, SUPER_CHATTO_TIME,
+                               IDOL_COSTUME, BLACKSMITHS_GEAR, BREASTPLATE,
+                               STUDY_GLASSES, GORILLAS_PAW, HALU,
+                               INJECTION_TYPE_ASACOCO, MEMBERSHIP,
+                               STOLEN_PIGGY_BANK, JUST_BANDAGE,
+                               CHICKENS_FEATHER, ENERGY_DRINK, GWS_PILL,
+                               PLUSHIE, DEVIL_HAT, LIMITER, NINJA_HEADBAND,
+                               FOCUS_SHADES, CANDY_KINGDOM_SWEETS, BEETLE,
+                               KUSOGAKI_SHACKLES, HOPE_SODA, RESEARCHERS_COAT,
+                               PROMISE_TIARA, RAVEN_FEATHER, CORPORATION_PIN.
       --addUnlockedOutfit[=<unlockOutfitsToAdd>...]
-                            Unlocked Outfit(s) to add. Does nothing if outfit
-                              is already unlocked. Valid values are: DEFAULT,
-                              AME_ALT1, AME_ALT2, AME_ALT3, AME_ALT4,
-                              GURA_ALT1, GURA_ALT2, GURA_ALT3, GURA_ALT4,
-                              CALLI_ALT1, CALLI_ALT2, CALLI_ALT3, CALLI_ALT4,
-                              INA_ALT1, INA_ALT2, INA_ALT3, INA_ALT4,
-                              KIARA_ALT1, KIARA_ALT2, KIARA_ALT3, KIARA_ALT4,
-                              IRYS_ALT1, IRYS_ALT2, IRYS_ALT3, IRYS_ALT4,
-                              BAE_ALT1, BAE_ALT2, BAE_ALT3, KRONII_ALT1,
-                              KRONII_ALT2, KRONII_ALT3, FAUNA_ALT1, FAUNA_ALT2,
-                              FAUNA_ALT3, MUMEI_ALT1, MUMEI_ALT2, MUMEI_ALT3,
-                              SANA_ALT1, SANA_ALT2, KUROKAMI, FUBUKI_ALT1,
-                              FUBUKI_ALT2, FUBUKI_ALT3, OKAYU_ALT1, OKAYU_ALT2,
-                              OKAYU_ALT3, KORONE_ALT1, KORONE_ALT2,
-                              KORONE_ALT3, MIO_ALT1, MIO_ALT2, MIO_ALT3,
-                              SORA_ALT1, SORA_ALT2, SORA_ALT3, AZKI_ALT1,
-                              AZKI_ALT2, AZKI_ALT3, MIKO_ALT1, MIKO_ALT2,
-                              MIKO_ALT3, SUISEI_ALT1, SUISEI_ALT2, SUISEI_ALT3,
-                              ROBOCO_ALT1, ROBOCO_ALT2, ROBOCO_ALT3,
-                              HAATO_ALT1, HAATO_ALT2, MEL_ALT1, MEL_ALT2,
-                              MATSURI_ALT1, MATSURI_ALT2, AKI_ALT1, AKI_ALT2,
-                              SUBARU_ALT1, SUBARU_ALT2, CHOCO_ALT1, CHOCO_ALT2,
-                              SHION_ALT1, SHION_ALT2, AYAME_ALT1, AYAME_ALT2,
-                              AQUA_ALT1, AQUA_ALT2, MOONA_ALT1, RISU_ALT1,
-                              IOFI_ALT1, OLLIE_ALT1, REINE_ALT1, ANYA_ALT1,
-                              KAELA_ALT1, ZETA_ALT1, KOBO_ALT1, PEKORA_ALT1,
-                              NOEL_ALT1, FLARE_ALT1, MARINE_ALT1, COCO_ALT1,
-                              KANATA_ALT1, WATAME_ALT1, LUNA_ALT1, TOWA_ALT1.
+                             Unlocked Outfit(s) to add. Does nothing if outfit
+                               is already unlocked. Valid values are: DEFAULT,
+                               AME_ALT1, AME_ALT2, AME_ALT3, AME_ALT4,
+                               GURA_ALT1, GURA_ALT2, GURA_ALT3, GURA_ALT4,
+                               CALLI_ALT1, CALLI_ALT2, CALLI_ALT3, CALLI_ALT4,
+                               INA_ALT1, INA_ALT2, INA_ALT3, INA_ALT4,
+                               KIARA_ALT1, KIARA_ALT2, KIARA_ALT3, KIARA_ALT4,
+                               IRYS_ALT1, IRYS_ALT2, IRYS_ALT3, IRYS_ALT4,
+                               BAE_ALT1, BAE_ALT2, BAE_ALT3, KRONII_ALT1,
+                               KRONII_ALT2, KRONII_ALT3, FAUNA_ALT1,
+                               FAUNA_ALT2, FAUNA_ALT3, MUMEI_ALT1, MUMEI_ALT2,
+                               MUMEI_ALT3, SANA_ALT1, SANA_ALT2, KUROKAMI,
+                               FUBUKI_ALT1, FUBUKI_ALT2, FUBUKI_ALT3,
+                               OKAYU_ALT1, OKAYU_ALT2, OKAYU_ALT3, KORONE_ALT1,
+                               KORONE_ALT2, KORONE_ALT3, MIO_ALT1, MIO_ALT2,
+                               MIO_ALT3, SORA_ALT1, SORA_ALT2, SORA_ALT3,
+                               AZKI_ALT1, AZKI_ALT2, AZKI_ALT3, MIKO_ALT1,
+                               MIKO_ALT2, MIKO_ALT3, SUISEI_ALT1, SUISEI_ALT2,
+                               SUISEI_ALT3, ROBOCO_ALT1, ROBOCO_ALT2,
+                               ROBOCO_ALT3, HAATO_ALT1, HAATO_ALT2, MEL_ALT1,
+                               MEL_ALT2, MATSURI_ALT1, MATSURI_ALT2, AKI_ALT1,
+                               AKI_ALT2, SUBARU_ALT1, SUBARU_ALT2, CHOCO_ALT1,
+                               CHOCO_ALT2, SHION_ALT1, SHION_ALT2, AYAME_ALT1,
+                               AYAME_ALT2, AQUA_ALT1, AQUA_ALT2, MOONA_ALT1,
+                               RISU_ALT1, IOFI_ALT1, OLLIE_ALT1, REINE_ALT1,
+                               ANYA_ALT1, KAELA_ALT1, ZETA_ALT1, KOBO_ALT1,
+                               PEKORA_ALT1, NOEL_ALT1, FLARE_ALT1, MARINE_ALT1,
+                               COCO_ALT1, KANATA_ALT1, WATAME_ALT1, LUNA_ALT1,
+                               TOWA_ALT1.
       --addUnlockedStage[=<unlockStagesToAdd>...]
-                            Unlocked Stage(s) to add. Does nothing if stage is
-                              already unlocked. Valid values are: STAGE_1,
-                              STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_1_HARD,
-                              STAGE_2_HARD, STAGE_3_HARD, STAGE_4_HARD,
-                              TIME_STAGE_1, HOLO_HOUSE, USADA_CASINO.
+                             Unlocked Stage(s) to add. Does nothing if stage is
+                               already unlocked. Valid values are: STAGE_1,
+                               STAGE_2, STAGE_3, STAGE_4, STAGE_5,
+                               STAGE_1_HARD, STAGE_2_HARD, STAGE_3_HARD,
+                               STAGE_4_HARD, TIME_STAGE_1, HOLO_HOUSE,
+                               USADA_CASINO.
       --addUnlockedWeapon[=<unlockWeaponsToAdd>...]
-                            Unlocked Weapon(s) to add. Does nothing if weapon
-                              is already unlocked. Valid values are:
-                              PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING,
-                              PLUG_TYPE_ASACOCO, BL_BOOK, ELITE_LAVA_BUCKET,
-                              HOLO_BOMB, FAN_BEAM, WAMY_WATER, CEOS_TEARS,
-                              CUTTING_BOARD, BOUNCE_BALL, ENS_CURSE, IDOL_SONG,
-                              X_POTATO, SAUSAGE, OWL_DAGGER.
-      --atkUp=<atkUp>       Update ATK Up.
+                             Unlocked Weapon(s) to add. Does nothing if weapon
+                               is already unlocked. Valid values are:
+                               PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING,
+                               PLUG_TYPE_ASACOCO, BL_BOOK, ELITE_LAVA_BUCKET,
+                               HOLO_BOMB, FAN_BEAM, WAMY_WATER, CEOS_TEARS,
+                               CUTTING_BOARD, BOUNCE_BALL, ENS_CURSE,
+                               IDOL_SONG, X_POTATO, SAUSAGE, OWL_DAGGER.
+      --atkUp=<atkUp>        Update ATK Up.
       --collabBan=<collabBan>
-                            Update Collab Ban.
-      --critUp=<critUp>     Update Crit Up.
+                             Update Collab Ban.
+      --critUp=<critUp>      Update Crit Up.
       --customize=<customize>
-                            Update Customize.
+                             Update Customize.
       --defenseUp=<defenseUp>
-                            Update Defense Up.
+                             Update Defense Up.
       --eliminate=<eliminate>
-                            Update Eliminate.
+                             Update Eliminate.
       --enchantments=<enchantments>
-                            Update Enchantments.
+                             Update Enchantments.
       --enhancementRateUp=<enhancementRateUp>
-                            Update Enhancement Rate Up.
+                             Update Enhancement Rate Up.
       --expGainUp=<expGainUp>
-                            Update EXP Gain Up.
-      --fandom=<fandom>     Update Fandom.
+                             Update EXP Gain Up.
+      --fandom=<fandom>      Update Fandom.
       --fanLettersUnlocked=<fanLettersUnlocked>
-                            Update Fan Letters Unlocked.
+                             Update Fan Letters Unlocked.
       --foodDropsUp=<foodDropsUp>
-                            Update Food Drops Up.
-      --gRankOff=<gRankOff> Update G Rank Off.
-      --growth=<growth>     Update Growth.
+                             Update Food Drops Up.
+      --gRankOff=<gRankOff>  Update G Rank Off.
+      --growth=<growth>      Update Growth.
   -h, --help
-      --hardcore=<hardcore> Update Hardcore.
-      --hasteUp=<hasteUp>   Update Haste Up.
-      --holdFind=<holdFind> Update Hold Find.
+      --hardcore=<hardcore>  Update Hardcore.
+      --hasteUp=<hasteUp>    Update Haste Up.
+      --holdFind=<holdFind>  Update Hold Find.
       --holoCoins=<holoCoins>
-                            Update HoloCoins.
+                             Update HoloCoins.
       --itemLimit=<itemLimit>
-                            Update Item Limit.
+                             Update Item Limit.
       --managementExp=<managementExp>
-                            Update Management Exp.
+                             Update Management Exp.
       --managementLevel=<managementLevel>
-                            Update Management Level.
+                             Update Management Level.
       --marketing=<marketing>
-                            Update Marketing.
+                             Update Marketing.
       --materialFind=<materialFind>
-                            Update Material Find.
-      --maxHpUp=<maxHpUp>   Update Max HP Up.
-      --mineExp=<mineExp>   Update Mine Exp.
+                             Update Material Find.
+      --maxHpUp=<maxHpUp>    Update Max HP Up.
+      --mineExp=<mineExp>    Update Mine Exp.
       --mineLevel=<mineLevel>
-                            Update Mine Level.
+                             Update Mine Level.
       --moneyGainUp=<moneyGainUp>
-                            Update Money Gain Up.
+                             Update Money Gain Up.
       --pickUpRange=<pickUpRange>
-                            Update Pick Up Range.
+                             Update Pick Up Range.
       --refundAll=<refundAll>
-                            Update Refund All.
+                             Update Refund All.
       --regeneration=<regeneration>
-                            Update Regeneration.
+                             Update Regeneration.
       --removeActiveScam[=<activeScamToRemove>...]
-                            Active Scam(s) to remove. Does nothing if scam
-                              isn't unlocked. Valid values are:
-                              LEGENDARY_WEAPON, LEGENDARY_BOOTS,
-                              LEGENDARY_GLOVES, LEGENDARY_DRINK,
-                              LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
-                              GOLD_RABBITS_FOOT.
+                             Active Scam(s) to remove. Does nothing if scam
+                               isn't unlocked. Valid values are:
+                               LEGENDARY_WEAPON, LEGENDARY_BOOTS,
+                               LEGENDARY_GLOVES, LEGENDARY_DRINK,
+                               LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
+                               GOLD_RABBITS_FOOT.
       --removeAllActiveMiscUnlocks
-                            Remove all Active Misc. Unlocks.
-      --removeAllActiveScams
-                            Remove all Active Scams.
-      --removeAllFanLetters Remove all Fan Letters.
+                             Remove all Active Misc. Unlocks.
+      --removeAllActiveScams Remove all Active Scams.
+      --removeAllFanLetters  Remove all Fan Letters.
+      --removeAllGatchaRanks Remove all Gatcha Ranks.
+      --removeAllInventory   Remove all Inventory.
       --removeAllSeenCollaborations
-                            Remove all Seen Collaborations.
+                             Remove all Seen Collaborations.
+      --removeAllTears       Remove all Tears.
       --removeAllUnlockFurnitures
-                            Remove all Unlock Furnitures.
-      --removeAllUnlockItems
-                            Remove all Unlock Items.
+                             Remove all Unlock Furnitures.
+      --removeAllUnlockItems Remove all Unlock Items.
       --removeAllUnlockOutfits
-                            Remove all Unlock Outfits.
+                             Remove all Unlock Outfits.
       --removeAllUnlockStages
-                            Remove all Unlock Stages.
+                             Remove all Unlock Stages.
       --removeAllUnlockWeapons
-                            Remove all Unlock Weapons.
+                             Remove all Unlock Weapons.
+      --removeGatchaRank[=<gatchaRanksToRemove>...]
+                             Gatcha Rank(s) to remove. This will replace your
+                               current gatcha rank, and not add them. Does
+                               nothing if tear doesn't exist. Must be in format
+                               'name:count:total'. Valid names are: .
+      --removeInventory[=<inventoriesToRemove>...]
+                             Inventory(s) to remove. This will replace your
+                               current inventory, and not add them. Does
+                               nothing if inventory doesn't exist. Must be in
+                               format 'name:count:total'. Valid names are: .
       --removeMiscUnlock[=<miscUnlockToRemove>...]
-                            Misc. Unlock(s) to remove. Does nothing if item
-                              isn't unlocked. Valid values are:
-                              LEGENDARY_WEAPON, LEGENDARY_BOOTS,
-                              LEGENDARY_GLOVES, LEGENDARY_DRINK,
-                              LEGENDARY_LENS, TRAIL_HEARTS, TRAIL_SAKURA,
-                              TRAIL_SPARKLES, TRAIL_LEAVES, TRAIL_HOLOLIVE,
-                              TRAIL_BUBBLES, TRAIL_SKULLS, PET_CAT, PET_DOG,
-                              PET_RABBIT, PET_BEETLE, PET_PENGUIN, PET_MONKEY,
-                              WORKER_TOOLS, WORKER_BREAKS, GOLD_RABBITS_FOOT.
+                             Misc. Unlock(s) to remove. Does nothing if item
+                               isn't unlocked. Valid values are:
+                               LEGENDARY_WEAPON, LEGENDARY_BOOTS,
+                               LEGENDARY_GLOVES, LEGENDARY_DRINK,
+                               LEGENDARY_LENS, TRAIL_HEARTS, TRAIL_SAKURA,
+                               TRAIL_SPARKLES, TRAIL_LEAVES, TRAIL_HOLOLIVE,
+                               TRAIL_BUBBLES, TRAIL_SKULLS, PET_CAT, PET_DOG,
+                               PET_RABBIT, PET_BEETLE, PET_PENGUIN, PET_MONKEY,
+                               WORKER_TOOLS, WORKER_BREAKS, GOLD_RABBITS_FOOT.
       --removeSeenCollaboration[=<seenCollaborationToRemove>...]
-                            Seen Collaboration(s) to remove. Does nothing if
-                              collaboration isn't unlocked. Valid values are:
-                              BL_FUJOSHI, BREATHE_IN_TYPE_ASACOCO,
-                              BROKEN_DREAMS, ELITE_COOKING, SNOW_FLOWER_SAKE,
-                              SNOW_QUEEN, DRAGON_FIRE, LIGHT_BEAM, MICOMET,
-                              RING_OF_FITNESS, BONE_BROS, ABSOLUTE_WALL,
-                              CURSE_BALL, ELDRITCH_HORROR, IDOL_CONCERT,
-                              LEGENDARY_SAUSAGE, MIKORONE, RAP_DOG,
-                              STREAM_OF_TEARS, IM_DIE_THANK_YOU_FOREVER,
-                              JINGISUKAN, HOLY_FIRE, IDOL_LIVE,
-                              FLATTENING_BOARD, LIGHTNING_WIENER,
-                              CRESCENT_BARDICHE, BLACK_PLAGUE,
-                              TRUE_INFINITE_BL_WORKS, BLOOD_LUST, FROZEN_SEA.
+                             Seen Collaboration(s) to remove. Does nothing if
+                               collaboration isn't unlocked. Valid values are:
+                               BL_FUJOSHI, BREATHE_IN_TYPE_ASACOCO,
+                               BROKEN_DREAMS, ELITE_COOKING, SNOW_FLOWER_SAKE,
+                               SNOW_QUEEN, DRAGON_FIRE, LIGHT_BEAM, MICOMET,
+                               RING_OF_FITNESS, BONE_BROS, ABSOLUTE_WALL,
+                               CURSE_BALL, ELDRITCH_HORROR, IDOL_CONCERT,
+                               LEGENDARY_SAUSAGE, MIKORONE, RAP_DOG,
+                               STREAM_OF_TEARS, IM_DIE_THANK_YOU_FOREVER,
+                               JINGISUKAN, HOLY_FIRE, IDOL_LIVE,
+                               FLATTENING_BOARD, LIGHTNING_WIENER,
+                               CRESCENT_BARDICHE, BLACK_PLAGUE,
+                               TRUE_INFINITE_BL_WORKS, BLOOD_LUST, FROZEN_SEA.
+      --removeTear[=<tearsToRemove>...]
+                             Tear(s) to remove. This will replace your current
+                               tear, and not add them. Does nothing if tear
+                               doesn't exist. Must be in format 'name:count:
+                               total'. Valid names are: .
       --removeUnlockedFanLetter[=<fanLettersToRemove>...]
-                            Fan Letter(s) to remove. Does nothing if fan letter
-                              isn't unlocked. Valid values are: KOBOKERZ,
-                              ZECRETARY, UDIN, ZOMRADE, MOONAFIC, SHIOKKO,
-                              NAKIRIGUMI, FUBU_CHUN, ORUYANKE, MITEIRU,
-                              KINTOKI, ROBOSA, HOSHIYOMI, MIOFA, YATAGARASU,
-                              TOKOYAMI_KENZOKU, TATSUNOKO, GUY_RYS, HOOMAN,
-                              BRAT, SMOL_AME, CURSED_BUBBA, SSRB, SANALITE,
-                              KRONIE, KFP, HARUSAKI_NODOKA, AREA_15, HEIMIN,
-                              PEMALOE, BAZO, CILUS, MERAKYAT, MELFREND,
-                              RISUNER, AQUACREW, CHOCOMATE, SUBATOMO, ROSETAI,
-                              KAPUMIN, A_CHAN, SUKONBU, DEADBEAT_Q, TAKODACHI,
-                              SAPLING, HAATON, MATSURISU, PIONEER, SORATOMO,
-                              BLOOM_GLOOM, DEADBEAT, MOONABITO, SPIDERCHAMA,
-                              CHUMBUD, IOFORIA, RISCOT, WATAMATE, NOUSAGI,
-                              HOUSHOU_NO_ICHIMIN, KNIGHTS_ORDER_OF_SHIROGANE,
-                              ELFRIEND, OTAKU, NANORAAA, FUBURA, BAE_HALLOWEEN,
-                              MIKODANYE, SHUBANGELION, TEA_MATE, CHUMBUD_Q,
-                              HALLOWEEN_MYTH, OBAKE_CHAN, P35, STAFF, GORIELA,
-                              PEKODAM, ONIGIRIYA, KORONESUKI, UPAO, LU_KNIGHT,
-                              CHOCOLAT, IRYSTOCRAT_LEGACY, POYOYO.
+                             Fan Letter(s) to remove. Does nothing if fan
+                               letter isn't unlocked. Valid values are:
+                               KOBOKERZ, ZECRETARY, UDIN, ZOMRADE, MOONAFIC,
+                               SHIOKKO, NAKIRIGUMI, FUBU_CHUN, ORUYANKE,
+                               MITEIRU, KINTOKI, ROBOSA, HOSHIYOMI, MIOFA,
+                               YATAGARASU, TOKOYAMI_KENZOKU, TATSUNOKO,
+                               GUY_RYS, HOOMAN, BRAT, SMOL_AME, CURSED_BUBBA,
+                               SSRB, SANALITE, KRONIE, KFP, HARUSAKI_NODOKA,
+                               AREA_15, HEIMIN, PEMALOE, BAZO, CILUS, MERAKYAT,
+                               MELFREND, RISUNER, AQUACREW, CHOCOMATE,
+                               SUBATOMO, ROSETAI, KAPUMIN, A_CHAN, SUKONBU,
+                               DEADBEAT_Q, TAKODACHI, SAPLING, HAATON,
+                               MATSURISU, PIONEER, SORATOMO, BLOOM_GLOOM,
+                               DEADBEAT, MOONABITO, SPIDERCHAMA, CHUMBUD,
+                               IOFORIA, RISCOT, WATAMATE, NOUSAGI,
+                               HOUSHOU_NO_ICHIMIN, KNIGHTS_ORDER_OF_SHIROGANE,
+                               ELFRIEND, OTAKU, NANORAAA, FUBURA,
+                               BAE_HALLOWEEN, MIKODANYE, SHUBANGELION,
+                               TEA_MATE, CHUMBUD_Q, HALLOWEEN_MYTH, OBAKE_CHAN,
+                               P35, STAFF, GORIELA, PEKODAM, ONIGIRIYA,
+                               KORONESUKI, UPAO, LU_KNIGHT, CHOCOLAT,
+                               IRYSTOCRAT_LEGACY, POYOYO.
       --removeUnlockedFurniture[=<unlockFurnituresToRemove>...]
-                            Unlocked Furniture(s) to remove. Does nothing if
-                              furniture isn't unlocked. Valid values are:
-                              WOODEN_BED, WOODEN_BED_B, WOODEN_BED_C,
-                              WOODEN_BED_D, MARBLE_BED, FUTON, COUCH_A,
-                              FOXBURGER, NIGHTSTAND_A, NIGHTSTAND_B,
-                              WOODEN_DRESSER_A, WOODEN_DESK, WOODEN_PC_DESK,
-                              MARBLE_DESK, MARBLE_LAPTOP_DESK, BEANBAG,
-                              OFFICE_CHAIR, GAMER_CHAIR_A, GAMER_CHAIR_B,
-                              GAMER_CHAIR_C, GAMER_CHAIR_D, GAMER_CHAIR_E,
-                              GAMER_CHAIR_F, GAMER_CHAIR_G, GAMER_CHAIR_H,
-                              VANITY, BODY_PILLOW, WOODEN_DINING_TABLE,
-                              MARBLE_TABLE, WOODEN_DINING_CHAIR, MARBLE_CHAIR,
-                              STOOL_A1, WOODEN_TABLE, MARBLE_TABLE_2,
-                              GLASS_TABLE, EASTERN_TABLE, FLOOR_CUSHION,
-                              WOODEN_TALL_CABINET, STANDING_LAMP_A, FIREPLACE,
-                              TV_STAND, CRT_TV, RETRO_CONSOLE, VR_SET,
-                              WOODEN_BOOKSHELF, MARBLE_BOOKSHELF, DISPLAY_CASE,
-                              KITCHEN_COUNTER_A, MICROWAVE, MARBLE_COUNTER,
-                              SINK, MARBLE_SINK, FRIDGE, STOVE, WOODEN_CRATE,
-                              WOODEN_BARREL, BOX_A, BOX_B, TREASURE_CHEST_A,
-                              PLANT_POT_A, PLANT_POT_B, PLANT_POT_C,
-                              BERRY_PLANT, MARBLE_STUMP, DUMBELL,
-                              EXERCISE_BALL, BOXING_DUMMY, VAMPIRE_COFFIN,
-                              BAEGEMITE, TAIKO_DRUMS, SHRINE_BOX, KFP_BUCKET,
-                              SHARK_PLUSH, NEKO_PLUSH, ACHAN_DOLL,
-                              WOODEN_DIVIDER, MARBLE_PARTITION,
-                              EASTERN_DIVIDER, WOODEN_WALL, WOODEN_WALL_2,
-                              WOODEN_HALF_WALL, WOODEN_COLUMN, MARBLE_COLUMN,
-                              WOODEN_DOOR, BATH_STOOL, BATHTUB, TOILET,
-                              WASHING_MACHINE, LAUNDRY_BASKET, CLOCK,
-                              KRONIC_CLOCK, PAINTING_A, PAINTING_C, PAINTING_B,
-                              PAINTING_D, WALL_MIRROR, LANTERN, HANGING_VINE,
-                              MOUNTED_SWORD, DEMON_SWORD, WINDOW, WOODEN_FLOOR,
-                              WOODEN_FLOOR_2, STONE_FLOOR, RED_CARPET_FLOOR,
-                              BLUE_CARPET_FLOOR, PINK_CARPET_FLOOR,
-                              CONCRETE_FLOOR, MARBLE_FLOOR, TILED_FLOOR,
-                              TATAMI_FLOOR, FLAT_WALL, STRIPED_WALL, SKY_WALL,
-                              POLKA_WALL_A, POLKA_WALL_B, POLKA_WALL_C,
-                              OCEAN_WALL, MODERN_WALL, STONE_WALL, EASTERN_WALL.
+                             Unlocked Furniture(s) to remove. Does nothing if
+                               furniture isn't unlocked. Valid values are:
+                               WOODEN_BED, WOODEN_BED_B, WOODEN_BED_C,
+                               WOODEN_BED_D, MARBLE_BED, FUTON, COUCH_A,
+                               FOXBURGER, NIGHTSTAND_A, NIGHTSTAND_B,
+                               WOODEN_DRESSER_A, WOODEN_DESK, WOODEN_PC_DESK,
+                               MARBLE_DESK, MARBLE_LAPTOP_DESK, BEANBAG,
+                               OFFICE_CHAIR, GAMER_CHAIR_A, GAMER_CHAIR_B,
+                               GAMER_CHAIR_C, GAMER_CHAIR_D, GAMER_CHAIR_E,
+                               GAMER_CHAIR_F, GAMER_CHAIR_G, GAMER_CHAIR_H,
+                               VANITY, BODY_PILLOW, WOODEN_DINING_TABLE,
+                               MARBLE_TABLE, WOODEN_DINING_CHAIR, MARBLE_CHAIR,
+                               STOOL_A1, WOODEN_TABLE, MARBLE_TABLE_2,
+                               GLASS_TABLE, EASTERN_TABLE, FLOOR_CUSHION,
+                               WOODEN_TALL_CABINET, STANDING_LAMP_A, FIREPLACE,
+                               TV_STAND, CRT_TV, RETRO_CONSOLE, VR_SET,
+                               WOODEN_BOOKSHELF, MARBLE_BOOKSHELF,
+                               DISPLAY_CASE, KITCHEN_COUNTER_A, MICROWAVE,
+                               MARBLE_COUNTER, SINK, MARBLE_SINK, FRIDGE,
+                               STOVE, WOODEN_CRATE, WOODEN_BARREL, BOX_A,
+                               BOX_B, TREASURE_CHEST_A, PLANT_POT_A,
+                               PLANT_POT_B, PLANT_POT_C, BERRY_PLANT,
+                               MARBLE_STUMP, DUMBELL, EXERCISE_BALL,
+                               BOXING_DUMMY, VAMPIRE_COFFIN, BAEGEMITE,
+                               TAIKO_DRUMS, SHRINE_BOX, KFP_BUCKET,
+                               SHARK_PLUSH, NEKO_PLUSH, ACHAN_DOLL,
+                               WOODEN_DIVIDER, MARBLE_PARTITION,
+                               EASTERN_DIVIDER, WOODEN_WALL, WOODEN_WALL_2,
+                               WOODEN_HALF_WALL, WOODEN_COLUMN, MARBLE_COLUMN,
+                               WOODEN_DOOR, BATH_STOOL, BATHTUB, TOILET,
+                               WASHING_MACHINE, LAUNDRY_BASKET, CLOCK,
+                               KRONIC_CLOCK, PAINTING_A, PAINTING_C,
+                               PAINTING_B, PAINTING_D, WALL_MIRROR, LANTERN,
+                               HANGING_VINE, MOUNTED_SWORD, DEMON_SWORD,
+                               WINDOW, WOODEN_FLOOR, WOODEN_FLOOR_2,
+                               STONE_FLOOR, RED_CARPET_FLOOR,
+                               BLUE_CARPET_FLOOR, PINK_CARPET_FLOOR,
+                               CONCRETE_FLOOR, MARBLE_FLOOR, TILED_FLOOR,
+                               TATAMI_FLOOR, FLAT_WALL, STRIPED_WALL, SKY_WALL,
+                               POLKA_WALL_A, POLKA_WALL_B, POLKA_WALL_C,
+                               OCEAN_WALL, MODERN_WALL, STONE_WALL,
+                               EASTERN_WALL.
       --removeUnlockedItem[=<unlockItemsToRemove>...]
-                            Unlocked Item(s) to remove. Does nothing if item
-                              isn't unlocked. Valid values are: BODY_PILLOW,
-                              FULL_MEAL, PIKI_PIKI_PIMAN, NURSES_HORN,
-                              HEADPHONES, UBER_SHEEP, KNIGHTLY_MILK, SAKE,
-                              FACE_MASK, CREDIT_CARD, SUPER_CHATTO_TIME,
-                              IDOL_COSTUME, BLACKSMITHS_GEAR, BREASTPLATE,
-                              STUDY_GLASSES, GORILLAS_PAW, HALU,
-                              INJECTION_TYPE_ASACOCO, MEMBERSHIP,
-                              STOLEN_PIGGY_BANK, JUST_BANDAGE,
-                              CHICKENS_FEATHER, ENERGY_DRINK, GWS_PILL,
-                              PLUSHIE, DEVIL_HAT, LIMITER, NINJA_HEADBAND,
-                              FOCUS_SHADES, CANDY_KINGDOM_SWEETS, BEETLE,
-                              KUSOGAKI_SHACKLES, HOPE_SODA, RESEARCHERS_COAT,
-                              PROMISE_TIARA, RAVEN_FEATHER, CORPORATION_PIN.
+                             Unlocked Item(s) to remove. Does nothing if item
+                               isn't unlocked. Valid values are: BODY_PILLOW,
+                               FULL_MEAL, PIKI_PIKI_PIMAN, NURSES_HORN,
+                               HEADPHONES, UBER_SHEEP, KNIGHTLY_MILK, SAKE,
+                               FACE_MASK, CREDIT_CARD, SUPER_CHATTO_TIME,
+                               IDOL_COSTUME, BLACKSMITHS_GEAR, BREASTPLATE,
+                               STUDY_GLASSES, GORILLAS_PAW, HALU,
+                               INJECTION_TYPE_ASACOCO, MEMBERSHIP,
+                               STOLEN_PIGGY_BANK, JUST_BANDAGE,
+                               CHICKENS_FEATHER, ENERGY_DRINK, GWS_PILL,
+                               PLUSHIE, DEVIL_HAT, LIMITER, NINJA_HEADBAND,
+                               FOCUS_SHADES, CANDY_KINGDOM_SWEETS, BEETLE,
+                               KUSOGAKI_SHACKLES, HOPE_SODA, RESEARCHERS_COAT,
+                               PROMISE_TIARA, RAVEN_FEATHER, CORPORATION_PIN.
       --removeUnlockedOutfit[=<unlockOutfitsToRemove>...]
-                            Unlocked Outfit(s) to remove. Does nothing if
-                              outfit isn't unlocked. Valid values are: DEFAULT,
-                              AME_ALT1, AME_ALT2, AME_ALT3, AME_ALT4,
-                              GURA_ALT1, GURA_ALT2, GURA_ALT3, GURA_ALT4,
-                              CALLI_ALT1, CALLI_ALT2, CALLI_ALT3, CALLI_ALT4,
-                              INA_ALT1, INA_ALT2, INA_ALT3, INA_ALT4,
-                              KIARA_ALT1, KIARA_ALT2, KIARA_ALT3, KIARA_ALT4,
-                              IRYS_ALT1, IRYS_ALT2, IRYS_ALT3, IRYS_ALT4,
-                              BAE_ALT1, BAE_ALT2, BAE_ALT3, KRONII_ALT1,
-                              KRONII_ALT2, KRONII_ALT3, FAUNA_ALT1, FAUNA_ALT2,
-                              FAUNA_ALT3, MUMEI_ALT1, MUMEI_ALT2, MUMEI_ALT3,
-                              SANA_ALT1, SANA_ALT2, KUROKAMI, FUBUKI_ALT1,
-                              FUBUKI_ALT2, FUBUKI_ALT3, OKAYU_ALT1, OKAYU_ALT2,
-                              OKAYU_ALT3, KORONE_ALT1, KORONE_ALT2,
-                              KORONE_ALT3, MIO_ALT1, MIO_ALT2, MIO_ALT3,
-                              SORA_ALT1, SORA_ALT2, SORA_ALT3, AZKI_ALT1,
-                              AZKI_ALT2, AZKI_ALT3, MIKO_ALT1, MIKO_ALT2,
-                              MIKO_ALT3, SUISEI_ALT1, SUISEI_ALT2, SUISEI_ALT3,
-                              ROBOCO_ALT1, ROBOCO_ALT2, ROBOCO_ALT3,
-                              HAATO_ALT1, HAATO_ALT2, MEL_ALT1, MEL_ALT2,
-                              MATSURI_ALT1, MATSURI_ALT2, AKI_ALT1, AKI_ALT2,
-                              SUBARU_ALT1, SUBARU_ALT2, CHOCO_ALT1, CHOCO_ALT2,
-                              SHION_ALT1, SHION_ALT2, AYAME_ALT1, AYAME_ALT2,
-                              AQUA_ALT1, AQUA_ALT2, MOONA_ALT1, RISU_ALT1,
-                              IOFI_ALT1, OLLIE_ALT1, REINE_ALT1, ANYA_ALT1,
-                              KAELA_ALT1, ZETA_ALT1, KOBO_ALT1, PEKORA_ALT1,
-                              NOEL_ALT1, FLARE_ALT1, MARINE_ALT1, COCO_ALT1,
-                              KANATA_ALT1, WATAME_ALT1, LUNA_ALT1, TOWA_ALT1.
+                             Unlocked Outfit(s) to remove. Does nothing if
+                               outfit isn't unlocked. Valid values are:
+                               DEFAULT, AME_ALT1, AME_ALT2, AME_ALT3, AME_ALT4,
+                               GURA_ALT1, GURA_ALT2, GURA_ALT3, GURA_ALT4,
+                               CALLI_ALT1, CALLI_ALT2, CALLI_ALT3, CALLI_ALT4,
+                               INA_ALT1, INA_ALT2, INA_ALT3, INA_ALT4,
+                               KIARA_ALT1, KIARA_ALT2, KIARA_ALT3, KIARA_ALT4,
+                               IRYS_ALT1, IRYS_ALT2, IRYS_ALT3, IRYS_ALT4,
+                               BAE_ALT1, BAE_ALT2, BAE_ALT3, KRONII_ALT1,
+                               KRONII_ALT2, KRONII_ALT3, FAUNA_ALT1,
+                               FAUNA_ALT2, FAUNA_ALT3, MUMEI_ALT1, MUMEI_ALT2,
+                               MUMEI_ALT3, SANA_ALT1, SANA_ALT2, KUROKAMI,
+                               FUBUKI_ALT1, FUBUKI_ALT2, FUBUKI_ALT3,
+                               OKAYU_ALT1, OKAYU_ALT2, OKAYU_ALT3, KORONE_ALT1,
+                               KORONE_ALT2, KORONE_ALT3, MIO_ALT1, MIO_ALT2,
+                               MIO_ALT3, SORA_ALT1, SORA_ALT2, SORA_ALT3,
+                               AZKI_ALT1, AZKI_ALT2, AZKI_ALT3, MIKO_ALT1,
+                               MIKO_ALT2, MIKO_ALT3, SUISEI_ALT1, SUISEI_ALT2,
+                               SUISEI_ALT3, ROBOCO_ALT1, ROBOCO_ALT2,
+                               ROBOCO_ALT3, HAATO_ALT1, HAATO_ALT2, MEL_ALT1,
+                               MEL_ALT2, MATSURI_ALT1, MATSURI_ALT2, AKI_ALT1,
+                               AKI_ALT2, SUBARU_ALT1, SUBARU_ALT2, CHOCO_ALT1,
+                               CHOCO_ALT2, SHION_ALT1, SHION_ALT2, AYAME_ALT1,
+                               AYAME_ALT2, AQUA_ALT1, AQUA_ALT2, MOONA_ALT1,
+                               RISU_ALT1, IOFI_ALT1, OLLIE_ALT1, REINE_ALT1,
+                               ANYA_ALT1, KAELA_ALT1, ZETA_ALT1, KOBO_ALT1,
+                               PEKORA_ALT1, NOEL_ALT1, FLARE_ALT1, MARINE_ALT1,
+                               COCO_ALT1, KANATA_ALT1, WATAME_ALT1, LUNA_ALT1,
+                               TOWA_ALT1.
       --removeUnlockedStage[=<unlockStagesToRemove>...]
-                            Unlocked Stage(s) to remove. Does nothing if stage
-                              isn't unlocked. Valid values are: STAGE_1,
-                              STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_1_HARD,
-                              STAGE_2_HARD, STAGE_3_HARD, STAGE_4_HARD,
-                              TIME_STAGE_1, HOLO_HOUSE, USADA_CASINO.
+                             Unlocked Stage(s) to remove. Does nothing if stage
+                               isn't unlocked. Valid values are: STAGE_1,
+                               STAGE_2, STAGE_3, STAGE_4, STAGE_5,
+                               STAGE_1_HARD, STAGE_2_HARD, STAGE_3_HARD,
+                               STAGE_4_HARD, TIME_STAGE_1, HOLO_HOUSE,
+                               USADA_CASINO.
       --removeUnlockedWeapon[=<unlockWeaponsToRemove>...]
-                            Unlocked Weapon(s) to remove. Does nothing if
-                              weapon isn't unlocked. Valid values are:
-                              PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING,
-                              PLUG_TYPE_ASACOCO, BL_BOOK, ELITE_LAVA_BUCKET,
-                              HOLO_BOMB, FAN_BEAM, WAMY_WATER, CEOS_TEARS,
-                              CUTTING_BOARD, BOUNCE_BALL, ENS_CURSE, IDOL_SONG,
-                              X_POTATO, SAUSAGE, OWL_DAGGER.
-      --reroll=<reroll>     Update Reroll.
-      --sand=<sand>         Update Sand.
-      --skillUp=<skillUp>   Update Skill Up.
-      --spdUp=<spdUp>       Update SPD Up.
+                             Unlocked Weapon(s) to remove. Does nothing if
+                               weapon isn't unlocked. Valid values are:
+                               PSYCHO_AXE, GLOWSTICK, SPIDER_COOKING,
+                               PLUG_TYPE_ASACOCO, BL_BOOK, ELITE_LAVA_BUCKET,
+                               HOLO_BOMB, FAN_BEAM, WAMY_WATER, CEOS_TEARS,
+                               CUTTING_BOARD, BOUNCE_BALL, ENS_CURSE,
+                               IDOL_SONG, X_POTATO, SAUSAGE, OWL_DAGGER.
+      --reroll=<reroll>      Update Reroll.
+      --sand=<sand>          Update Sand.
+      --skillUp=<skillUp>    Update Skill Up.
+      --spdUp=<spdUp>        Update SPD Up.
       --specialAttack=<specialAttack>
-                            Update Special Attack.
+                             Update Special Attack.
       --specialCooldownReduction=<specialCooldownReduction>
-                            Update Special Cooldown Reduction.
-      --stamps=<stamps>     Update Stamps.
+                             Update Special Cooldown Reduction.
+      --stamps=<stamps>      Update Stamps.
       --supersBan=<supersBan>
-                            Update Supers Ban.
-      --supports=<supports> Update Supports.
-      --timeModeUnlocked    Update if Time Mode is Unlocked.
-      --unlockAllFanLetters Unlock all known Fan Letters.
-      --unlockAllFurnitures Unlock all known Furnitures.
-      --unlockAllItems      Unlock all known Items.
-      --unlockAllMiscUnlocks
-                            Unlock all known Misc. Unlocks.
-      --unlockAllOutfits    Unlock all known Outfits.
-      --unlockAllScams      Unlock all known Scams.
+                             Update Supers Ban.
+      --supports=<supports>  Update Supports.
+      --timeModeUnlocked     Update if Time Mode is Unlocked.
+      --unlockAllFanLetters  Unlock all known Fan Letters.
+      --unlockAllFurnitures  Unlock all known Furnitures.
+      --unlockAllItems       Unlock all known Items.
+      --unlockAllMiscUnlocks Unlock all known Misc. Unlocks.
+      --unlockAllOutfits     Unlock all known Outfits.
+      --unlockAllScams       Unlock all known Scams.
       --unlockAllSeenCollaborations
-                            Unlock all known Seen Collaborations.
-      --unlockAllStages     Unlock all known Stages.
-      --unlockAllWeapons    Unlock all known Weapons.
-      --usaChips=<usaChips> Update UsaChips.
+                             Unlock all known Seen Collaborations.
+      --unlockAllStages      Unlock all known Stages.
+      --unlockAllWeapons     Unlock all known Weapons.
+      --usaChips=<usaChips>  Update UsaChips.
       --usadaDrinks=<usadaDrinks>
-                            Update Usada Drinks.
+                             Update Usada Drinks.
       --weaponLimit=<weaponLimit>
-                            Update Weapon Limit.
+                             Update Weapon Limit.
       --woodcuttingExp=<woodcuttingExp>
-                            Update Woodcutting Exp.
+                             Update Woodcutting Exp.
       --woodcuttingLevel=<woodcuttingLevel>
-                            Update Woodcutting Level.
+                             Update Woodcutting Level.
 Commands:
   raw, --raw, -r  Update raw portions of a save file directly.
 ```
