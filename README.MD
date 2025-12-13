@@ -61,6 +61,7 @@ Usage: HoloCureManagerCli list
 ```
 Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [--removeAllActiveScams]
+                                 [--removeAllFandomExperiences]
                                  [--removeAllFanLetters]
                                  [--removeAllGatchaRanks]
                                  [--removeAllInventory]
@@ -119,6 +120,8 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
                                  [--addActiveScam[=<activeScamToAdd>...]]...
+                                 [--addFandomExperience
+                                 [=<fandomExperiencesToAdd>...]]...
                                  [--addGatchaRank[=<gatchaRanksToAdd>...]]...
                                  [--addInventory[=<inventoriesToAdd>...]]...
                                  [--addMiscUnlock[=<miscUnlockToAdd>...]]...
@@ -137,6 +140,8 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [=<unlockWeaponsToAdd>...]]...
                                  [--removeActiveScam
                                  [=<activeScamToRemove>...]]...
+                                 [--removeFandomExperience
+                                 [=<fandomExperienceToRemove>...]]...
                                  [--removeGatchaRank
                                  [=<gatchaRanksToRemove>...]]...
                                  [--removeInventory
@@ -184,15 +189,46 @@ Update only portions of a save file.
                                LEGENDARY_GLOVES, LEGENDARY_DRINK,
                                LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
                                GOLD_RABBITS_FOOT.
+      --addFandomExperience[=<fandomExperiencesToAdd>...]
+                             Fandom Experience(s) to add. This will replace
+                               your current fandom experience, and not add
+                               them. Must be in format 'name:experience'. Valid
+                               names are: NONE, EMPTY, RANDOM, AMELIA_WATSON,
+                               GAWR_GURA, NINOMAE_INANIS, TAKANASHI_KIARA,
+                               MORI_CALLIOPE, HAKOS_BAELZ, OURO_KRONII,
+                               CERES_FAUNA, NANASHI_MUMEI, TSUKUMO_SANA, IRYS,
+                               SHIRAKAMI_FUBUKI, OOKAMI_MIO, NEKOMATA_OKAYU,
+                               INUGAMI_KORONE, TOKINO_SORA, AZKI, ROBOCOSAN,
+                               HOSHIMACHI_SUISEI, SAKURA_MIKO, AKAI_HAATO,
+                               YOZORA_MEL, NATSUIRO_MATSURI, AKI_ROSENTHAL,
+                               OOZORA_SUBARU, YUZUKI_CHOCO, MURASAKI_SHION,
+                               NAKIRI_AYAME, MINATO_AQUA, USADA_PEKORA,
+                               HOUSHOU_MARINE, SHIROGANE_NOEL, SHIRANUI_FLARE,
+                               KIRYU_COCO, AMANE_KANATA, TOKOYAMI_TOWA,
+                               TSUNOMAKI_WATAME, HIMEMORI_LUNA,
+                               MOONA_HOSHINOVA, AYUNDA_RISU, AIRANI_IOFIFTEEN,
+                               KUREIJI_OLLIE, PAVOLIA_REINE, ANYA_MELFISSA,
+                               KOBO_KANAERU, KAELA_KOVALSKIA, VESTIA_ZETA.
       --addGatchaRank[=<gatchaRanksToAdd>...]
                              Gatcha Rank(s) to add. This will replace your
                                current gatcha rank, and not add them. Must be
-                               in format 'name:count'. Valid names are: MYTH,
-                               COUNCIL_PROMISE, GAMERS, JP_GENERATION_0,
-                               JP_GENERATION_1, JP_GENERATION_2,
-                               JP_GENERATION_3, JP_GENERATION_4,
-                               ID_GENERATION_1, ID_GENERATION_2,
-                               ID_GENERATION_3.
+                               in format 'name:rank'. Valid names are: NONE,
+                               EMPTY, RANDOM, AMELIA_WATSON, GAWR_GURA,
+                               NINOMAE_INANIS, TAKANASHI_KIARA, MORI_CALLIOPE,
+                               HAKOS_BAELZ, OURO_KRONII, CERES_FAUNA,
+                               NANASHI_MUMEI, TSUKUMO_SANA, IRYS,
+                               SHIRAKAMI_FUBUKI, OOKAMI_MIO, NEKOMATA_OKAYU,
+                               INUGAMI_KORONE, TOKINO_SORA, AZKI, ROBOCOSAN,
+                               HOSHIMACHI_SUISEI, SAKURA_MIKO, AKAI_HAATO,
+                               YOZORA_MEL, NATSUIRO_MATSURI, AKI_ROSENTHAL,
+                               OOZORA_SUBARU, YUZUKI_CHOCO, MURASAKI_SHION,
+                               NAKIRI_AYAME, MINATO_AQUA, USADA_PEKORA,
+                               HOUSHOU_MARINE, SHIROGANE_NOEL, SHIRANUI_FLARE,
+                               KIRYU_COCO, AMANE_KANATA, TOKOYAMI_TOWA,
+                               TSUNOMAKI_WATAME, HIMEMORI_LUNA,
+                               MOONA_HOSHINOVA, AYUNDA_RISU, AIRANI_IOFIFTEEN,
+                               KUREIJI_OLLIE, PAVOLIA_REINE, ANYA_MELFISSA,
+                               KOBO_KANAERU, KAELA_KOVALSKIA, VESTIA_ZETA.
       --addInventory[=<inventoriesToAdd>...]
                              Inventory(s) to add. This will replace your
                                current inventory, and not add them. Must be in
@@ -424,6 +460,8 @@ Update only portions of a save file.
       --removeAllActiveMiscUnlocks
                              Remove all Active Misc. Unlocks.
       --removeAllActiveScams Remove all Active Scams.
+      --removeAllFandomExperiences
+                             Remove all Fandom Experiences.
       --removeAllFanLetters  Remove all Fan Letters.
       --removeAllGatchaRanks Remove all Gatcha Ranks.
       --removeAllInventory   Remove all Inventory.
@@ -439,11 +477,49 @@ Update only portions of a save file.
                              Remove all Unlock Stages.
       --removeAllUnlockWeapons
                              Remove all Unlock Weapons.
+      --removeFandomExperience[=<fandomExperienceToRemove>...]
+                             Fandom Experience(s) to remove. This will replace
+                               your current fandom experience, and not add
+                               them. Does nothing if fandom experience doesn't
+                               exist. Must be in format 'name:experience'.
+                               Valid names are: NONE, EMPTY, RANDOM,
+                               AMELIA_WATSON, GAWR_GURA, NINOMAE_INANIS,
+                               TAKANASHI_KIARA, MORI_CALLIOPE, HAKOS_BAELZ,
+                               OURO_KRONII, CERES_FAUNA, NANASHI_MUMEI,
+                               TSUKUMO_SANA, IRYS, SHIRAKAMI_FUBUKI,
+                               OOKAMI_MIO, NEKOMATA_OKAYU, INUGAMI_KORONE,
+                               TOKINO_SORA, AZKI, ROBOCOSAN, HOSHIMACHI_SUISEI,
+                               SAKURA_MIKO, AKAI_HAATO, YOZORA_MEL,
+                               NATSUIRO_MATSURI, AKI_ROSENTHAL, OOZORA_SUBARU,
+                               YUZUKI_CHOCO, MURASAKI_SHION, NAKIRI_AYAME,
+                               MINATO_AQUA, USADA_PEKORA, HOUSHOU_MARINE,
+                               SHIROGANE_NOEL, SHIRANUI_FLARE, KIRYU_COCO,
+                               AMANE_KANATA, TOKOYAMI_TOWA, TSUNOMAKI_WATAME,
+                               HIMEMORI_LUNA, MOONA_HOSHINOVA, AYUNDA_RISU,
+                               AIRANI_IOFIFTEEN, KUREIJI_OLLIE, PAVOLIA_REINE,
+                               ANYA_MELFISSA, KOBO_KANAERU, KAELA_KOVALSKIA,
+                               VESTIA_ZETA.
       --removeGatchaRank[=<gatchaRanksToRemove>...]
                              Gatcha Rank(s) to remove. This will replace your
                                current gatcha rank, and not add them. Does
-                               nothing if tear doesn't exist. Must be in format
-                               'name:count:total'. Valid names are: .
+                               nothing if gatcha rank doesn't exist. Must be in
+                               format 'name:rank'. Valid names are: NONE,
+                               EMPTY, RANDOM, AMELIA_WATSON, GAWR_GURA,
+                               NINOMAE_INANIS, TAKANASHI_KIARA, MORI_CALLIOPE,
+                               HAKOS_BAELZ, OURO_KRONII, CERES_FAUNA,
+                               NANASHI_MUMEI, TSUKUMO_SANA, IRYS,
+                               SHIRAKAMI_FUBUKI, OOKAMI_MIO, NEKOMATA_OKAYU,
+                               INUGAMI_KORONE, TOKINO_SORA, AZKI, ROBOCOSAN,
+                               HOSHIMACHI_SUISEI, SAKURA_MIKO, AKAI_HAATO,
+                               YOZORA_MEL, NATSUIRO_MATSURI, AKI_ROSENTHAL,
+                               OOZORA_SUBARU, YUZUKI_CHOCO, MURASAKI_SHION,
+                               NAKIRI_AYAME, MINATO_AQUA, USADA_PEKORA,
+                               HOUSHOU_MARINE, SHIROGANE_NOEL, SHIRANUI_FLARE,
+                               KIRYU_COCO, AMANE_KANATA, TOKOYAMI_TOWA,
+                               TSUNOMAKI_WATAME, HIMEMORI_LUNA,
+                               MOONA_HOSHINOVA, AYUNDA_RISU, AIRANI_IOFIFTEEN,
+                               KUREIJI_OLLIE, PAVOLIA_REINE, ANYA_MELFISSA,
+                               KOBO_KANAERU, KAELA_KOVALSKIA, VESTIA_ZETA.
       --removeInventory[=<inventoriesToRemove>...]
                              Inventory(s) to remove. This will replace your
                                current inventory, and not add them. Does
@@ -477,7 +553,11 @@ Update only portions of a save file.
                              Tear(s) to remove. This will replace your current
                                tear, and not add them. Does nothing if tear
                                doesn't exist. Must be in format 'name:count:
-                               total'. Valid names are: .
+                               total'. Valid names are: MYTH, COUNCIL_PROMISE,
+                               GAMERS, JP_GENERATION_0, JP_GENERATION_1,
+                               JP_GENERATION_2, JP_GENERATION_3,
+                               JP_GENERATION_4, ID_GENERATION_1,
+                               ID_GENERATION_2, ID_GENERATION_3.
       --removeUnlockedFanLetter[=<fanLettersToRemove>...]
                              Fan Letter(s) to remove. Does nothing if fan
                                letter isn't unlocked. Valid values are:

@@ -28,6 +28,8 @@ public final class SaveData {
 
 	public static final String GATCHA_RANKS = "characters";
 
+	public static final String FANDOM_EXPERIENCES = "fandomEXP";
+
 	public static final String TEARS = "tears";
 
 	public static final String UNLOCKED_OUTFITS = "unlockedOutfits";
@@ -242,6 +244,14 @@ public final class SaveData {
 
 	public static void setGatchaRanks(JsonElement element, GatchaRank[] values) {
 		setJsonArray(element, GATCHA_RANKS, GatchaRank.convert(values));
+	}
+
+	public static FandomExperience[] getFandomExperiences(JsonElement element) {
+		return FandomExperience.get(getJsonArray(element, FANDOM_EXPERIENCES));
+	}
+
+	public static void setFandomExperiences(JsonElement element, FandomExperience[] values) {
+		setJsonArray(element, FANDOM_EXPERIENCES, FandomExperience.convert(values));
 	}
 
 	public static Tears[] getTears(JsonElement element) {
@@ -947,6 +957,7 @@ public final class SaveData {
 		results.remove(TIME_MODE_UNLOCKED);
 		results.remove(UNLOCKED_STAGES);
 		results.remove(GATCHA_RANKS);
+		results.remove(FANDOM_EXPERIENCES);
 		results.remove(TEARS);
 		results.remove(UNLOCKED_OUTFITS);
 		results.remove(UNLOCKED_WEAPONS);

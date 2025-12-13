@@ -13,6 +13,7 @@ import com.github.rnveach.HoloCureManagerCli;
 import com.github.rnveach.data.Axe;
 import com.github.rnveach.data.Collaboration;
 import com.github.rnveach.data.FanLetter;
+import com.github.rnveach.data.FandomExperience;
 import com.github.rnveach.data.FishRod;
 import com.github.rnveach.data.Furniture;
 import com.github.rnveach.data.GatchaRank;
@@ -47,7 +48,7 @@ public class UpdateCommand implements Callable<Integer> {
 
 		@Override
 		public Iterator<String> iterator() {
-			return Arrays.stream(Generation.values()).map(Enum::name).iterator();
+			return Arrays.stream(Idol.values()).map(Enum::name).iterator();
 		}
 
 	}
@@ -66,6 +67,35 @@ public class UpdateCommand implements Callable<Integer> {
 
 			result.setIdol(Idol.get(split[0]));
 			result.setRank(Double.parseDouble(split[1]));
+
+			return result;
+		}
+
+	}
+
+	private static final class FandomExperienceCandidates implements Iterable<String> {
+
+		@Override
+		public Iterator<String> iterator() {
+			return Arrays.stream(Idol.values()).map(Enum::name).iterator();
+		}
+
+	}
+
+	private static final class FandomExperienceConverter implements CommandLine.ITypeConverter<FandomExperience> {
+
+		@Override
+		public FandomExperience convert(String value) throws Exception {
+			final String[] split = value.split(":");
+
+			if (split.length < 2) {
+				throw new Exception("Format must be name:experience");
+			}
+
+			final FandomExperience result = new FandomExperience();
+
+			result.setIdol(Idol.get(split[0]));
+			result.setExperience(Double.parseDouble(split[1]));
 
 			return result;
 		}
@@ -161,14 +191,27 @@ public class UpdateCommand implements Callable<Integer> {
 	private Boolean removeAllGatchaRanks;
 
 	@Option(names = {
-			"--addGatchaRank" }, description = "Gatcha Rank(s) to add. This will replace your current gatcha rank, and not add them. Must be in format 'name:count'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			"--addGatchaRank" }, description = "Gatcha Rank(s) to add. This will replace your current gatcha rank, and not add them. Must be in format 'name:rank'. Valid names are: ${COMPLETION-CANDIDATES}.", //
 			arity = "0..*", converter = GatchaRankConverter.class, completionCandidates = GatchaRankCandidates.class)
 	private GatchaRank[] gatchaRanksToAdd;
 
 	@Option(names = {
-			"--removeGatchaRank" }, description = "Gatcha Rank(s) to remove. This will replace your current gatcha rank, and not add them. Does nothing if tear doesn't exist. Must be in format 'name:count:total'. Valid names are: ${COMPLETION-CANDIDATES}.", //
-			arity = "0..*", converter = GatchaRankConverter.class)
+			"--removeGatchaRank" }, description = "Gatcha Rank(s) to remove. This will replace your current gatcha rank, and not add them. Does nothing if gatcha rank doesn't exist. Must be in format 'name:rank'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = GatchaRankConverter.class, completionCandidates = GatchaRankCandidates.class)
 	private GatchaRank[] gatchaRanksToRemove;
+
+	@Option(names = { "--removeAllFandomExperiences" }, description = "Remove all Fandom Experiences.")
+	private Boolean removeAllFandomExperiences;
+
+	@Option(names = {
+			"--addFandomExperience" }, description = "Fandom Experience(s) to add. This will replace your current fandom experience, and not add them. Must be in format 'name:experience'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = FandomExperienceConverter.class, completionCandidates = FandomExperienceCandidates.class)
+	private FandomExperience[] fandomExperiencesToAdd;
+
+	@Option(names = {
+			"--removeFandomExperience" }, description = "Fandom Experience(s) to remove. This will replace your current fandom experience, and not add them. Does nothing if fandom experience doesn't exist. Must be in format 'name:experience'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = FandomExperienceConverter.class, completionCandidates = FandomExperienceCandidates.class)
+	private FandomExperience[] fandomExperienceToRemove;
 
 	@Option(names = { "--removeAllTears" }, description = "Remove all Tears.")
 	private Boolean removeAllTears;
@@ -180,7 +223,7 @@ public class UpdateCommand implements Callable<Integer> {
 
 	@Option(names = {
 			"--removeTear" }, description = "Tear(s) to remove. This will replace your current tear, and not add them. Does nothing if tear doesn't exist. Must be in format 'name:count:total'. Valid names are: ${COMPLETION-CANDIDATES}.", //
-			arity = "0..*", converter = TearsConverter.class)
+			arity = "0..*", converter = TearsConverter.class, completionCandidates = TearsCandidates.class)
 	private Tears[] tearsToRemove;
 
 	@Option(names = { "--removeAllUnlockOutfits" }, description = "Remove all Unlock Outfits.")
@@ -463,18 +506,20 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.unlockAllStages == null) && (this.unlockStagesToAdd == null)
 				&& (this.unlockStagesToRemove == null) && (this.removeAllGatchaRanks == null)
 				&& (this.gatchaRanksToAdd != null) && (this.gatchaRanksToRemove != null)
-				&& (this.removeAllTears == null) && (this.tearsToAdd != null) && (this.tearsToRemove != null)
-				&& (this.removeAllUnlockOutfits == null) && (this.unlockAllOutfits == null)
-				&& (this.unlockOutfitsToAdd == null) && (this.unlockOutfitsToRemove == null)
-				&& (this.removeAllUnlockItems == null) && (this.unlockAllItems == null)
-				&& (this.unlockItemsToAdd == null) && (this.unlockItemsToRemove == null)
-				&& (this.removeAllSeenCollaborations == null) && (this.unlockAllSeenCollaborations == null)
-				&& (this.seenCollaborationToAdd == null) && (this.seenCollaborationToRemove == null)
-				&& (this.removeAllUnlockWeapons == null) && (this.unlockAllWeapons == null)
-				&& (this.unlockWeaponsToAdd == null) && (this.unlockWeaponsToRemove == null)
-				&& (this.removeAllFanLetters == null) && (this.unlockAllFanLetters == null)
-				&& (this.fanLettersToAdd == null) && (this.fanLettersToRemove == null) && (this.specialAttack == null)
-				&& (this.growth == null) && (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
+				&& (this.removeAllFandomExperiences != null) && (this.fandomExperiencesToAdd != null)
+				&& (this.fandomExperienceToRemove != null) && (this.removeAllTears == null) && (this.tearsToAdd != null)
+				&& (this.tearsToRemove != null) && (this.removeAllUnlockOutfits == null)
+				&& (this.unlockAllOutfits == null) && (this.unlockOutfitsToAdd == null)
+				&& (this.unlockOutfitsToRemove == null) && (this.removeAllUnlockItems == null)
+				&& (this.unlockAllItems == null) && (this.unlockItemsToAdd == null)
+				&& (this.unlockItemsToRemove == null) && (this.removeAllSeenCollaborations == null)
+				&& (this.unlockAllSeenCollaborations == null) && (this.seenCollaborationToAdd == null)
+				&& (this.seenCollaborationToRemove == null) && (this.removeAllUnlockWeapons == null)
+				&& (this.unlockAllWeapons == null) && (this.unlockWeaponsToAdd == null)
+				&& (this.unlockWeaponsToRemove == null) && (this.removeAllFanLetters == null)
+				&& (this.unlockAllFanLetters == null) && (this.fanLettersToAdd == null)
+				&& (this.fanLettersToRemove == null) && (this.specialAttack == null) && (this.growth == null)
+				&& (this.reroll == null) && (this.eliminate == null) && (this.holdFind == null)
 				&& (this.customize == null) && (this.supports == null) && (this.materialFind == null)
 				&& (this.stamps == null) && (this.enchantments == null) && (this.fandom == null)
 				&& (this.fanLettersUnlocked == null) && (this.maxHpUp == null) && (this.atkUp == null)
@@ -526,7 +571,6 @@ public class UpdateCommand implements Callable<Integer> {
 			SaveData.setUnlockedStages(root,
 					doAddRemove(SaveData.getUnlockedStages(root), this.unlockStagesToAdd, this.unlockStagesToRemove));
 		}
-
 		if ((this.removeAllGatchaRanks != null) && this.removeAllGatchaRanks) {
 			SaveData.setTears(root, null);
 		}
@@ -534,7 +578,13 @@ public class UpdateCommand implements Callable<Integer> {
 			SaveData.setGatchaRanks(root,
 					doAddRemove(SaveData.getGatchaRanks(root), this.gatchaRanksToAdd, this.gatchaRanksToRemove));
 		}
-
+		if ((this.removeAllFandomExperiences != null) && this.removeAllFandomExperiences) {
+			SaveData.setFandomExperiences(root, null);
+		}
+		if ((this.fandomExperiencesToAdd != null) || (this.fandomExperienceToRemove != null)) {
+			SaveData.setFandomExperiences(root, doAddRemove(SaveData.getFandomExperiences(root),
+					this.fandomExperiencesToAdd, this.fandomExperienceToRemove));
+		}
 		if ((this.removeAllTears != null) && this.removeAllTears) {
 			SaveData.setTears(root, null);
 		}
