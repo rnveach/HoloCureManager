@@ -202,6 +202,8 @@ public final class SaveData {
 
 	public static final String MISC_UNLOCKS = "miscUnlocks";
 
+	public static final String ACHIEVEMENTS = "achievements";
+
 	public static Double getMajorGameVersion(JsonElement element) {
 		return getDouble(element, MAJOR_GAME_VERSION);
 	}
@@ -942,6 +944,12 @@ public final class SaveData {
 		setArrayString(element, MISC_UNLOCKS, MiscUnlock.convert(values));
 	}
 
+	public static Achievements[] getAchievements(JsonElement element) {
+		return Achievements.get(get(element, ACHIEVEMENTS).getAsJsonObject());
+	}
+
+	// TODO: set achievements
+
 	public static Map<String, JsonElement> getUnknownFields(JsonElement element) {
 		final Map<String, JsonElement> results = new TreeMap<>();
 
@@ -1027,6 +1035,7 @@ public final class SaveData {
 		results.remove(TOWER_SAVE_COINS);
 		results.remove(INVENTORY);
 		results.remove(MISC_UNLOCKS);
+		results.remove(ACHIEVEMENTS);
 
 		return results;
 	}

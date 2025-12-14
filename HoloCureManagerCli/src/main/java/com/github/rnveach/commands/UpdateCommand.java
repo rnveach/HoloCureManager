@@ -500,6 +500,7 @@ public class UpdateCommand implements Callable<Integer> {
 
 	// TODO: unlocked pickaxes, axes, rods
 	// TODO: tower of suffering
+	// TODO: achievements
 
 	public void validateOptions() {
 		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.removeAllUnlockStages == null)

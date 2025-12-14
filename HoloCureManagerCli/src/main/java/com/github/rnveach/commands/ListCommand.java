@@ -7,6 +7,7 @@ import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 import com.github.rnveach.HoloCureManagerCli;
+import com.github.rnveach.data.Achievements;
 import com.github.rnveach.data.Displayable;
 import com.github.rnveach.data.FandomExperience;
 import com.github.rnveach.data.GatchaRank;
@@ -167,6 +168,9 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println();
 		printDisplay("\t", "Misc. Unlocks:", SaveData.getMiscUnlocks(root));
 
+		System.out.println();
+		printDisplay("\t", "Achievements:", SaveData.getAchievements(root));
+
 		final Map<String, JsonElement> unknowns = SaveData.getUnknownFields(root);
 
 		if (!unknowns.isEmpty()) {
@@ -242,6 +246,34 @@ public final class ListCommand implements Callable<Integer> {
 			for (final Inventory value : values) {
 				System.out.println(tab + String.format("\t%s - %,.1f (Total: %,.1f)", value.getItem().getDisplay(),
 						value.getCount(), value.getTotal()));
+			}
+		}
+	}
+
+	private static void printDisplay(String tab, String header, Achievements[] values) {
+		int count = 0;
+
+		if (values != null) {
+			for (final Achievements value : values) {
+				if (!value.isUnlocked()) {
+					continue;
+				}
+
+				count++;
+			}
+		}
+
+		System.out.println(tab + header + " (" + count + ")");
+
+		if ((values == null) || (values.length == 0)) {
+			System.out.println(tab + "\t<None>");
+		} else {
+			for (final Achievements value : values) {
+				if (!value.isUnlocked()) {
+					continue;
+				}
+
+				System.out.println(tab + String.format("\t%s", value.getAchievementName().getDisplay()));
 			}
 		}
 	}
