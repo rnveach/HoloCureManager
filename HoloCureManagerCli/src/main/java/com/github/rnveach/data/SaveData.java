@@ -948,7 +948,9 @@ public final class SaveData {
 		return Achievements.get(get(element, ACHIEVEMENTS).getAsJsonObject());
 	}
 
-	// TODO: set achievements
+	public static void setAchievements(JsonElement element, Achievements[] values) {
+		set(element, ACHIEVEMENTS, Achievements.convert(values));
+	}
 
 	public static Map<String, JsonElement> getUnknownFields(JsonElement element) {
 		final Map<String, JsonElement> results = new TreeMap<>();

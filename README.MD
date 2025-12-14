@@ -59,7 +59,8 @@ Usage: HoloCureManagerCli list
 ### Update Command
 
 ```
-Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
+Usage: HoloCureManagerCli update [-h] [--removeAllAchievements]
+                                 [--removeAllActiveMiscUnlocks]
                                  [--removeAllActiveScams]
                                  [--removeAllFandomExperiences]
                                  [--removeAllFanLetters]
@@ -72,7 +73,8 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [--removeAllUnlockOutfits]
                                  [--removeAllUnlockStages]
                                  [--removeAllUnlockWeapons]
-                                 [--timeModeUnlocked] [--unlockAllFanLetters]
+                                 [--timeModeUnlocked] [--unlockAllAchievements]
+                                 [--unlockAllFanLetters]
                                  [--unlockAllFurnitures] [--unlockAllItems]
                                  [--unlockAllMiscUnlocks] [--unlockAllOutfits]
                                  [--unlockAllScams]
@@ -119,6 +121,7 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [--weaponLimit=<weaponLimit>]
                                  [--woodcuttingExp=<woodcuttingExp>]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
+                                 [--addAchievement[=<achievementsToAdd>...]]...
                                  [--addActiveScam[=<activeScamToAdd>...]]...
                                  [--addFandomExperience
                                  [=<fandomExperiencesToAdd>...]]...
@@ -138,6 +141,8 @@ Usage: HoloCureManagerCli update [-h] [--removeAllActiveMiscUnlocks]
                                  [=<unlockStagesToAdd>...]]...
                                  [--addUnlockedWeapon
                                  [=<unlockWeaponsToAdd>...]]...
+                                 [--removeAchievements
+                                 [=<achievementsToRemove>...]]...
                                  [--removeActiveScam
                                  [=<activeScamToRemove>...]]...
                                  [--removeFandomExperience
@@ -182,6 +187,69 @@ Update only portions of a save file.
                              Update Active Trail. Valid values are: HEARTS,
                                SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
                                SKULLS.
+      --addAchievement[=<achievementsToAdd>...]
+                             Achievements to add. Does nothing if achievement
+                               is already unlocked. Valid values are:
+                               STEALFISH, TOO_HALU, DONT_TOUCH, BUYING_POWER,
+                               RISU_GACHIKOI, BAE_GACHIKOI, IOFI_CLEAR,
+                               SUBARU_CLEAR, HAMMERTIME, FAUNA_GACHIKOI,
+                               TANK_CLASS, OKAYU_CLEAR, SANA_CLEAR,
+                               YAGOO_STATUE, ANYA_GACHIKOI, MUMEI_CLEAR,
+                               OLLIE_GACHIKOI, KIARA_CLEAR, AYAME_CLEAR,
+                               REINE_CLEAR, MOONA_CLEAR, SUISEI_CLEAR,
+                               CHOCO_GACHIKOI, OLLIE_10, MOONA_GACHIKOI,
+                               WELCOME_HOME, SKILL_ISSUE, BOING,
+                               REINE_GACHIKOI, DONT_NEED, KAELA_CLEAR,
+                               KOBO_GACHIKOI, FULL_COLLAB, KRONII_CLEAR,
+                               ANYA_CLEAR, ZETA_10, SANA_GACHIKOI,
+                               MATSURI_GACHIKOI, MEL_GACHIKOI, DIG_IN,
+                               FUBUKI_CLEAR, AZKI_GACHIKOI, KORONE_10,
+                               SHION_CLEAR, LV_100, MILLIONAIRE, AKI_CLEAR,
+                               THIRD_BOSS, FUBUKI_GACHIKOI, GRIND, MUSCLE,
+                               LV_50, PACIFIST, FIRST_CLEAR, HUH, MIKO_CLEAR,
+                               KAELA_GACHIKOI, TRUE_RNG, IRYS_GACHIKOI,
+                               PLENTY_OF_FISH, OKAYU_GACHIKOI, JUST_RNG,
+                               SHION_10, RHYTHM_MASTER, POWER_LEVELLING,
+                               LOOK_IM_ON_TV, RAW_STRENGTH, PET_DOG, IRYS_10,
+                               CALLI_10, GURA_GACHIKOI, MID_BOSS, HARD_2,
+                               SAFE_I_SWEAR, BAE_CLEAR, CALLI_CLEAR,
+                               HOW_COULD_YOU, HAATO_GACHIKOI, FOURTH_BOSS,
+                               INA_GACHIKOI, SCT, HARD_3, EMPLOYEE, MIO_CLEAR,
+                               SUISEI_GACHIKOI, LOVE_NATURE, ORA_ORA,
+                               SHINY_FISH, ART_BLOCK, MIKO_GACHIKOI,
+                               ALL_COMPLETE, RISU_CLEAR, KORONE_GACHIKOI,
+                               HALLUCINATED, BAE_10, TIME_TO_UPGRADE, I_DID_IT,
+                               HARDCORE_GAMER, DAMAGE_1000, PAY_TO_WIN,
+                               SPEEDRUNNER, AZKI_CLEAR, KOBO_CLEAR,
+                               FISH_FEAR_ME, INA_CLEAR, IOFI_GACHIKOI,
+                               WATAME_CLEAR, GAMBLING, ZEN_LOSS, NOEL_CLEAR,
+                               SCAMMED, STAMP_HUNTING, FREE_STICKERS,
+                               WATAME_GACHIKOI, LEGAL_RIGHT, QUEEN, LUNA_CLEAR,
+                               FIFTH_BOSS, JACKPOT, PEKORA_CLEAR, HARD_4,
+                               MARINE_GACHIKOI, PAY_DAY, PEKORA_GACHIKOI,
+                               LUNA_GACHIKOI, COCO_GACHIKOI, COMPANION,
+                               OPERATIONS, FIND_LETTERS, FLARE_GACHIKOI,
+                               ONE_MORE, KANATA_GACHIKOI, COCO_CLEAR,
+                               TOWA_CLEAR, BIGGER, FLARE_CLEAR, TOWA_GACHIKOI,
+                               KANATA_CLEAR, FASTER, MARINE_CLEAR,
+                               NOEL_GACHIKOI, OBLITERATED, HEY_HEY, FIRST_BOSS,
+                               IDOL_GROUP, MUMEI_GACHIKOI, AME_GACHIKOI,
+                               SHION_GACHIKOI, FLESH_WOUND, HIGHWAY_ROBBERY,
+                               KIARA_GACHIKOI, DAMAGE_10000, AQUA_GACHIKOI,
+                               AKI_GACHIKOI, SORA_CLEAR, IRYS_CLEAR, FIRED,
+                               NO_MAIN, IDOL_POWER, HAMBURGERS_50, MEL_CLEAR,
+                               CHOCO_CLEAR, FAUNA_CLEAR, SOLO_BEATER,
+                               AYAME_GACHIKOI, PAIN_PEKO, SUBARU_GACHIKOI,
+                               KIARA_10, HARVEST, ROBOCO_GACHIKOI, SANA_10,
+                               ZETA_CLEAR, DONT_FAIL, DELUSIONAL, MIO_GACHIKOI,
+                               BULLET_HELL, THANK_YOU, CEO_NOW,
+                               NOT_TAKING_ANY_CHANCES, HARD_1, SECOND_BOSS,
+                               INA_10, FULLY_LOADED, AQUA_CLEAR, SORA_GACHIKOI,
+                               KRONII_GACHIKOI, COUCH_POTATO, LUCKY_DAY,
+                               NO_THOUGHTS, CALLI_GACHIKOI, KORONE_CLEAR,
+                               HAATO_CLEAR, OLLIE_CLEAR, MATSURI_CLEAR,
+                               WELL_TRAINED, GURA_CLEAR, BAREBONES,
+                               ZETA_GACHIKOI, AME_CLEAR, WAMY, ROBOCO_CLEAR.
       --addActiveScam[=<activeScamToAdd>...]
                              Active Scam(s) to add. Does nothing if scam is
                                already unlocked. Valid values are:
@@ -450,6 +518,69 @@ Update only portions of a save file.
                              Update Refund All.
       --regeneration=<regeneration>
                              Update Regeneration.
+      --removeAchievements[=<achievementsToRemove>...]
+                             Achievements to remove. Does nothing if
+                               achievement isn't unlocked. Valid values are:
+                               STEALFISH, TOO_HALU, DONT_TOUCH, BUYING_POWER,
+                               RISU_GACHIKOI, BAE_GACHIKOI, IOFI_CLEAR,
+                               SUBARU_CLEAR, HAMMERTIME, FAUNA_GACHIKOI,
+                               TANK_CLASS, OKAYU_CLEAR, SANA_CLEAR,
+                               YAGOO_STATUE, ANYA_GACHIKOI, MUMEI_CLEAR,
+                               OLLIE_GACHIKOI, KIARA_CLEAR, AYAME_CLEAR,
+                               REINE_CLEAR, MOONA_CLEAR, SUISEI_CLEAR,
+                               CHOCO_GACHIKOI, OLLIE_10, MOONA_GACHIKOI,
+                               WELCOME_HOME, SKILL_ISSUE, BOING,
+                               REINE_GACHIKOI, DONT_NEED, KAELA_CLEAR,
+                               KOBO_GACHIKOI, FULL_COLLAB, KRONII_CLEAR,
+                               ANYA_CLEAR, ZETA_10, SANA_GACHIKOI,
+                               MATSURI_GACHIKOI, MEL_GACHIKOI, DIG_IN,
+                               FUBUKI_CLEAR, AZKI_GACHIKOI, KORONE_10,
+                               SHION_CLEAR, LV_100, MILLIONAIRE, AKI_CLEAR,
+                               THIRD_BOSS, FUBUKI_GACHIKOI, GRIND, MUSCLE,
+                               LV_50, PACIFIST, FIRST_CLEAR, HUH, MIKO_CLEAR,
+                               KAELA_GACHIKOI, TRUE_RNG, IRYS_GACHIKOI,
+                               PLENTY_OF_FISH, OKAYU_GACHIKOI, JUST_RNG,
+                               SHION_10, RHYTHM_MASTER, POWER_LEVELLING,
+                               LOOK_IM_ON_TV, RAW_STRENGTH, PET_DOG, IRYS_10,
+                               CALLI_10, GURA_GACHIKOI, MID_BOSS, HARD_2,
+                               SAFE_I_SWEAR, BAE_CLEAR, CALLI_CLEAR,
+                               HOW_COULD_YOU, HAATO_GACHIKOI, FOURTH_BOSS,
+                               INA_GACHIKOI, SCT, HARD_3, EMPLOYEE, MIO_CLEAR,
+                               SUISEI_GACHIKOI, LOVE_NATURE, ORA_ORA,
+                               SHINY_FISH, ART_BLOCK, MIKO_GACHIKOI,
+                               ALL_COMPLETE, RISU_CLEAR, KORONE_GACHIKOI,
+                               HALLUCINATED, BAE_10, TIME_TO_UPGRADE, I_DID_IT,
+                               HARDCORE_GAMER, DAMAGE_1000, PAY_TO_WIN,
+                               SPEEDRUNNER, AZKI_CLEAR, KOBO_CLEAR,
+                               FISH_FEAR_ME, INA_CLEAR, IOFI_GACHIKOI,
+                               WATAME_CLEAR, GAMBLING, ZEN_LOSS, NOEL_CLEAR,
+                               SCAMMED, STAMP_HUNTING, FREE_STICKERS,
+                               WATAME_GACHIKOI, LEGAL_RIGHT, QUEEN, LUNA_CLEAR,
+                               FIFTH_BOSS, JACKPOT, PEKORA_CLEAR, HARD_4,
+                               MARINE_GACHIKOI, PAY_DAY, PEKORA_GACHIKOI,
+                               LUNA_GACHIKOI, COCO_GACHIKOI, COMPANION,
+                               OPERATIONS, FIND_LETTERS, FLARE_GACHIKOI,
+                               ONE_MORE, KANATA_GACHIKOI, COCO_CLEAR,
+                               TOWA_CLEAR, BIGGER, FLARE_CLEAR, TOWA_GACHIKOI,
+                               KANATA_CLEAR, FASTER, MARINE_CLEAR,
+                               NOEL_GACHIKOI, OBLITERATED, HEY_HEY, FIRST_BOSS,
+                               IDOL_GROUP, MUMEI_GACHIKOI, AME_GACHIKOI,
+                               SHION_GACHIKOI, FLESH_WOUND, HIGHWAY_ROBBERY,
+                               KIARA_GACHIKOI, DAMAGE_10000, AQUA_GACHIKOI,
+                               AKI_GACHIKOI, SORA_CLEAR, IRYS_CLEAR, FIRED,
+                               NO_MAIN, IDOL_POWER, HAMBURGERS_50, MEL_CLEAR,
+                               CHOCO_CLEAR, FAUNA_CLEAR, SOLO_BEATER,
+                               AYAME_GACHIKOI, PAIN_PEKO, SUBARU_GACHIKOI,
+                               KIARA_10, HARVEST, ROBOCO_GACHIKOI, SANA_10,
+                               ZETA_CLEAR, DONT_FAIL, DELUSIONAL, MIO_GACHIKOI,
+                               BULLET_HELL, THANK_YOU, CEO_NOW,
+                               NOT_TAKING_ANY_CHANCES, HARD_1, SECOND_BOSS,
+                               INA_10, FULLY_LOADED, AQUA_CLEAR, SORA_GACHIKOI,
+                               KRONII_GACHIKOI, COUCH_POTATO, LUCKY_DAY,
+                               NO_THOUGHTS, CALLI_GACHIKOI, KORONE_CLEAR,
+                               HAATO_CLEAR, OLLIE_CLEAR, MATSURI_CLEAR,
+                               WELL_TRAINED, GURA_CLEAR, BAREBONES,
+                               ZETA_GACHIKOI, AME_CLEAR, WAMY, ROBOCO_CLEAR.
       --removeActiveScam[=<activeScamToRemove>...]
                              Active Scam(s) to remove. Does nothing if scam
                                isn't unlocked. Valid values are:
@@ -457,6 +588,8 @@ Update only portions of a save file.
                                LEGENDARY_GLOVES, LEGENDARY_DRINK,
                                LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
                                GOLD_RABBITS_FOOT.
+      --removeAllAchievements
+                             Remove all Achievements.
       --removeAllActiveMiscUnlocks
                              Remove all Active Misc. Unlocks.
       --removeAllActiveScams Remove all Active Scams.
@@ -697,6 +830,8 @@ Update only portions of a save file.
                              Update Supers Ban.
       --supports=<supports>  Update Supports.
       --timeModeUnlocked     Update if Time Mode is Unlocked.
+      --unlockAllAchievements
+                             Unlock all known Achievements.
       --unlockAllFanLetters  Unlock all known Fan Letters.
       --unlockAllFurnitures  Unlock all known Furnitures.
       --unlockAllItems       Unlock all known Items.

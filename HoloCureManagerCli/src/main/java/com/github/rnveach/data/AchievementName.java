@@ -221,6 +221,15 @@ public enum AchievementName implements Displayable {
 		throw new IllegalStateException("Unknown Achievement Name code: " + code);
 	}
 
+	public Achievements getAchievementUnlocked() {
+		final Achievements result = new Achievements();
+
+		result.setAchievementName(this);
+		result.setUnlocked(true);
+
+		return result;
+	}
+
 	@Override
 	public String getDisplay() {
 		return name();

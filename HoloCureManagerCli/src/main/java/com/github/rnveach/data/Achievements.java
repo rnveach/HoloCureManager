@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 public final class Achievements {
 
@@ -42,6 +43,42 @@ public final class Achievements {
 		}
 
 		return result;
+	}
+
+	public static Achievements[] values() {
+		final AchievementName[] values = AchievementName.values();
+		final Achievements[] results = new Achievements[values.length];
+		int i = 0;
+
+		for (final AchievementName value : values) {
+			results[i] = value.getAchievementUnlocked();
+			i++;
+		}
+
+		return results;
+	}
+
+	public static JsonObject convert(Achievements[] values) {
+		if (values == null) {
+			return null;
+		}
+
+		final JsonObject results = new JsonObject();
+
+		for (final Achievements value : values) {
+			results.add(value.getAchievementName().getCode(), convert(value));
+		}
+
+		return results;
+	}
+
+	private static JsonObject convert(Achievements value) {
+		final JsonObject results = new JsonObject();
+
+		results.add("unlocked", new JsonPrimitive(value.isUnlocked()));
+		results.add("flags", new JsonObject());
+
+		return results;
 	}
 
 	@Override

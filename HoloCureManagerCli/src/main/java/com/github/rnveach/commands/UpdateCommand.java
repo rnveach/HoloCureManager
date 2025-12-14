@@ -8,8 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 import com.github.rnveach.HoloCureManagerCli;
+import com.github.rnveach.data.AchievementName;
+import com.github.rnveach.data.Achievements;
 import com.github.rnveach.data.Axe;
 import com.github.rnveach.data.Collaboration;
 import com.github.rnveach.data.FanLetter;
@@ -500,7 +503,20 @@ public class UpdateCommand implements Callable<Integer> {
 
 	// TODO: unlocked pickaxes, axes, rods
 	// TODO: tower of suffering
-	// TODO: achievements
+
+	@Option(names = { "--removeAllAchievements" }, description = "Remove all Achievements.")
+	private Boolean removeAllAchievements;
+
+	@Option(names = { "--unlockAllAchievements" }, description = "Unlock all known Achievements.")
+	private Boolean unlockAllAchievements;
+
+	@Option(names = {
+			"--addAchievement" }, description = "Achievements to add. Does nothing if achievement is already unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private AchievementName[] achievementsToAdd;
+
+	@Option(names = {
+			"--removeAchievements" }, description = "Achievements to remove. Does nothing if achievement isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
+	private AchievementName[] achievementsToRemove;
 
 	public void validateOptions() {
 		if ((this.holoCoins == null) && (this.timeModeUnlocked == null) && (this.removeAllUnlockStages == null)
@@ -542,7 +558,9 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.removeAllInventory == null) && (this.inventoriesToAdd == null)
 				&& (this.inventoriesToRemove == null) && (this.removeAllActiveMiscUnlocks == null)
 				&& (this.unlockAllMiscUnlocks == null) && (this.miscUnlockToAdd == null)
-				&& (this.miscUnlockToRemove == null)) {
+				&& (this.miscUnlockToRemove == null) && (this.removeAllAchievements == null)
+				&& (this.unlockAllAchievements == null) && (this.achievementsToAdd == null)
+				&& (this.achievementsToRemove == null)) {
 			throw new ParameterException(this.parent.getSpec().commandLine(),
 					"Error: Nothing was specified to be updated.");
 		}
@@ -824,6 +842,17 @@ public class UpdateCommand implements Callable<Integer> {
 					doAddRemove(SaveData.getMiscUnlocks(root), this.miscUnlockToAdd, this.miscUnlockToRemove));
 		}
 
+		if ((this.removeAllAchievements != null) && this.removeAllAchievements) {
+			SaveData.setAchievements(root, null);
+		}
+		if ((this.unlockAllMiscUnlocks != null) && this.unlockAllMiscUnlocks) {
+			SaveData.setAchievements(root, Achievements.values());
+		}
+		if ((this.miscUnlockToAdd != null) || (this.miscUnlockToRemove != null)) {
+			SaveData.setAchievements(root,
+					doAddRemove(SaveData.getAchievements(root), this.achievementsToAdd, this.achievementsToRemove));
+		}
+
 		this.parent.writeToInputFile(root.toString());
 
 		return 0;
@@ -849,6 +878,35 @@ public class UpdateCommand implements Callable<Integer> {
 				newList.size());
 
 		return newList.toArray(result);
+	}
+
+	private static Achievements[] doAddRemove(Achievements[] original, AchievementName[] adds,
+			AchievementName[] removes) {
+		final List<Achievements> results = new ArrayList<>();
+
+		if (original != null) {
+			final Set<AchievementName> removeSet = new HashSet<>(asList(removes));
+
+			for (final Achievements achievement : original) {
+				if (!removeSet.contains(achievement.getAchievementName())) {
+					results.add(achievement);
+				}
+			}
+		}
+
+		if (adds != null) {
+			final Set<AchievementName> addSet = new HashSet<>(asList(adds));
+			final Set<AchievementName> existingNames = results.stream().map(Achievements::getAchievementName)
+					.collect(Collectors.toSet());
+
+			for (final AchievementName name : addSet) {
+				if (!existingNames.contains(name)) {
+					results.add(name.getAchievementUnlocked());
+				}
+			}
+		}
+
+		return results.toArray(new Achievements[0]);
 	}
 
 	private static <T> List<T> asList(T[] array) {
