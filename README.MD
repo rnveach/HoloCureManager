@@ -84,6 +84,7 @@ Usage: HoloCureManagerCli update [-h] [--removeAllAchievements]
                                  [--activeFishRod=<activeFishRod>]
                                  [--activePet=<activePet>]
                                  [--activePickaxe=<activePickaxe>]
+                                 [--activePrism=<activePrism>]
                                  [--activeTrail=<activeTrail>]
                                  [--atkUp=<atkUp>] [--collabBan=<collabBan>]
                                  [--critUp=<critUp>] [--customize=<customize>]
@@ -183,6 +184,9 @@ Update only portions of a save file.
                              Update Active Pickaxe. Valid values are: OLD,
                                STONE, LEAD, MYTH, PROMISE, ADVENT, JUSTICE,
                                HOLOLITE.
+      --activePrism=<activePrism>
+                             Update Active Prism. Valid values are: BASIC,
+                               MYTH, PROMISE, ADVENT, JUSTICE, HOLOLITE.
       --activeTrail=<activeTrail>
                              Update Active Trail. Valid values are: HEARTS,
                                SAKURA, SPARKLES, LEAVES, HOLOLIVE, BUBBLES,
@@ -318,7 +322,8 @@ Update only portions of a save file.
                                GARLIC_SEED, TURTLE, MANTA_RAY, PUFFERFISH,
                                LOBSTER, KOI_FISH, SQUID, EEL, SHARK, STICK,
                                STONE, PLANK, LEAD_BAR, IRON_BAR, HARDWOOD,
-                               MYTHRIL_BAR, CEDAR_WOOD, CARROT, RICE, ONION.
+                               MYTHRIL_BAR, CEDAR_WOOD, CARROT, RICE, ONION,
+                               POTATO, WHEAT, TOMATO.
       --addMiscUnlock[=<miscUnlockToAdd>...]
                              Misc. Unlock(s) to add. Does nothing if item is
                                already unlocked. Valid values are:

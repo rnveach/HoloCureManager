@@ -29,6 +29,7 @@ import com.github.rnveach.data.MiscUnlock;
 import com.github.rnveach.data.Outfit;
 import com.github.rnveach.data.Pet;
 import com.github.rnveach.data.Pickaxe;
+import com.github.rnveach.data.Prism;
 import com.github.rnveach.data.SaveData;
 import com.github.rnveach.data.Scam;
 import com.github.rnveach.data.Stage;
@@ -447,6 +448,10 @@ public class UpdateCommand implements Callable<Integer> {
 	@Option(names = { "--activeAxe" }, description = "Update Active Axe. Valid values are: ${COMPLETION-CANDIDATES}.")
 	private Axe activeAxe;
 
+	@Option(names = {
+			"--activePrism" }, description = "Update Active Prism. Valid values are: ${COMPLETION-CANDIDATES}.")
+	private Prism activePrism;
+
 	@Option(names = { "--usaChips" }, description = "Update UsaChips.")
 	private Double usaChips;
 
@@ -501,7 +506,7 @@ public class UpdateCommand implements Callable<Integer> {
 			"--removeMiscUnlock" }, description = "Misc. Unlock(s) to remove. Does nothing if item isn't unlocked. Valid values are: ${COMPLETION-CANDIDATES}.", arity = "0..*")
 	private MiscUnlock[] miscUnlockToRemove;
 
-	// TODO: unlocked pickaxes, axes, rods
+	// TODO: unlocked pickaxes, axes, prisms, rods
 	// TODO: tower of suffering
 
 	@Option(names = { "--removeAllAchievements" }, description = "Remove all Achievements.")
@@ -551,9 +556,9 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.unlockFurnituresToRemove == null) && (this.sand == null) && (this.activeFishRod == null)
 				&& (this.managementLevel == null) && (this.managementExp == null) && (this.mineLevel == null)
 				&& (this.mineExp == null) && (this.woodcuttingLevel == null) && (this.woodcuttingExp == null)
-				&& (this.activePickaxe == null) && (this.activeAxe == null) && (this.usaChips == null)
-				&& (this.activePet == null) && (this.activeTrail == null) && (this.usadaDrinks == null)
-				&& (this.removeAllActiveScams == null) && (this.unlockAllScams == null)
+				&& (this.activePickaxe == null) && (this.activeAxe == null) && (this.activePrism == null)
+				&& (this.usaChips == null) && (this.activePet == null) && (this.activeTrail == null)
+				&& (this.usadaDrinks == null) && (this.removeAllActiveScams == null) && (this.unlockAllScams == null)
 				&& (this.activeScamToAdd == null) && (this.activeScamToRemove == null)
 				&& (this.removeAllInventory == null) && (this.inventoriesToAdd == null)
 				&& (this.inventoriesToRemove == null) && (this.removeAllActiveMiscUnlocks == null)
@@ -801,6 +806,9 @@ public class UpdateCommand implements Callable<Integer> {
 		}
 		if (this.activeAxe != null) {
 			SaveData.setActiveAxe(root, this.activeAxe);
+		}
+		if (this.activePrism != null) {
+			SaveData.setActivePrism(root, this.activePrism);
 		}
 		if (this.usaChips != null) {
 			SaveData.setUsaChips(root, this.usaChips);

@@ -172,6 +172,10 @@ public final class SaveData {
 
 	public static final String ACTIVE_AXE = "usingAxe";
 
+	public static final String UNLOCKED_PRISMS = "armorUnlock";
+
+	public static final String ACTIVE_PRISM = "selectedArmor";
+
 	public static final String USA_CHIPS = "holoChips";
 
 	public static final String ACTIVE_PET = "activePet";
@@ -824,6 +828,22 @@ public final class SaveData {
 		setDouble(element, ACTIVE_AXE, value == null ? null : value.getCode());
 	}
 
+	public static Prism[] getUnlockedPrisms(JsonElement element) {
+		return Prism.get(getArrayDouble(element, UNLOCKED_PRISMS));
+	}
+
+	public static void setUnlockedPrisms(JsonElement element, Prism[] values) {
+		setArrayDouble(element, UNLOCKED_PRISMS, Prism.convert(values));
+	}
+
+	public static Prism getActivePrism(JsonElement element) {
+		return Prism.get(getDouble(element, ACTIVE_PRISM));
+	}
+
+	public static void setActivePrism(JsonElement element, Prism value) {
+		setDouble(element, ACTIVE_PRISM, value == null ? null : value.getCode());
+	}
+
 	public static Double getUsaChips(JsonElement element) {
 		return getDouble(element, USA_CHIPS);
 	}
@@ -1022,6 +1042,8 @@ public final class SaveData {
 		results.remove(ACTIVE_PICKAXE);
 		results.remove(UNLOCKED_AXES);
 		results.remove(ACTIVE_AXE);
+		results.remove(UNLOCKED_PRISMS);
+		results.remove(ACTIVE_PRISM);
 		results.remove(USA_CHIPS);
 		results.remove(ACTIVE_PET);
 		results.remove(ACTIVE_TRAIL);

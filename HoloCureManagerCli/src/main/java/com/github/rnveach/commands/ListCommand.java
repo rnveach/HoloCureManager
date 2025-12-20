@@ -132,10 +132,15 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\t\tMine Exp: %,.1f", SaveData.getMineExp(root)));
 		System.out.println(String.format("\t\tWoodcutting Level: %,.1f", SaveData.getWoodcuttingLevel(root)));
 		System.out.println(String.format("\t\tWoodcutting Exp: %,.1f", SaveData.getWoodcuttingExp(root)));
+		System.out.println();
 		printDisplay("\t\t", "Unlocked Pickaxes:", SaveData.getUnlockedPickaxes(root));
 		System.out.println(String.format("\t\tActive Pickaxe: %s", getDisplay(SaveData.getActivePickaxe(root))));
+		System.out.println();
 		printDisplay("\t\t", "Unlocked Axes:", SaveData.getUnlockedAxes(root));
 		System.out.println(String.format("\t\tActive Axe: %s", getDisplay(SaveData.getActiveAxe(root))));
+		System.out.println();
+		printDisplay("\t\t", "Unlocked Prisms:", SaveData.getUnlockedPrisms(root));
+		System.out.println(String.format("\t\tActive Prism: %s", getDisplay(SaveData.getActivePrism(root))));
 		System.out.println();
 		System.out.println("\tUsada Casino:");
 		System.out.println(String.format("\t\tUsaChips: %,.1f", SaveData.getUsaChips(root)));
