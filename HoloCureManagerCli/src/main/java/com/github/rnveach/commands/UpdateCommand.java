@@ -68,7 +68,7 @@ public class UpdateCommand implements Callable<Integer> {
 
 			final GatchaRank result = new GatchaRank();
 
-			result.setIdol(Idol.get(split[0]));
+			result.setIdol(Idol.valueOf(split[0]));
 			result.setRank(Double.parseDouble(split[1]));
 
 			return result;
@@ -97,7 +97,7 @@ public class UpdateCommand implements Callable<Integer> {
 
 			final FandomExperience result = new FandomExperience();
 
-			result.setIdol(Idol.get(split[0]));
+			result.setIdol(Idol.valueOf(split[0]));
 			result.setExperience(Double.parseDouble(split[1]));
 
 			return result;
@@ -126,7 +126,7 @@ public class UpdateCommand implements Callable<Integer> {
 
 			final Tears result = new Tears();
 
-			result.setGeneration(Generation.get(split[0]));
+			result.setGeneration(Generation.valueOf(split[0]));
 			result.setCount(Double.parseDouble(split[1]));
 
 			return result;
@@ -155,7 +155,7 @@ public class UpdateCommand implements Callable<Integer> {
 
 			final Inventory result = new Inventory();
 
-			result.setItem(InventoryItem.get(split[0]));
+			result.setItem(InventoryItem.valueOf(split[0]));
 			result.setCount(Double.parseDouble(split[1]));
 			result.setTotal(Double.parseDouble(split[2]));
 

@@ -46,7 +46,7 @@ public final class Tears implements Comparable<Tears> {
 		final JsonArray results = new JsonArray();
 
 		for (int i = 0; i < values.length; i++) {
-			results.set(i, convert(values[i]));
+			results.add(convert(values[i]));
 		}
 
 		return results;
@@ -55,8 +55,8 @@ public final class Tears implements Comparable<Tears> {
 	private static JsonArray convert(Tears value) {
 		final JsonArray result = new JsonArray();
 
-		result.set(0, new JsonPrimitive(value.getGeneration().getCode()));
-		result.set(1, new JsonPrimitive(value.getCount()));
+		result.add(new JsonPrimitive(value.getGeneration().getCode()));
+		result.add(new JsonPrimitive(value.getCount()));
 
 		return result;
 	}

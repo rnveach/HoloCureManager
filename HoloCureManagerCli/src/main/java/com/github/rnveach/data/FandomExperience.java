@@ -43,7 +43,7 @@ public final class FandomExperience {
 		final JsonArray results = new JsonArray();
 
 		for (int i = 0; i < values.length; i++) {
-			results.set(i, convert(values[i]));
+			results.add(convert(values[i]));
 		}
 
 		return results;
@@ -52,8 +52,8 @@ public final class FandomExperience {
 	private static JsonArray convert(FandomExperience value) {
 		final JsonArray result = new JsonArray();
 
-		result.set(0, new JsonPrimitive(value.getIdol().getCode()));
-		result.set(1, new JsonPrimitive(value.getExperience()));
+		result.add(new JsonPrimitive(value.getIdol().getCode()));
+		result.add(new JsonPrimitive(value.getExperience()));
 
 		return result;
 	}

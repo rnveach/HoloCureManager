@@ -45,7 +45,7 @@ public final class Inventory {
 		final JsonArray results = new JsonArray();
 
 		for (int i = 0; i < values.length; i++) {
-			results.set(i, convert(values[i]));
+			results.add(convert(values[i]));
 		}
 
 		return results;
@@ -54,9 +54,9 @@ public final class Inventory {
 	private static JsonArray convert(Inventory value) {
 		final JsonArray result = new JsonArray();
 
-		result.set(0, new JsonPrimitive(value.getItem().getCode()));
-		result.set(1, new JsonPrimitive(value.getCount()));
-		result.set(2, new JsonPrimitive(value.getTotal()));
+		result.add(new JsonPrimitive(value.getItem().getCode()));
+		result.add(new JsonPrimitive(value.getCount()));
+		result.add(new JsonPrimitive(value.getTotal()));
 
 		return result;
 	}
