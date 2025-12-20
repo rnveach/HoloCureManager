@@ -63,7 +63,8 @@ public final class Inventory {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.item, this.count, this.total);
+		// count and total doesn't make it unique
+		return Objects.hash(this.item);
 	}
 
 	@Override
@@ -80,9 +81,8 @@ public final class Inventory {
 
 		final Inventory other = (Inventory) obj;
 
-		return (this.item == other.item)
-				&& (Double.doubleToLongBits(this.count) == Double.doubleToLongBits(other.count))
-				&& (Double.doubleToLongBits(this.total) == Double.doubleToLongBits(other.total));
+		// count and total doesn't make it unique
+		return (this.item == other.item);
 	}
 
 	public InventoryItem getItem() {

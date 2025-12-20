@@ -83,7 +83,8 @@ public final class Achievements {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.achievementName, this.unlocked);
+		// unlocked doesn't make it unique
+		return Objects.hash(this.achievementName);
 	}
 
 	@Override
@@ -100,7 +101,8 @@ public final class Achievements {
 
 		final Achievements other = (Achievements) obj;
 
-		return (this.achievementName == other.achievementName) && (this.unlocked == other.unlocked);
+		// unlocked doesn't make it unique
+		return (this.achievementName == other.achievementName);
 	}
 
 	public AchievementName getAchievementName() {

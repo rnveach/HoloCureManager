@@ -871,7 +871,11 @@ public class UpdateCommand implements Callable<Integer> {
 
 		if (adds != null) {
 			for (final T add : adds) {
-				newList.add(add);
+				if (!newList.add(add)) {
+					// duplicate, overwriting with new non-unique value
+					newList.remove(add);
+					newList.add(add);
+				}
 			}
 		}
 		if (removes != null) {
@@ -908,9 +912,14 @@ public class UpdateCommand implements Callable<Integer> {
 					.collect(Collectors.toSet());
 
 			for (final AchievementName name : addSet) {
-				if (!existingNames.contains(name)) {
-					results.add(name.getAchievementUnlocked());
+				final Achievements temp = name.getAchievementUnlocked();
+
+				if (existingNames.contains(name)) {
+					// duplicate, overwriting with new non-unique value
+					results.remove(temp);
 				}
+
+				results.add(temp);
 			}
 		}
 

@@ -65,7 +65,8 @@ public final class GatchaRank implements Comparable<GatchaRank> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.idol, this.rank);
+		// rank doesn't make it unique
+		return Objects.hash(this.idol);
 	}
 
 	@Override
@@ -82,7 +83,8 @@ public final class GatchaRank implements Comparable<GatchaRank> {
 
 		final GatchaRank other = (GatchaRank) obj;
 
-		return (this.idol == other.idol) && (Double.doubleToLongBits(this.rank) == Double.doubleToLongBits(other.rank));
+		// rank doesn't make it unique
+		return (this.idol == other.idol);
 	}
 
 	public Idol getIdol() {

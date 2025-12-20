@@ -68,7 +68,8 @@ public final class Tears implements Comparable<Tears> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.generation, this.count);
+		// count doesn't make it unique
+		return Objects.hash(this.generation);
 	}
 
 	@Override
@@ -85,8 +86,8 @@ public final class Tears implements Comparable<Tears> {
 
 		final Tears other = (Tears) obj;
 
-		return (this.generation == other.generation)
-				&& (Double.doubleToLongBits(this.count) == Double.doubleToLongBits(other.count));
+		// count doesn't make it unique
+		return (this.generation == other.generation);
 	}
 
 	public Generation getGeneration() {

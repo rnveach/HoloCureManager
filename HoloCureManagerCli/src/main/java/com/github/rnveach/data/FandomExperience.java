@@ -60,7 +60,8 @@ public final class FandomExperience {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.experience, this.idol);
+		// experience doesn't make it unique
+		return Objects.hash(this.idol);
 	}
 
 	@Override
@@ -77,8 +78,8 @@ public final class FandomExperience {
 
 		final FandomExperience other = (FandomExperience) obj;
 
-		return (this.idol == other.idol)
-				&& (Double.doubleToLongBits(this.experience) == Double.doubleToLongBits(other.experience));
+		// experience doesn't make it unique
+		return (this.idol == other.idol);
 	}
 
 	public Idol getIdol() {
