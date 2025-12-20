@@ -8,11 +8,12 @@ public enum Axe implements Displayable {
 	OLD(0.0), //
 	STONE(1.0), //
 	LEAD(2.0), //
-	MYTH(3.0), //
-	PROMISE(4.0), //
-	ADVENT(5.0), //
-	JUSTICE(6.0), //
-	HOLOLITE(7.0), //
+	IRON(3.0), //
+	MYTH(4.0), //
+	PROMISE(5.0), //
+	ADVENT(6.0), //
+	JUSTICE(7.0), //
+	HOLOLITE(8.0), //
 	;
 
 	public static Comparator<Axe> COMPARATOR = new Comparator<>() {
@@ -83,6 +84,8 @@ public enum Axe implements Displayable {
 			return "Advent";
 		case HOLOLITE:
 			return "Hololite";
+		case IRON:
+			return "Iron";
 		case JUSTICE:
 			return "Justice";
 		case LEAD:

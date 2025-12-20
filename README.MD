@@ -172,7 +172,8 @@ Usage: HoloCureManagerCli update [-h] [--removeAllAchievements]
 Update only portions of a save file.
       --activeAxe=<activeAxe>
                              Update Active Axe. Valid values are: OLD, STONE,
-                               LEAD, MYTH, PROMISE, ADVENT, JUSTICE, HOLOLITE.
+                               LEAD, IRON, MYTH, PROMISE, ADVENT, JUSTICE,
+                               HOLOLITE.
       --activeFishRod=<activeFishRod>
                              Update Active Fish Rod. Valid values are:
                                BEGINNERS, DADS, BLACKSMITH_MADE, ATLANTEAN,
@@ -182,8 +183,8 @@ Update only portions of a save file.
                                RABBIT, BEETLE, PENGUIN, MONKEY.
       --activePickaxe=<activePickaxe>
                              Update Active Pickaxe. Valid values are: OLD,
-                               STONE, LEAD, MYTH, PROMISE, ADVENT, JUSTICE,
-                               HOLOLITE.
+                               STONE, LEAD, IRON, MYTH, PROMISE, ADVENT,
+                               JUSTICE, HOLOLITE.
       --activePrism=<activePrism>
                              Update Active Prism. Valid values are: BASIC,
                                MYTH, PROMISE, ADVENT, JUSTICE, HOLOLITE.
@@ -323,7 +324,9 @@ Update only portions of a save file.
                                LOBSTER, KOI_FISH, SQUID, EEL, SHARK, STICK,
                                STONE, PLANK, LEAD_BAR, IRON_BAR, HARDWOOD,
                                MYTHRIL_BAR, CEDAR_WOOD, CARROT, RICE, ONION,
-                               POTATO, WHEAT, TOMATO.
+                               POTATO, WHEAT, TOMATO, ADAMANTITE_BAR,
+                               MAPLE_WOOD, DIAMOND, ACACIA_WOOD, TEAK_WOOD,
+                               PLATINUM_BAR, BAMBOO_WOOD, HOLOLITE.
       --addMiscUnlock[=<miscUnlockToAdd>...]
                              Misc. Unlock(s) to add. Does nothing if item is
                                already unlocked. Valid values are:

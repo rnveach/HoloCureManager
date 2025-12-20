@@ -43,6 +43,14 @@ public enum InventoryItem implements Displayable {
 	POTATO("potato"), //
 	WHEAT("wheat"), //
 	TOMATO("tomato"), //
+	ADAMANTITE_BAR("adamantitebar"), //
+	MAPLE_WOOD("maplewood"), //
+	DIAMOND("diamond"), //
+	ACACIA_WOOD("acaciawood"), //
+	TEAK_WOOD("teakwood"), //
+	PLATINUM_BAR("platinumbar"), //
+	BAMBOO_WOOD("bamboowood"), //
+	HOLOLITE("hololite"), //
 	;
 
 	private final String code;
