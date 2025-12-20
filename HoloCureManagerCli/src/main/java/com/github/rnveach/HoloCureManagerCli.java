@@ -61,6 +61,8 @@ public class HoloCureManagerCli implements Callable<Integer> {
 	public Integer call() throws Exception {
 		validateOptions();
 
+		this.spec.commandLine().usage(System.out);
+
 		return 0;
 	}
 
