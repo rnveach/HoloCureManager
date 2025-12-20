@@ -20,7 +20,7 @@ Then run the CLI using the command:
 
 `java -jar HoloCureManagerCli-X.X.X-SNAPSHOT-all.jar`
 
-Note: Replace `X.X.X` with the current version number of the JAR.
+*Note*: Replace `X.X.X` with the current version number of the JAR.
 
 ## Commands
 
@@ -38,7 +38,7 @@ Commands:
   update, --update, -u  Update only portions of a save file.
 ```
 
-Note: Specifying the file path is optional unless the path cannot be determined automatically. The tool tries to read the file from `%LOCALAPPDATA%\HoloCure\save_n.dat`.
+*Note*: Specifying the file path is optional unless the path cannot be determined automatically. The tool tries to read the file from `%LOCALAPPDATA%\HoloCure\save_n.dat`.
 
 ### Dump Command
 
@@ -878,7 +878,7 @@ Commands:
   raw, --raw, -r  Update raw portions of a save file directly.
 ```
 
-Note: At least one item is required to update the file with. Multiple updates can be done at a time.
+*Note*: At least one item is required to update the file with. Multiple updates can be done at a time.
 
 ### Update Raw Command
 
@@ -891,9 +891,25 @@ Update raw portions of a save file directly.
   -v, --value=<value>
 ```
 
-Note: This replaces the update command and only 1 update can be made at a time with this method.
+*Note*: This replaces the update command and only 1 update can be made at a time with this method.
 
-Note 2: This command accepts what you provide it at face value. Be careful in using this command. It should only be used if you know what you are doing.
+*Note 2*: This command accepts what you provide it at face value. Be careful in using this command. It should only be used if you know what you are doing.
+
+## Super Commands
+
+Obtain max currency to buy all your needs.
+
+```
+--update --holoCoins 77777777 --usaChips 100000000 --sand 10000000
+```
+
+Warp a current save game for Tower of Suffering to the top.
+
+```
+--update --raw --type json --key towerlastPos --value "[ 370.0, 0.0 ]"
+```
+
+*Note*: Make sure there is a saved game first. This command bypasses any checks.
 
 ## Future
 
