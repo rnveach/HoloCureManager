@@ -40,6 +40,9 @@ public enum InventoryItem implements Displayable {
 	CARROT("carrot"), //
 	RICE("rice"), //
 	ONION("onion"), //
+	POTATO("potato"), //
+	WHEAT("wheat"), //
+	TOMATO("tomato"), //
 	;
 
 	private final String code;
