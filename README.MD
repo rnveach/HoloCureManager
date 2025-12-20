@@ -315,7 +315,7 @@ Update only portions of a save file.
                              Inventory(s) to add. This will replace your
                                current inventory, and not add them. Must be in
                                format 'name:count:total'. Valid names are:
-                               TUNA, SHRIMP, CLOWNFISH, STANDARD_SOIL,
+                               TUNA, SHRIMP, SALMON, STANDARD_SOIL,
                                EXPEDITED_SOIL, ENHANCED_SOIL, WHEAT_SEED,
                                TOMATO_SEED, POTATO_SEED, RICE_SEED, ONION_SEED,
                                CARROT_SEED, GREEN_BEANS_SEED, PEPPERS_SEED,
@@ -326,7 +326,8 @@ Update only portions of a save file.
                                MYTHRIL_BAR, CEDAR_WOOD, CARROT, RICE, ONION,
                                POTATO, WHEAT, TOMATO, ADAMANTITE_BAR,
                                MAPLE_WOOD, DIAMOND, ACACIA_WOOD, TEAK_WOOD,
-                               PLATINUM_BAR, BAMBOO_WOOD, HOLOLITE.
+                               PLATINUM_BAR, BAMBOO_WOOD, HOLOLITE, STRAWBERRY,
+                               CORN, GREENBEANS, PEPPERS, RADISH, GARLIC.
       --addMiscUnlock[=<miscUnlockToAdd>...]
                              Misc. Unlock(s) to add. Does nothing if item is
                                already unlocked. Valid values are:

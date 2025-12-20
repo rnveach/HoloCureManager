@@ -5,7 +5,7 @@ public enum InventoryItem implements Displayable {
 	// TODO: full names
 	TUNA("tuna"), //
 	SHRIMP("shrimp"), //
-	CLOWNFISH("clownfish"), //
+	SALMON("clownfish"), //
 	STANDARD_SOIL("standardsoil"), //
 	EXPEDITED_SOIL("expeditedsoil"), //
 	ENHANCED_SOIL("enhancedsoil"), //
@@ -51,6 +51,12 @@ public enum InventoryItem implements Displayable {
 	PLATINUM_BAR("platinumbar"), //
 	BAMBOO_WOOD("bamboowood"), //
 	HOLOLITE("hololite"), //
+	STRAWBERRY("strawberry"), //
+	CORN("corn"), //
+	GREENBEANS("greenbeans"), //
+	PEPPERS("peppers"), //
+	RADISH("radish"), //
+	GARLIC("garlic"), //
 	;
 
 	private final String code;
