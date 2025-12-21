@@ -318,16 +318,20 @@ Update only portions of a save file.
                                TUNA, SHRIMP, SALMON, STANDARD_SOIL,
                                EXPEDITED_SOIL, ENHANCED_SOIL, WHEAT_SEED,
                                TOMATO_SEED, POTATO_SEED, RICE_SEED, ONION_SEED,
-                               CARROT_SEED, GREEN_BEANS_SEED, PEPPERS_SEED,
+                               CARROT_SEED, GREEN_BEAN_SEED, PEPPER_SEED,
                                STRAWBERRY_SEED, CORN_SEED, RADISH_SEED,
                                GARLIC_SEED, TURTLE, MANTA_RAY, PUFFERFISH,
                                LOBSTER, KOI_FISH, SQUID, EEL, SHARK, STICK,
-                               STONE, PLANK, LEAD_BAR, IRON_BAR, HARDWOOD,
-                               MYTHRIL_BAR, CEDAR_WOOD, CARROT, RICE, ONION,
-                               POTATO, WHEAT, TOMATO, ADAMANTITE_BAR,
-                               MAPLE_WOOD, DIAMOND, ACACIA_WOOD, TEAK_WOOD,
-                               PLATINUM_BAR, BAMBOO_WOOD, HOLOLITE, STRAWBERRY,
-                               CORN, GREENBEANS, PEPPERS, RADISH, GARLIC.
+                               STONE, PLANK, LEAD, IRON, HARD_WOOD, MYTHRIL,
+                               CEDAR_WOOD, CARROT, RICE, ONION, POTATO, WHEAT,
+                               TOMATO, ADAMANTITE, MAPLE_WOOD, DIAMOND,
+                               ACACIA_WOOD, TEAK_WOOD, PLATINUM, BAMBOO_WOOD,
+                               HOLOLITE, STRAWBERRY, CORN, GREEN_BEAN, PEPPER,
+                               RADISH, GARLIC, AXOLOTL, GOLDEN_SHRIMP,
+                               GOLDEN_SALMON, GOLDEN_TUNA, GOLDEN_KOI_FISH,
+                               GOLDEN_LOBSTER, GOLDEN_EEL, GOLDEN_PUFFERFISH,
+                               GOLDEN_MANTA_RAY, GOLDEN_TURTLE, GOLDEN_SQUID,
+                               GOLDEN_SHARK, GOLDEN_AXOLOTL.
       --addMiscUnlock[=<miscUnlockToAdd>...]
                              Misc. Unlock(s) to add. Does nothing if item is
                                already unlocked. Valid values are:
