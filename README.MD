@@ -53,7 +53,10 @@ Perform a full dump of the save file.
 ### List Command
 
 ```
-Usage: HoloCureManagerCli list
+Usage: HoloCureManagerCli list [-hm]
+List known data from the save file.
+  -h, --help
+  -m, --missing   List only things missing from 100%.
 ```
 
 ### Update Command
