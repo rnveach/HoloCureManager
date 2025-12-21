@@ -14,6 +14,7 @@ import com.github.rnveach.data.Achievements;
 import com.github.rnveach.data.Axe;
 import com.github.rnveach.data.Collaboration;
 import com.github.rnveach.data.CookedFood;
+import com.github.rnveach.data.CookedFoodItem;
 import com.github.rnveach.data.Displayable;
 import com.github.rnveach.data.FanLetter;
 import com.github.rnveach.data.FandomExperience;
@@ -65,7 +66,7 @@ public final class ListCommand implements Callable<Integer> {
 		// a ? represents unknown
 
 		if (this.missing) {
-			// TODO: missing max level
+			// TODO: missing max level for some complex classes
 
 			System.out.println("Main:");
 
@@ -81,7 +82,53 @@ public final class ListCommand implements Callable<Integer> {
 					Collaboration.values());
 			printMissingDisplay("\t", "Missing Fan Letters:", SaveData.getFanLetters(root), FanLetter.values());
 
-			// TODO: upgrades
+			System.out.println();
+			System.out.println("\tUpgrades:");
+			System.out.println("\t\tAbilities:");
+			printMissingDisplay("\t\t\t", "Missing Special Attack", SaveData.getSpecialAttack(root),
+					SaveData.SPECIAL_ATTACK_MAX);
+			printMissingDisplay("\t\t\t", "Missing Growth", SaveData.getGrowth(root), SaveData.GROWTH_MAX);
+			printMissingDisplay("\t\t\t", "Missing Reroll", SaveData.getReroll(root), SaveData.REROLL_MAX);
+			printMissingDisplay("\t\t\t", "Missing Eliminate", SaveData.getEliminate(root), SaveData.ELIMINATE_MAX);
+			printMissingDisplay("\t\t\t", "Missing Hold Find", SaveData.getHoldFind(root), SaveData.HOLD_FIND_MAX);
+			printMissingDisplay("\t\t\t", "Missing Customize", SaveData.getCustomize(root), SaveData.CUSTOMIZE_MAX);
+			printMissingDisplay("\t\t\t", "Missing Supports", SaveData.getSupports(root), SaveData.SUPPORTS_MAX);
+			printMissingDisplay("\t\t\t", "Missing Material Find", SaveData.getMaterialFind(root),
+					SaveData.MATERIAL_FIND_MAX);
+			printMissingDisplay("\t\t\t", "Missing Stamps", SaveData.getStamps(root), SaveData.STAMPS_MAX);
+			printMissingDisplay("\t\t\t", "Missing Enchantments", SaveData.getEnchantments(root),
+					SaveData.ENCHANTMENTS_MAX);
+			printMissingDisplay("\t\t\t", "Missing Fandom", SaveData.getFandom(root), SaveData.FANDOM_MAX);
+			printMissingDisplay("\t\t\t", "Missing Fan Letters Unlocked", SaveData.getFanLettersUnlocked(root),
+					SaveData.FAN_LETTERS_UNLOCKED_MAX);
+
+			System.out.println();
+			System.out.println("\t\tStats:");
+			printMissingDisplay("\t\t\t", "Missing Max HP Up", SaveData.getMaxHpUp(root), SaveData.MAX_HP_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing ATK Up", SaveData.getAtkUp(root), SaveData.ATK_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing SPD Up", SaveData.getSpdUp(root), SaveData.SPD_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing Crit Up", SaveData.getCritUp(root), SaveData.CRIT_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing Pick Up Range", SaveData.getPickUpRange(root),
+					SaveData.PICK_UP_RANGE_MAX);
+			printMissingDisplay("\t\t\t", "Missing Haste Up", SaveData.getHasteUp(root), SaveData.HASTE_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing Regeneration", SaveData.getRegeneration(root),
+					SaveData.REGENERATION_MAX);
+			printMissingDisplay("\t\t\t", "Missing Defense Up", SaveData.getDefenseUp(root), SaveData.DEFENSE_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing Special Cooldown Reduction",
+					SaveData.getSpecialCooldownReduction(root), SaveData.SPECIAL_COOLDOWN_REDUCTION_MAX);
+			printMissingDisplay("\t\t\t", "Missing Skill Up", SaveData.getSkillUp(root), SaveData.SKILL_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing EXP Gain Up", SaveData.getExpGainUp(root), SaveData.EXP_GAIN_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing Food Drops Up", SaveData.getFoodDropsUp(root),
+					SaveData.FOOD_DROPS_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing Money Gain Up", SaveData.getMoneyGainUp(root),
+					SaveData.MONEY_GAIN_UP_MAX);
+			printMissingDisplay("\t\t\t", "Missing Enhancement Rate Up", SaveData.getEnhancementRateUp(root),
+					SaveData.ENHANCEMENT_RATE_UP_MAX);
+
+			System.out.println();
+			System.out.println("\t\tOther:");
+			printMissingDisplay("\t\t\t", "Missing Marketing", SaveData.getMarketing(root), SaveData.MARKETING_MAX);
+			// others are not really required, just make the game harder
 
 			System.out.println();
 			System.out.println("HoloHouse:");
@@ -93,7 +140,11 @@ public final class ListCommand implements Callable<Integer> {
 
 			printMissingDisplay("\t\t", "Missing Fish Rods:", SaveData.getUnlockedFishRods(root), FishRod.values());
 
-			// TODO: cooking
+			if (SaveData.getCookingActive(root) == Boolean.TRUE) {
+				printMissingDisplay("\t", "Missing Cooked Foods:", SaveData.getCookedFoods(root));
+			} else {
+				System.out.println("\tCooking is NOT active.");
+			}
 
 			System.out.println();
 			System.out.println("\tCkia's Forge:");
@@ -110,14 +161,14 @@ public final class ListCommand implements Callable<Integer> {
 			printMissingDisplay("\t", "Missing Achievements:", SaveData.getAchievements(root));
 		} else {
 			System.out.println("Game:");
-			System.out.println(String.format("\tMajor Game Version: %,.1f", SaveData.getMajorGameVersion(root)));
-			System.out.println(String.format("\tMinor Game Version: %,.1f", SaveData.getMinorGameVersion(root)));
+			printDisplay("\t", "Major Game Version", SaveData.getMajorGameVersion(root));
+			printDisplay("\t", "Minor Game Version", SaveData.getMinorGameVersion(root));
 
 			System.out.println();
 			System.out.println("Main:");
-			System.out.println(String.format("\tHoloCoins: %,.1f", SaveData.getHoloCoins(root)));
-			System.out.println(String.format("\tRandom Money Key?: %,.1f", SaveData.getRandomMoneyKey(root)));
-			System.out.println(String.format("\tTime Mode Unlocked: %b", SaveData.getTimeModeUnlocked(root)));
+			printDisplay("\t", "HoloCoins", SaveData.getHoloCoins(root));
+			printDisplay("\t", "Random Money Key?", SaveData.getRandomMoneyKey(root));
+			printDisplay("\t", "Time Mode Unlocked", SaveData.getTimeModeUnlocked(root));
 			System.out.println();
 			printDisplay("\t", "Unlocked Stages:", SaveData.getUnlockedStages(root));
 			System.out.println();
@@ -140,57 +191,55 @@ public final class ListCommand implements Callable<Integer> {
 			System.out.println();
 			System.out.println("\tUpgrades:");
 			System.out.println("\t\tAbilities:");
-			System.out.println(String.format("\t\t\tSpecial Attack: %,.1f", SaveData.getSpecialAttack(root)));
-			System.out.println(String.format("\t\t\tGrowth: %,.1f", SaveData.getGrowth(root)));
-			System.out.println(String.format("\t\t\tReroll: %,.1f", SaveData.getReroll(root)));
-			System.out.println(String.format("\t\t\tEliminate: %,.1f", SaveData.getEliminate(root)));
-			System.out.println(String.format("\t\t\tHold Find: %,.1f", SaveData.getHoldFind(root)));
-			System.out.println(String.format("\t\t\tCustomize: %,.1f", SaveData.getCustomize(root)));
-			System.out.println(String.format("\t\t\tSupports: %,.1f", SaveData.getSupports(root)));
-			System.out.println(String.format("\t\t\tMaterial Find: %,.1f", SaveData.getMaterialFind(root)));
-			System.out.println(String.format("\t\t\tStamps: %,.1f", SaveData.getStamps(root)));
-			System.out.println(String.format("\t\t\tEnchantments: %,.1f", SaveData.getEnchantments(root)));
-			System.out.println(String.format("\t\t\tFandom: %,.1f", SaveData.getFandom(root)));
-			System.out
-					.println(String.format("\t\t\tFan Letters Unlocked: %,.1f", SaveData.getFanLettersUnlocked(root)));
+			printDisplay("\t\t\t", "Special Attack", SaveData.getSpecialAttack(root));
+			printDisplay("\t\t\t", "Growth", SaveData.getGrowth(root));
+			printDisplay("\t\t\t", "Reroll", SaveData.getReroll(root));
+			printDisplay("\t\t\t", "Eliminate", SaveData.getEliminate(root));
+			printDisplay("\t\t\t", "Hold Find", SaveData.getHoldFind(root));
+			printDisplay("\t\t\t", "Customize", SaveData.getCustomize(root));
+			printDisplay("\t\t\t", "Supports", SaveData.getSupports(root));
+			printDisplay("\t\t\t", "Material Find", SaveData.getMaterialFind(root));
+			printDisplay("\t\t\t", "Stamps", SaveData.getStamps(root));
+			printDisplay("\t\t\t", "Enchantments", SaveData.getEnchantments(root));
+			printDisplay("\t\t\t", "Fandom", SaveData.getFandom(root));
+			printDisplay("\t\t\t", "Fan Letters Unlocked", SaveData.getFanLettersUnlocked(root));
 
 			System.out.println();
 			System.out.println("\t\tStats:");
-			System.out.println(String.format("\t\t\tMax HP Up: %,.1f", SaveData.getMaxHpUp(root)));
-			System.out.println(String.format("\t\t\tATK Up: %,.1f", SaveData.getAtkUp(root)));
-			System.out.println(String.format("\t\t\tSPD Up: %,.1f", SaveData.getSpdUp(root)));
-			System.out.println(String.format("\t\t\tCrit Up: %,.1f", SaveData.getCritUp(root)));
-			System.out.println(String.format("\t\t\tPick Up Range: %,.1f", SaveData.getPickUpRange(root)));
-			System.out.println(String.format("\t\t\tHaste Up: %,.1f", SaveData.getHasteUp(root)));
-			System.out.println(String.format("\t\t\tRegeneration: %,.1f", SaveData.getRegeneration(root)));
-			System.out.println(String.format("\t\t\tDefense Up: %,.1f", SaveData.getDefenseUp(root)));
-			System.out.println(String.format("\t\t\tSpecial Cooldown Reduction: %,.1f",
-					SaveData.getSpecialCooldownReduction(root)));
-			System.out.println(String.format("\t\t\tSkill Up: %,.1f", SaveData.getSkillUp(root)));
-			System.out.println(String.format("\t\t\tEXP Gain Up: %,.1f", SaveData.getExpGainUp(root)));
-			System.out.println(String.format("\t\t\tFood Drops Up: %,.1f", SaveData.getFoodDropsUp(root)));
-			System.out.println(String.format("\t\t\tMoney Gain Up: %,.1f", SaveData.getMoneyGainUp(root)));
-			System.out.println(String.format("\t\t\tEnhancement Rate Up: %,.1f", SaveData.getEnhancementRateUp(root)));
+			printDisplay("\t\t\t", "Max HP Up", SaveData.getMaxHpUp(root));
+			printDisplay("\t\t\t", "ATK Up", SaveData.getAtkUp(root));
+			printDisplay("\t\t\t", "SPD Up", SaveData.getSpdUp(root));
+			printDisplay("\t\t\t", "Crit Up", SaveData.getCritUp(root));
+			printDisplay("\t\t\t", "Pick Up Range", SaveData.getPickUpRange(root));
+			printDisplay("\t\t\t", "Haste Up", SaveData.getHasteUp(root));
+			printDisplay("\t\t\t", "Regeneration", SaveData.getRegeneration(root));
+			printDisplay("\t\t\t", "Defense Up", SaveData.getDefenseUp(root));
+			printDisplay("\t\t\t", "Special Cooldown Reduction", SaveData.getSpecialCooldownReduction(root));
+			printDisplay("\t\t\t", "Skill Up", SaveData.getSkillUp(root));
+			printDisplay("\t\t\t", "EXP Gain Up", SaveData.getExpGainUp(root));
+			printDisplay("\t\t\t", "Food Drops Up", SaveData.getFoodDropsUp(root));
+			printDisplay("\t\t\t", "Money Gain Up", SaveData.getMoneyGainUp(root));
+			printDisplay("\t\t\t", "Enhancement Rate Up", SaveData.getEnhancementRateUp(root));
 
 			System.out.println();
 			System.out.println("\t\tOther:");
-			System.out.println(String.format("\t\t\tMarketing: %,.1f", SaveData.getMarketing(root)));
-			System.out.println(String.format("\t\t\tWeapon Limit: %,.1f", SaveData.getWeaponLimit(root)));
-			System.out.println(String.format("\t\t\tItem Limit: %,.1f", SaveData.getItemLimit(root)));
-			System.out.println(String.format("\t\t\tCollab Ban: %,.1f", SaveData.getCollabBan(root)));
-			System.out.println(String.format("\t\t\tSupers Ban: %,.1f", SaveData.getSupersBan(root)));
-			System.out.println(String.format("\t\t\tG-Rank Off: %,.1f", SaveData.getGRankOff(root)));
-			System.out.println(String.format("\t\t\tHardcore: %,.1f", SaveData.getHardcore(root)));
-			System.out.println(String.format("\t\t\tRefund All: %,.1f", SaveData.getRefundAll(root)));
+			printDisplay("\t\t\t", "Marketing", SaveData.getMarketing(root));
+			printDisplay("\t\t\t", "Weapon Limit", SaveData.getWeaponLimit(root));
+			printDisplay("\t\t\t", "Item Limit", SaveData.getItemLimit(root));
+			printDisplay("\t\t\t", "Collab Ban", SaveData.getCollabBan(root));
+			printDisplay("\t\t\t", "Supers Ban", SaveData.getSupersBan(root));
+			printDisplay("\t\t\t", "G-Rank Off", SaveData.getGRankOff(root));
+			printDisplay("\t\t\t", "Hardcore", SaveData.getHardcore(root));
+			printDisplay("\t\t\t", "Refund All", SaveData.getRefundAll(root));
 
 			System.out.println();
 			System.out.println("HoloHouse:");
 			printDisplay("\t", "Unlocked Furniture:", SaveData.getUnlockedFurnitures(root));
 			System.out.println();
 			System.out.println("\tFishing Pond:");
-			System.out.println(String.format("\t\tSand: %,.1f", SaveData.getSand(root)));
+			printDisplay("\t\t", "Sand", SaveData.getSand(root));
 			printDisplay("\t\t", "Unlocked Fish Rods:", SaveData.getUnlockedFishRods(root));
-			System.out.println(String.format("\t\tActive Fish Rod: %s", getDisplay(SaveData.getActiveFishRod(root))));
+			printDisplay("\t\t", "Active Fish Rod", SaveData.getActiveFishRod(root));
 
 			System.out.println();
 
@@ -202,31 +251,31 @@ public final class ListCommand implements Callable<Integer> {
 
 			System.out.println();
 			System.out.println("\tManagement:");
-			System.out.println(String.format("\t\tLevel: %,.1f", SaveData.getManagementLevel(root)));
-			System.out.println(String.format("\t\tExp: %,.1f", SaveData.getManagementExp(root)));
+			printDisplay("\t\t", "Level", SaveData.getManagementLevel(root));
+			printDisplay("\t\t", "Exp", SaveData.getManagementExp(root));
 			System.out.println();
 
 			System.out.println("\tCkia's Forge:");
-			System.out.println(String.format("\t\tMine Level: %,.1f", SaveData.getMineLevel(root)));
-			System.out.println(String.format("\t\tMine Exp: %,.1f", SaveData.getMineExp(root)));
-			System.out.println(String.format("\t\tWoodcutting Level: %,.1f", SaveData.getWoodcuttingLevel(root)));
-			System.out.println(String.format("\t\tWoodcutting Exp: %,.1f", SaveData.getWoodcuttingExp(root)));
+			printDisplay("\t\t", "Mine Level", SaveData.getMineLevel(root));
+			printDisplay("\t\t", "Mine Exp", SaveData.getMineExp(root));
+			printDisplay("\t\t", "Woodcutting Level", SaveData.getWoodcuttingLevel(root));
+			printDisplay("\t\t", "Woodcutting Exp", SaveData.getWoodcuttingExp(root));
 			System.out.println();
 			printDisplay("\t\t", "Unlocked Pickaxes:", SaveData.getUnlockedPickaxes(root));
-			System.out.println(String.format("\t\tActive Pickaxe: %s", getDisplay(SaveData.getActivePickaxe(root))));
+			printDisplay("\t\t", "Active Pickaxe", SaveData.getActivePickaxe(root));
 			System.out.println();
 			printDisplay("\t\t", "Unlocked Axes:", SaveData.getUnlockedAxes(root));
-			System.out.println(String.format("\t\tActive Axe: %s", getDisplay(SaveData.getActiveAxe(root))));
+			printDisplay("\t\t", "Active Axe", SaveData.getActiveAxe(root));
 			System.out.println();
 			printDisplay("\t\t", "Unlocked Prisms:", SaveData.getUnlockedPrisms(root));
-			System.out.println(String.format("\t\tActive Prism: %s", getDisplay(SaveData.getActivePrism(root))));
+			printDisplay("\t\t", "Active Prism", SaveData.getActivePrism(root));
 			System.out.println();
 
 			System.out.println("\tUsada Casino:");
-			System.out.println(String.format("\t\tUsaChips: %,.1f", SaveData.getUsaChips(root)));
-			System.out.println(String.format("\t\tActive Pet: %s", getDisplay(SaveData.getActivePet(root))));
-			System.out.println(String.format("\t\tActive Trail: %s", getDisplay(SaveData.getActiveTrail(root))));
-			System.out.println(String.format("\t\tUsada Drinks: %,.1f", SaveData.getUsadaDrinks(root)));
+			printDisplay("\t\t", "UsaChips", SaveData.getUsaChips(root));
+			printDisplay("\t\t", "Active Pet", SaveData.getActivePet(root));
+			printDisplay("\t\t", "Active Trail", SaveData.getActiveTrail(root));
+			printDisplay("\t\t", "Usada Drinks", SaveData.getUsadaDrinks(root));
 			System.out.println();
 			printDisplay("\t\t", "Active Scams:", SaveData.getActiveScams(root));
 
@@ -234,17 +283,14 @@ public final class ListCommand implements Callable<Integer> {
 
 			if (SaveData.getTowerSaveActive(root) == Boolean.TRUE) {
 				System.out.println("\tTower of Suffering Save:");
-				System.out.println(String.format("\t\tFlags: %,.1f", SaveData.getTowerSaveFlags(root)));
-				System.out.println(String.format("\t\tTime?: %s", getDisplay(SaveData.getTowerSaveTime(root))));
-				System.out.println(
-						String.format("\t\tPosition: %s", getDisplayPosition(SaveData.getTowerSavePosition(root))));
-				System.out.println(String.format("\t\tCheckpoint Position: %s",
-						getDisplayPosition(SaveData.getTowerSaveCheckpointPosition(root))));
-				System.out
-						.println(String.format("\t\tNumber of Jumps: %,.1f", SaveData.getTowerSaveNumberOfJumps(root)));
-				System.out
-						.println(String.format("\t\tNumber of Falls: %,.1f", SaveData.getTowerSaveNumberOfFalls(root)));
-				System.out.println(String.format("\t\tCoins?: %s", getDisplay(SaveData.getTowerSaveCoins(root))));
+				printDisplay("\t\t", "Flags", SaveData.getTowerSaveFlags(root));
+				printDisplay("\t\t", "Time?", getDisplay(SaveData.getTowerSaveTime(root)));
+				printDisplay("\t\t", "Position", getDisplayPosition(SaveData.getTowerSavePosition(root)));
+				printDisplay("\t\t", "Checkpoint Position",
+						getDisplayPosition(SaveData.getTowerSaveCheckpointPosition(root)));
+				printDisplay("\t\t", "Number of Jumps", SaveData.getTowerSaveNumberOfJumps(root));
+				printDisplay("\t\t", "Number of Falls", SaveData.getTowerSaveNumberOfFalls(root));
+				printDisplay("\t\t", "Coins?", getDisplay(SaveData.getTowerSaveCoins(root)));
 			} else {
 				System.out.println("\tTower of Suffering Save is NOT active.");
 			}
@@ -273,6 +319,22 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println();
 
 		return 0;
+	}
+
+	private static void printDisplay(String tab, String header, String value) {
+		System.out.println(tab + String.format("%s: %s", header, value));
+	}
+
+	private static void printDisplay(String tab, String header, Boolean value) {
+		System.out.println(tab + String.format("%s: %b", header, value));
+	}
+
+	private static void printDisplay(String tab, String header, Double value) {
+		System.out.println(tab + String.format("%s: %,.1f", header, value));
+	}
+
+	private static void printDisplay(String tab, String header, Displayable value) {
+		System.out.println(tab + String.format("%s: %s", header, value == null ? "null" : value.getDisplay()));
 	}
 
 	private static <T extends Displayable> void printDisplay(String tab, String header, List<T> values) {
@@ -412,12 +474,10 @@ public final class ListCommand implements Callable<Integer> {
 		return String.format("( X: %,.1f , Y: %,.1f )", position[0], position[1]);
 	}
 
-	private static String getDisplay(Displayable value) {
-		if (value == null) {
-			return "null";
+	private static void printMissingDisplay(String tab, String header, Double value, int max) {
+		if ((value == null) || (value < max)) {
+			System.out.println(tab + String.format("%s - %,.1f (max is %,d)", header, value, max));
 		}
-
-		return value.getDisplay();
 	}
 
 	private static void printMissingDisplay(String tab, String header, Displayable[] values, Displayable[] allValues) {
@@ -523,6 +583,33 @@ public final class ListCommand implements Callable<Integer> {
 
 			if (!found) {
 				missing.add(generation);
+			}
+		}
+
+		if (missing.size() > 0) {
+			System.out.println();
+
+			printDisplay(tab, header, missing);
+		}
+	}
+
+	private static void printMissingDisplay(String tab, String header, CookedFood[] values) {
+		final List<CookedFoodItem> missing = new ArrayList<>();
+
+		for (final CookedFoodItem cookedFood : CookedFoodItem.values()) {
+			boolean found = false;
+
+			if (values != null) {
+				for (final CookedFood value : values) {
+					if (value.getFoodItem() == cookedFood) {
+						found = true;
+						break;
+					}
+				}
+			}
+
+			if (!found) {
+				missing.add(cookedFood);
 			}
 		}
 
