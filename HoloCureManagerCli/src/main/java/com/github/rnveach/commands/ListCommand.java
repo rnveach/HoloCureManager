@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.github.rnveach.HoloCureManagerCli;
 import com.github.rnveach.data.Achievements;
+import com.github.rnveach.data.CookedFood;
 import com.github.rnveach.data.Displayable;
 import com.github.rnveach.data.FandomExperience;
 import com.github.rnveach.data.GatchaRank;
@@ -122,11 +123,21 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println(String.format("\t\tSand: %,.1f", SaveData.getSand(root)));
 		printDisplay("\t\t", "Unlocked Fish Rods:", SaveData.getUnlockedFishRods(root));
 		System.out.println(String.format("\t\tActive Fish Rod: %s", getDisplay(SaveData.getActiveFishRod(root))));
+
+		System.out.println();
+
+		if (SaveData.getCookingActive(root) == Boolean.TRUE) {
+			printDisplay("\t", "Cooked Foods:", SaveData.getCookedFoods(root));
+		} else {
+			System.out.println("\tCooking is NOT active.");
+		}
+
 		System.out.println();
 		System.out.println("\tManagement:");
 		System.out.println(String.format("\t\tLevel: %,.1f", SaveData.getManagementLevel(root)));
 		System.out.println(String.format("\t\tExp: %,.1f", SaveData.getManagementExp(root)));
 		System.out.println();
+
 		System.out.println("\tCkia's Forge:");
 		System.out.println(String.format("\t\tMine Level: %,.1f", SaveData.getMineLevel(root)));
 		System.out.println(String.format("\t\tMine Exp: %,.1f", SaveData.getMineExp(root)));
@@ -142,6 +153,7 @@ public final class ListCommand implements Callable<Integer> {
 		printDisplay("\t\t", "Unlocked Prisms:", SaveData.getUnlockedPrisms(root));
 		System.out.println(String.format("\t\tActive Prism: %s", getDisplay(SaveData.getActivePrism(root))));
 		System.out.println();
+
 		System.out.println("\tUsada Casino:");
 		System.out.println(String.format("\t\tUsaChips: %,.1f", SaveData.getUsaChips(root)));
 		System.out.println(String.format("\t\tActive Pet: %s", getDisplay(SaveData.getActivePet(root))));
@@ -150,8 +162,9 @@ public final class ListCommand implements Callable<Integer> {
 		System.out.println();
 		printDisplay("\t\t", "Active Scams:", SaveData.getActiveScams(root));
 
+		System.out.println();
+
 		if (SaveData.getTowerSaveActive(root) == Boolean.TRUE) {
-			System.out.println();
 			System.out.println("\tTower of Suffering Save:");
 			System.out.println(String.format("\t\tFlags: %,.1f", SaveData.getTowerSaveFlags(root)));
 			System.out.println(String.format("\t\tTime?: %s", getDisplay(SaveData.getTowerSaveTime(root))));
@@ -163,7 +176,6 @@ public final class ListCommand implements Callable<Integer> {
 			System.out.println(String.format("\t\tNumber of Falls: %,.1f", SaveData.getTowerSaveNumberOfFalls(root)));
 			System.out.println(String.format("\t\tCoins?: %s", getDisplay(SaveData.getTowerSaveCoins(root))));
 		} else {
-			System.out.println();
 			System.out.println("\tTower of Suffering Save is NOT active.");
 		}
 
@@ -238,6 +250,19 @@ public final class ListCommand implements Callable<Integer> {
 			for (final Tears value : values) {
 				System.out.println(
 						tab + String.format("\t%s - %,.1f", value.getGeneration().getDisplay(), value.getCount()));
+			}
+		}
+	}
+
+	private static void printDisplay(String tab, String header, CookedFood[] values) {
+		System.out.println(tab + header + " (" + (values == null ? 0 : values.length) + ")");
+
+		if ((values == null) || (values.length == 0)) {
+			System.out.println(tab + "\t<None>");
+		} else {
+			for (final CookedFood value : values) {
+				System.out.println(
+						tab + String.format("\t%s - %,.1f", value.getFoodItem().getDisplay(), value.getCount()));
 			}
 		}
 	}

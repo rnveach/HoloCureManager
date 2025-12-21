@@ -152,6 +152,10 @@ public final class SaveData {
 
 	public static final String ACTIVE_FISH_ROD = "fishRod";
 
+	public static final String COOKING_ACTIVE = "cookingOn";
+
+	public static final String COOKED_FOODS = "createdFoods";
+
 	public static final String MANAGEMENT_LEVEL = "manageLevel";
 
 	public static final String MANAGEMENT_EXP = "manageEXP";
@@ -748,6 +752,18 @@ public final class SaveData {
 		setDouble(element, ACTIVE_FISH_ROD, value == null ? null : value.getCode());
 	}
 
+	public static Boolean getCookingActive(JsonElement element) {
+		return getDoubleAsBoolean(element, COOKING_ACTIVE);
+	}
+
+	public static void setCookingActive(JsonElement element, Boolean value) {
+		setBooleanAsDouble(element, COOKING_ACTIVE, value);
+	}
+
+	public static CookedFood[] getCookedFoods(JsonElement element) {
+		return CookedFood.get(getJsonArray(element, COOKED_FOODS));
+	}
+
 	public static Double getManagementLevel(JsonElement element) {
 		return getDouble(element, MANAGEMENT_LEVEL);
 	}
@@ -1032,6 +1048,8 @@ public final class SaveData {
 		results.remove(SAND);
 		results.remove(UNLOCKED_FISH_RODS);
 		results.remove(ACTIVE_FISH_ROD);
+		results.remove(COOKING_ACTIVE);
+		results.remove(COOKED_FOODS);
 		results.remove(MANAGEMENT_LEVEL);
 		results.remove(MANAGEMENT_EXP);
 		results.remove(MINE_LEVEL);
@@ -1109,6 +1127,12 @@ public final class SaveData {
 		return t.getAsBoolean();
 	}
 
+	private static boolean getDoubleAsBoolean(JsonElement element, String namedIndex) {
+		final Double temp = getDouble(element, namedIndex);
+
+		return (temp != null) && (temp == 1.0);
+	}
+
 	private static Double getDouble(JsonElement element, String namedIndex) {
 		final JsonElement t = get(element, namedIndex);
 
@@ -1178,6 +1202,16 @@ public final class SaveData {
 			t.remove(namedIndex);
 		} else {
 			t.addProperty(namedIndex, value);
+		}
+	}
+
+	private static void setBooleanAsDouble(JsonElement element, String namedIndex, Boolean value) {
+		final JsonObject t = element.getAsJsonObject();
+
+		if (value == null) {
+			t.remove(namedIndex);
+		} else {
+			t.addProperty(namedIndex, value ? 1.0 : 0.0);
 		}
 	}
 

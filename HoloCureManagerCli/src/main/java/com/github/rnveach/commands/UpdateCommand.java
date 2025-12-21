@@ -423,6 +423,8 @@ public class UpdateCommand implements Callable<Integer> {
 			"--activeFishRod" }, description = "Update Active Fish Rod. Valid values are: ${COMPLETION-CANDIDATES}.")
 	private FishRod activeFishRod;
 
+	// TODO: cooked food
+
 	@Option(names = { "--managementLevel" }, description = "Update Management Level.")
 	private Double managementLevel;
 
