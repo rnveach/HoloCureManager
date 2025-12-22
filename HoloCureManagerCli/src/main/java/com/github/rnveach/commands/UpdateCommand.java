@@ -904,10 +904,10 @@ public class UpdateCommand implements Callable<Integer> {
 		if ((this.removeAllAchievements != null) && this.removeAllAchievements) {
 			SaveData.setAchievements(root, null);
 		}
-		if ((this.unlockAllMiscUnlocks != null) && this.unlockAllMiscUnlocks) {
+		if ((this.unlockAllAchievements != null) && this.unlockAllAchievements) {
 			SaveData.setAchievements(root, Achievements.values());
 		}
-		if ((this.miscUnlockToAdd != null) || (this.miscUnlockToRemove != null)) {
+		if ((this.achievementsToAdd != null) || (this.achievementsToRemove != null)) {
 			SaveData.setAchievements(root,
 					doAddRemove(SaveData.getAchievements(root), this.achievementsToAdd, this.achievementsToRemove));
 		}
