@@ -533,7 +533,7 @@ public class UpdateCommand implements Callable<Integer> {
 
 	@Option(names = {
 			"--removeInventory" }, description = "Inventory(s) to remove. This will replace your current inventory, and not add them. Does nothing if inventory doesn't exist. Must be in format 'name:count:total'. Valid names are: ${COMPLETION-CANDIDATES}.", //
-			arity = "0..*", converter = InventoryConverter.class)
+			arity = "0..*", converter = InventoryConverter.class, completionCandidates = InventoryCandidates.class)
 	private Inventory[] inventoriesToRemove;
 
 	@Option(names = { "--removeAllActiveMiscUnlocks" }, description = "Remove all Active Misc. Unlocks.")

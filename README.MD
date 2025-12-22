@@ -719,7 +719,24 @@ Update only portions of a save file.
                              Inventory(s) to remove. This will replace your
                                current inventory, and not add them. Does
                                nothing if inventory doesn't exist. Must be in
-                               format 'name:count:total'. Valid names are: .
+                               format 'name:count:total'. Valid names are:
+                               TUNA, SHRIMP, SALMON, STANDARD_SOIL,
+                               EXPEDITED_SOIL, ENHANCED_SOIL, WHEAT_SEED,
+                               TOMATO_SEED, POTATO_SEED, RICE_SEED, ONION_SEED,
+                               CARROT_SEED, GREEN_BEAN_SEED, PEPPER_SEED,
+                               STRAWBERRY_SEED, CORN_SEED, RADISH_SEED,
+                               GARLIC_SEED, TURTLE, MANTA_RAY, PUFFERFISH,
+                               LOBSTER, KOI_FISH, SQUID, EEL, SHARK, STICK,
+                               STONE, PLANK, LEAD, IRON, HARD_WOOD, MYTHRIL,
+                               CEDAR_WOOD, CARROT, RICE, ONION, POTATO, WHEAT,
+                               TOMATO, ADAMANTITE, MAPLE_WOOD, DIAMOND,
+                               ACACIA_WOOD, TEAK_WOOD, PLATINUM, BAMBOO_WOOD,
+                               HOLOLITE, STRAWBERRY, CORN, GREEN_BEAN, PEPPER,
+                               RADISH, GARLIC, AXOLOTL, GOLDEN_SHRIMP,
+                               GOLDEN_SALMON, GOLDEN_TUNA, GOLDEN_KOI_FISH,
+                               GOLDEN_LOBSTER, GOLDEN_EEL, GOLDEN_PUFFERFISH,
+                               GOLDEN_MANTA_RAY, GOLDEN_TURTLE, GOLDEN_SQUID,
+                               GOLDEN_SHARK, GOLDEN_AXOLOTL.
       --removeMiscUnlock[=<miscUnlockToRemove>...]
                              Misc. Unlock(s) to remove. Does nothing if item
                                isn't unlocked. Valid values are:
