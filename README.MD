@@ -65,6 +65,7 @@ List known data from the save file.
 Usage: HoloCureManagerCli update [-h] [--removeAllAchievements]
                                  [--removeAllActiveMiscUnlocks]
                                  [--removeAllActiveScams]
+                                 [--removeAllCookedFood]
                                  [--removeAllFandomExperiences]
                                  [--removeAllFanLetters]
                                  [--removeAllGatchaRanks]
@@ -127,6 +128,7 @@ Usage: HoloCureManagerCli update [-h] [--removeAllAchievements]
                                  [--woodcuttingLevel=<woodcuttingLevel>]
                                  [--addAchievement[=<achievementsToAdd>...]]...
                                  [--addActiveScam[=<activeScamToAdd>...]]...
+                                 [--addCookedFood[=<cookedFoodsToAdd>...]]...
                                  [--addFandomExperience
                                  [=<fandomExperiencesToAdd>...]]...
                                  [--addGatchaRank[=<gatchaRanksToAdd>...]]...
@@ -149,6 +151,8 @@ Usage: HoloCureManagerCli update [-h] [--removeAllAchievements]
                                  [=<achievementsToRemove>...]]...
                                  [--removeActiveScam
                                  [=<activeScamToRemove>...]]...
+                                 [--removeCookedFood
+                                 [=<cookedFoodsToRemove>...]]...
                                  [--removeFandomExperience
                                  [=<fandomExperienceToRemove>...]]...
                                  [--removeGatchaRank
@@ -274,6 +278,17 @@ Update only portions of a save file.
                                LEGENDARY_GLOVES, LEGENDARY_DRINK,
                                LEGENDARY_LENS, WORKER_TOOLS, WORKER_BREAKS,
                                GOLD_RABBITS_FOOT.
+      --addCookedFood[=<cookedFoodsToAdd>...]
+                             Cooked Food(s) to add. This will replace your
+                               current cooked food, and not add them. Must be
+                               in format 'name:count'. Valid names are:
+                               TEMPURA, TUNA_SANDWICH, SUSHI_SET, POKE_BOWL,
+                               LOBSTER_DINNER, PUFFERFISH_MEAL_SET,
+                               VEGETARIAN_BURGER_AND_FRIES, TURTLE_SOUP,
+                               UNAGI_DON, CALAMARI_SET, MANTA_RAY_SOUP,
+                               FRUIT_SANDWICH, BURGER_MEAL,
+                               STRANGE_SEAFOOD_SOUP, VEGETABLE_SOUP, BBQ_SQUID,
+                               SPICY_SEAFOOD_UDON.
       --addFandomExperience[=<fandomExperiencesToAdd>...]
                              Fandom Experience(s) to add. This will replace
                                your current fandom experience, and not add
@@ -627,6 +642,7 @@ Update only portions of a save file.
       --removeAllActiveMiscUnlocks
                              Remove all Active Misc. Unlocks.
       --removeAllActiveScams Remove all Active Scams.
+      --removeAllCookedFood  Remove all Cooked Food.
       --removeAllFandomExperiences
                              Remove all Fandom Experiences.
       --removeAllFanLetters  Remove all Fan Letters.
@@ -644,6 +660,18 @@ Update only portions of a save file.
                              Remove all Unlock Stages.
       --removeAllUnlockWeapons
                              Remove all Unlock Weapons.
+      --removeCookedFood[=<cookedFoodsToRemove>...]
+                             Cooked Food(s) to remove. This will replace your
+                               current cooked food, and not add them. Does
+                               nothing if cooked food doesn't exist. Must be in
+                               format 'name:count'. Valid names are: TEMPURA,
+                               TUNA_SANDWICH, SUSHI_SET, POKE_BOWL,
+                               LOBSTER_DINNER, PUFFERFISH_MEAL_SET,
+                               VEGETARIAN_BURGER_AND_FRIES, TURTLE_SOUP,
+                               UNAGI_DON, CALAMARI_SET, MANTA_RAY_SOUP,
+                               FRUIT_SANDWICH, BURGER_MEAL,
+                               STRANGE_SEAFOOD_SOUP, VEGETABLE_SOUP, BBQ_SQUID,
+                               SPICY_SEAFOOD_UDON.
       --removeFandomExperience[=<fandomExperienceToRemove>...]
                              Fandom Experience(s) to remove. This will replace
                                your current fandom experience, and not add

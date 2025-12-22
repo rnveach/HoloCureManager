@@ -15,6 +15,8 @@ import com.github.rnveach.data.AchievementName;
 import com.github.rnveach.data.Achievements;
 import com.github.rnveach.data.Axe;
 import com.github.rnveach.data.Collaboration;
+import com.github.rnveach.data.CookedFood;
+import com.github.rnveach.data.CookedFoodItem;
 import com.github.rnveach.data.FanLetter;
 import com.github.rnveach.data.FandomExperience;
 import com.github.rnveach.data.FishRod;
@@ -128,6 +130,35 @@ public class UpdateCommand implements Callable<Integer> {
 			final Tears result = new Tears();
 
 			result.setGeneration(Generation.valueOf(split[0]));
+			result.setCount(Double.parseDouble(split[1]));
+
+			return result;
+		}
+
+	}
+
+	private static final class CookedFoodCandidates implements Iterable<String> {
+
+		@Override
+		public Iterator<String> iterator() {
+			return Arrays.stream(CookedFoodItem.values()).map(Enum::name).iterator();
+		}
+
+	}
+
+	private static final class CookedFoodConverter implements CommandLine.ITypeConverter<CookedFood> {
+
+		@Override
+		public CookedFood convert(String value) throws Exception {
+			final String[] split = value.split(":");
+
+			if (split.length < 2) {
+				throw new Exception("Format must be name:count");
+			}
+
+			final CookedFood result = new CookedFood();
+
+			result.setFoodItem(CookedFoodItem.valueOf(split[0]));
 			result.setCount(Double.parseDouble(split[1]));
 
 			return result;
@@ -423,7 +454,18 @@ public class UpdateCommand implements Callable<Integer> {
 			"--activeFishRod" }, description = "Update Active Fish Rod. Valid values are: ${COMPLETION-CANDIDATES}.")
 	private FishRod activeFishRod;
 
-	// TODO: cooked food
+	@Option(names = { "--removeAllCookedFood" }, description = "Remove all Cooked Food.")
+	private Boolean removeAllCookedFood;
+
+	@Option(names = {
+			"--addCookedFood" }, description = "Cooked Food(s) to add. This will replace your current cooked food, and not add them. Must be in format 'name:count'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = CookedFoodConverter.class, completionCandidates = CookedFoodCandidates.class)
+	private CookedFood[] cookedFoodsToAdd;
+
+	@Option(names = {
+			"--removeCookedFood" }, description = "Cooked Food(s) to remove. This will replace your current cooked food, and not add them. Does nothing if cooked food doesn't exist. Must be in format 'name:count'. Valid names are: ${COMPLETION-CANDIDATES}.", //
+			arity = "0..*", converter = CookedFoodConverter.class, completionCandidates = CookedFoodCandidates.class)
+	private CookedFood[] cookedFoodsToRemove;
 
 	@Option(names = { "--managementLevel" }, description = "Update Management Level.")
 	private Double managementLevel;
@@ -556,12 +598,13 @@ public class UpdateCommand implements Callable<Integer> {
 				&& (this.refundAll == null) && (this.removeAllUnlockFurnitures == null)
 				&& (this.unlockAllFurnitures == null) && (this.unlockFurnituresToAdd == null)
 				&& (this.unlockFurnituresToRemove == null) && (this.sand == null) && (this.activeFishRod == null)
-				&& (this.managementLevel == null) && (this.managementExp == null) && (this.mineLevel == null)
-				&& (this.mineExp == null) && (this.woodcuttingLevel == null) && (this.woodcuttingExp == null)
-				&& (this.activePickaxe == null) && (this.activeAxe == null) && (this.activePrism == null)
-				&& (this.usaChips == null) && (this.activePet == null) && (this.activeTrail == null)
-				&& (this.usadaDrinks == null) && (this.removeAllActiveScams == null) && (this.unlockAllScams == null)
-				&& (this.activeScamToAdd == null) && (this.activeScamToRemove == null)
+				&& (this.removeAllCookedFood == null) && (this.cookedFoodsToAdd == null)
+				&& (this.cookedFoodsToRemove == null) && (this.managementLevel == null) && (this.managementExp == null)
+				&& (this.mineLevel == null) && (this.mineExp == null) && (this.woodcuttingLevel == null)
+				&& (this.woodcuttingExp == null) && (this.activePickaxe == null) && (this.activeAxe == null)
+				&& (this.activePrism == null) && (this.usaChips == null) && (this.activePet == null)
+				&& (this.activeTrail == null) && (this.usadaDrinks == null) && (this.removeAllActiveScams == null)
+				&& (this.unlockAllScams == null) && (this.activeScamToAdd == null) && (this.activeScamToRemove == null)
 				&& (this.removeAllInventory == null) && (this.inventoriesToAdd == null)
 				&& (this.inventoriesToRemove == null) && (this.removeAllActiveMiscUnlocks == null)
 				&& (this.unlockAllMiscUnlocks == null) && (this.miscUnlockToAdd == null)
@@ -785,6 +828,13 @@ public class UpdateCommand implements Callable<Integer> {
 		if (this.activeFishRod != null) {
 			SaveData.setActiveFishRod(root, this.activeFishRod);
 		}
+		if ((this.removeAllCookedFood != null) && this.removeAllCookedFood) {
+			SaveData.setCookedFood(root, null);
+		}
+		if ((this.cookedFoodsToAdd != null) || (this.cookedFoodsToRemove != null)) {
+			SaveData.setCookedFood(root,
+					doAddRemove(SaveData.getCookedFoods(root), this.cookedFoodsToAdd, this.cookedFoodsToRemove));
+		}
 		if (this.managementLevel != null) {
 			SaveData.setManagementLevel(root, this.managementLevel);
 		}
@@ -851,7 +901,6 @@ public class UpdateCommand implements Callable<Integer> {
 			SaveData.setMiscUnlocks(root,
 					doAddRemove(SaveData.getMiscUnlocks(root), this.miscUnlockToAdd, this.miscUnlockToRemove));
 		}
-
 		if ((this.removeAllAchievements != null) && this.removeAllAchievements) {
 			SaveData.setAchievements(root, null);
 		}

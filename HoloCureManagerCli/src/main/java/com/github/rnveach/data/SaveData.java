@@ -764,6 +764,10 @@ public final class SaveData {
 		return CookedFood.get(getJsonArray(element, COOKED_FOODS));
 	}
 
+	public static void setCookedFood(JsonElement element, CookedFood[] values) {
+		setJsonArray(element, COOKED_FOODS, CookedFood.convert(values));
+	}
+
 	public static Double getManagementLevel(JsonElement element) {
 		return getDouble(element, MANAGEMENT_LEVEL);
 	}
